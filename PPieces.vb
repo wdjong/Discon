@@ -10,7 +10,7 @@ Friend Class PPieces
 		Dim p As Short
 		
 		For p = 1 To MAXPPIECE
-			aPieces(p).draw()
+			aPieces(p).Draw()
 		Next p
 	End Sub
 	
@@ -18,7 +18,7 @@ Friend Class PPieces
 		Dim p As Short
 		
 		For p = 1 To MAXPPIECE
-			aPieces(p).resize()
+			aPieces(p).Resize()
 		Next p
 	End Sub
 	
@@ -31,11 +31,11 @@ Friend Class PPieces
 		
 		oBoard = aBoard
 		For p = 1 To MAXPPIECE
-			aPieces(p).setBoard(aBoard)
-			aPieces(p).removeAll()
+			aPieces(p).SetBoard(aBoard)
+			aPieces(p).RemoveAll()
 			aPieces(p).pPID = p 'assign index from control to object
 			aPieces(p).owner = Int((p - 1) / 6) + 1
-			aPieces(p).getTower.owner = aPieces(p).owner
+			aPieces(p).GetTower.owner = aPieces(p).owner
 			Select Case aPieces(p).owner
 				Case 1
 					aPieces(p).xPos = 1
@@ -50,7 +50,7 @@ Friend Class PPieces
 					aPieces(p).xPos = 10
 					aPieces(p).yPos = 1
 			End Select
-			aPieces(p).draw()
+			aPieces(p).Draw()
 		Next p
 	End Sub
 	
@@ -59,7 +59,7 @@ Friend Class PPieces
 		
 		aBoard = aBoard
 		For p = 1 To MAXPPIECE
-			aPieces(p).setBoard(aBoard)
+			aPieces(p).SetBoard(aBoard)
 		Next p
 	End Sub
 	

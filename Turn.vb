@@ -110,7 +110,7 @@ Friend Class Turn
         End If
         oPPieceTo(iMoveNum) = aPPiece
         If iMoveNum = 2 Then
-            If (oPPieceTo(1).inForeignHome Or oPPieceTo(2).inForeignHome) Then
+            If (oPPieceTo(1).InForeignHome Or oPPieceTo(2).InForeignHome) Then
                 MsgBox("You can't end leave your pieces in someone else's home. ")
                 undo()
                 Exit Sub
@@ -188,9 +188,9 @@ Friend Class Turn
     Sub saveSource(ByRef aPPiece As PPiece)
         'Copy the piece as it was before being moved
         If iMoveNum = 1 Then
-            oPPiece(2).init() 'clear the 2nd piece info in the turn history
+            oPPiece(2).Init() 'clear the 2nd piece info in the turn history
         End If
-        aPPiece.copyTo(oPPiece(iMoveNum))
+        aPPiece.CopyTo(oPPiece(iMoveNum))
     End Sub
 
     Sub undo()
@@ -198,13 +198,13 @@ Friend Class Turn
         If oPPiece(2).xPos <> 0 Then 'there is a second move to undo
             If Not oPPieceTo(2) Is Nothing Then 'there is a second piece to move: this was to fix
                 'error 3/2/2009 where 1st move was illegal due to maximum height and therefore had to be undone
-                oPPiece(2).copyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
-                oPPieceTo(2).draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
+                oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
+                oPPieceTo(2).Draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
             End If
         End If
         If oPPiece(1).xPos <> 0 Then 'there is a first move to undo
-            oPPiece(1).copyTo(oPPieceTo(1)) 'aPPieces.getPiece(oPPiece(1).pPID)
-            oPPieceTo(1).draw() 'aPPieces.getPiece(oPPiece(1).pPID).draw
+            oPPiece(1).CopyTo(oPPieceTo(1)) 'aPPieces.getPiece(oPPiece(1).pPID)
+            oPPieceTo(1).Draw() 'aPPieces.getPiece(oPPiece(1).pPID).draw
         End If
         iPlayer = oPPiece(1).owner
         iMoveNum = 1

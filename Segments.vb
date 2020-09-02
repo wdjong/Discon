@@ -11,10 +11,10 @@ Friend Class Segments
 		Dim s As Short
 		
 		addAny = True
-		aPiece.removeAll() 'you must be emptied in order to be filled
+		aPiece.RemoveAll() 'you must be emptied in order to be filled
 		For s = 1 To MAXSEGM
 			If aSegments(s).xPos = x And aSegments(s).yPos = y Then
-				If Not aPiece.add(aSegments(s)) Then addAny = False
+				If Not aPiece.Add(aSegments(s)) Then addAny = False
 			End If
 		Next s
 	End Function

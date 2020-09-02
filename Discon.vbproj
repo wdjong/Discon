@@ -108,6 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Discon.doc" />
+    <None Include="Discon.rtf" />
+    <None Include="Issues.doc" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -177,6 +180,18 @@
       <DependentUpon>frmPreferences.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1.gif" />
+    <Content Include="2.gif" />
+    <Content Include="3.gif" />
+    <Content Include="4.gif" />
+    <Content Include="blue.gif" />
+    <Content Include="DisconHelp.html" />
+    <Content Include="ivory.gif" />
+    <Content Include="pink.gif" />
+    <Content Include="purple.gif" />
+    <Content Include="red.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

@@ -1,170 +1,170 @@
 Option Strict Off
 Option Explicit On
 Friend Class frmDiscon
-	Inherits System.Windows.Forms.Form
+    Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-	Public Sub New()
-		MyBase.New()
-		If m_vb6FormDefInstance Is Nothing Then
-			If m_InitializingDefInstance Then
-				m_vb6FormDefInstance = Me
-			Else
-				Try 
-					'For the start-up form, the first instance created is the default instance.
-					If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
-						m_vb6FormDefInstance = Me
-					End If
-				Catch
-				End Try
-			End If
-		End If
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public Sub New()
+        MyBase.New()
+        If m_vb6FormDefInstance Is Nothing Then
+            If m_InitializingDefInstance Then
+                m_vb6FormDefInstance = Me
+            Else
+                Try
+                    'For the start-up form, the first instance created is the default instance.
+                    If System.Reflection.Assembly.GetExecutingAssembly.EntryPoint.DeclaringType Is Me.GetType Then
+                        m_vb6FormDefInstance = Me
+                    End If
+                Catch
+                End Try
+            End If
+        End If
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
     Public WithEvents _ppiece_24 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_23 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_22 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_21 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_20 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_19 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_18 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_17 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_16 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_15 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_14 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_13 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_12 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_11 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_10 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_9 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_8 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_7 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_6 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_5 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_4 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_3 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_2 As System.Windows.Forms.PictureBox
-	Public WithEvents _ppiece_1 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_96 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_95 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_94 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_93 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_92 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_91 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_90 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_89 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_88 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_87 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_86 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_85 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_84 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_83 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_82 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_81 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_80 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_79 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_78 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_77 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_76 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_75 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_74 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_73 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_72 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_71 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_70 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_69 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_68 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_67 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_66 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_65 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_64 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_63 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_62 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_61 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_60 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_59 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_58 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_57 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_56 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_55 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_54 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_53 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_52 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_51 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_50 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_49 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_48 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_47 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_46 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_45 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_44 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_43 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_42 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_41 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_40 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_39 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_38 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_37 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_36 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_35 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_34 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_33 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_32 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_31 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_30 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_29 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_28 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_27 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_26 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_25 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_24 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_23 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_22 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_21 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_20 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_19 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_18 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_17 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_16 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_15 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_14 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_13 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_12 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_11 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_10 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_9 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_8 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_7 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_6 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_5 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_4 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_3 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_2 As System.Windows.Forms.PictureBox
-	Public WithEvents _segment_1 As System.Windows.Forms.PictureBox
-	Public WithEvents ppiece As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-	Public WithEvents segment As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-	Public WithEvents mnuFileNew As System.Windows.Forms.MenuItem
-	Public WithEvents mnuFileExit As System.Windows.Forms.MenuItem
-	Public WithEvents mnuFile As System.Windows.Forms.MenuItem
-	Public WithEvents mnuEditUndo As System.Windows.Forms.MenuItem
-	Public WithEvents mnuEdit As System.Windows.Forms.MenuItem
-	Public WithEvents mnuHelp As System.Windows.Forms.MenuItem
-	Public MainMenu1 As System.Windows.Forms.MainMenu
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.
-	'Do not modify it using the code editor.
+    Public WithEvents _ppiece_23 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_22 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_21 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_20 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_19 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_18 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_17 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_16 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_15 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_14 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_13 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_12 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_11 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_10 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_9 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_8 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_7 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_6 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_5 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_4 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_3 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_2 As System.Windows.Forms.PictureBox
+    Public WithEvents _ppiece_1 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_96 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_95 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_94 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_93 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_92 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_91 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_90 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_89 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_88 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_87 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_86 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_85 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_84 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_83 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_82 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_81 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_80 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_79 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_78 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_77 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_76 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_75 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_74 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_73 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_72 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_71 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_70 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_69 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_68 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_67 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_66 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_65 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_64 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_63 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_62 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_61 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_60 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_59 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_58 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_57 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_56 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_55 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_54 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_53 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_52 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_51 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_50 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_49 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_48 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_47 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_46 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_45 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_44 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_43 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_42 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_41 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_40 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_39 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_38 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_37 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_36 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_35 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_34 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_33 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_32 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_31 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_30 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_29 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_28 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_27 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_26 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_25 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_24 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_23 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_22 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_21 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_20 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_19 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_18 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_17 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_16 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_15 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_14 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_13 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_12 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_11 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_10 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_9 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_8 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_7 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_6 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_5 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_4 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_3 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_2 As System.Windows.Forms.PictureBox
+    Public WithEvents _segment_1 As System.Windows.Forms.PictureBox
+    Public WithEvents ppiece As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents segment As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents mnuFileNew As System.Windows.Forms.MenuItem
+    Public WithEvents mnuFileExit As System.Windows.Forms.MenuItem
+    Public WithEvents mnuFile As System.Windows.Forms.MenuItem
+    Public WithEvents mnuEditUndo As System.Windows.Forms.MenuItem
+    Public WithEvents mnuEdit As System.Windows.Forms.MenuItem
+    Public WithEvents mnuHelp As System.Windows.Forms.MenuItem
+    Public MainMenu1 As System.Windows.Forms.MainMenu
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.
+    'Do not modify it using the code editor.
     Public WithEvents Dragger As System.Windows.Forms.PictureBox
     Friend WithEvents StatusBar1 As System.Windows.Forms.StatusBar
     Friend WithEvents StatusBarPanel1 As System.Windows.Forms.StatusBarPanel
@@ -173,151 +173,149 @@ Friend Class frmDiscon
     Friend WithEvents StatusBarPanel4 As System.Windows.Forms.StatusBarPanel
     Friend WithEvents StatusBarPanel5 As System.Windows.Forms.StatusBarPanel
     Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
     Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDiscon))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me._ppiece_6 = New System.Windows.Forms.PictureBox
-        Me._ppiece_5 = New System.Windows.Forms.PictureBox
-        Me._ppiece_4 = New System.Windows.Forms.PictureBox
-        Me._ppiece_3 = New System.Windows.Forms.PictureBox
-        Me._ppiece_2 = New System.Windows.Forms.PictureBox
-        Me._ppiece_1 = New System.Windows.Forms.PictureBox
-        Me.Dragger = New System.Windows.Forms.PictureBox
-        Me._ppiece_24 = New System.Windows.Forms.PictureBox
-        Me._ppiece_23 = New System.Windows.Forms.PictureBox
-        Me._ppiece_22 = New System.Windows.Forms.PictureBox
-        Me._ppiece_21 = New System.Windows.Forms.PictureBox
-        Me._ppiece_20 = New System.Windows.Forms.PictureBox
-        Me._ppiece_19 = New System.Windows.Forms.PictureBox
-        Me._ppiece_18 = New System.Windows.Forms.PictureBox
-        Me._ppiece_17 = New System.Windows.Forms.PictureBox
-        Me._ppiece_16 = New System.Windows.Forms.PictureBox
-        Me._ppiece_15 = New System.Windows.Forms.PictureBox
-        Me._ppiece_14 = New System.Windows.Forms.PictureBox
-        Me._ppiece_13 = New System.Windows.Forms.PictureBox
-        Me._ppiece_12 = New System.Windows.Forms.PictureBox
-        Me._ppiece_11 = New System.Windows.Forms.PictureBox
-        Me._ppiece_10 = New System.Windows.Forms.PictureBox
-        Me._ppiece_9 = New System.Windows.Forms.PictureBox
-        Me._ppiece_8 = New System.Windows.Forms.PictureBox
-        Me._ppiece_7 = New System.Windows.Forms.PictureBox
-        Me._segment_96 = New System.Windows.Forms.PictureBox
-        Me._segment_95 = New System.Windows.Forms.PictureBox
-        Me._segment_94 = New System.Windows.Forms.PictureBox
-        Me._segment_93 = New System.Windows.Forms.PictureBox
-        Me._segment_92 = New System.Windows.Forms.PictureBox
-        Me._segment_91 = New System.Windows.Forms.PictureBox
-        Me._segment_90 = New System.Windows.Forms.PictureBox
-        Me._segment_89 = New System.Windows.Forms.PictureBox
-        Me._segment_88 = New System.Windows.Forms.PictureBox
-        Me._segment_87 = New System.Windows.Forms.PictureBox
-        Me._segment_86 = New System.Windows.Forms.PictureBox
-        Me._segment_85 = New System.Windows.Forms.PictureBox
-        Me._segment_84 = New System.Windows.Forms.PictureBox
-        Me._segment_83 = New System.Windows.Forms.PictureBox
-        Me._segment_82 = New System.Windows.Forms.PictureBox
-        Me._segment_81 = New System.Windows.Forms.PictureBox
-        Me._segment_80 = New System.Windows.Forms.PictureBox
-        Me._segment_79 = New System.Windows.Forms.PictureBox
-        Me._segment_78 = New System.Windows.Forms.PictureBox
-        Me._segment_77 = New System.Windows.Forms.PictureBox
-        Me._segment_76 = New System.Windows.Forms.PictureBox
-        Me._segment_75 = New System.Windows.Forms.PictureBox
-        Me._segment_74 = New System.Windows.Forms.PictureBox
-        Me._segment_73 = New System.Windows.Forms.PictureBox
-        Me._segment_72 = New System.Windows.Forms.PictureBox
-        Me._segment_71 = New System.Windows.Forms.PictureBox
-        Me._segment_70 = New System.Windows.Forms.PictureBox
-        Me._segment_69 = New System.Windows.Forms.PictureBox
-        Me._segment_68 = New System.Windows.Forms.PictureBox
-        Me._segment_67 = New System.Windows.Forms.PictureBox
-        Me._segment_66 = New System.Windows.Forms.PictureBox
-        Me._segment_65 = New System.Windows.Forms.PictureBox
-        Me._segment_64 = New System.Windows.Forms.PictureBox
-        Me._segment_63 = New System.Windows.Forms.PictureBox
-        Me._segment_62 = New System.Windows.Forms.PictureBox
-        Me._segment_61 = New System.Windows.Forms.PictureBox
-        Me._segment_60 = New System.Windows.Forms.PictureBox
-        Me._segment_59 = New System.Windows.Forms.PictureBox
-        Me._segment_58 = New System.Windows.Forms.PictureBox
-        Me._segment_57 = New System.Windows.Forms.PictureBox
-        Me._segment_56 = New System.Windows.Forms.PictureBox
-        Me._segment_55 = New System.Windows.Forms.PictureBox
-        Me._segment_54 = New System.Windows.Forms.PictureBox
-        Me._segment_53 = New System.Windows.Forms.PictureBox
-        Me._segment_52 = New System.Windows.Forms.PictureBox
-        Me._segment_51 = New System.Windows.Forms.PictureBox
-        Me._segment_50 = New System.Windows.Forms.PictureBox
-        Me._segment_49 = New System.Windows.Forms.PictureBox
-        Me._segment_48 = New System.Windows.Forms.PictureBox
-        Me._segment_47 = New System.Windows.Forms.PictureBox
-        Me._segment_46 = New System.Windows.Forms.PictureBox
-        Me._segment_45 = New System.Windows.Forms.PictureBox
-        Me._segment_44 = New System.Windows.Forms.PictureBox
-        Me._segment_43 = New System.Windows.Forms.PictureBox
-        Me._segment_42 = New System.Windows.Forms.PictureBox
-        Me._segment_41 = New System.Windows.Forms.PictureBox
-        Me._segment_40 = New System.Windows.Forms.PictureBox
-        Me._segment_39 = New System.Windows.Forms.PictureBox
-        Me._segment_38 = New System.Windows.Forms.PictureBox
-        Me._segment_37 = New System.Windows.Forms.PictureBox
-        Me._segment_36 = New System.Windows.Forms.PictureBox
-        Me._segment_35 = New System.Windows.Forms.PictureBox
-        Me._segment_34 = New System.Windows.Forms.PictureBox
-        Me._segment_33 = New System.Windows.Forms.PictureBox
-        Me._segment_32 = New System.Windows.Forms.PictureBox
-        Me._segment_31 = New System.Windows.Forms.PictureBox
-        Me._segment_30 = New System.Windows.Forms.PictureBox
-        Me._segment_29 = New System.Windows.Forms.PictureBox
-        Me._segment_28 = New System.Windows.Forms.PictureBox
-        Me._segment_27 = New System.Windows.Forms.PictureBox
-        Me._segment_26 = New System.Windows.Forms.PictureBox
-        Me._segment_25 = New System.Windows.Forms.PictureBox
-        Me._segment_24 = New System.Windows.Forms.PictureBox
-        Me._segment_23 = New System.Windows.Forms.PictureBox
-        Me._segment_22 = New System.Windows.Forms.PictureBox
-        Me._segment_21 = New System.Windows.Forms.PictureBox
-        Me._segment_20 = New System.Windows.Forms.PictureBox
-        Me._segment_19 = New System.Windows.Forms.PictureBox
-        Me._segment_18 = New System.Windows.Forms.PictureBox
-        Me._segment_17 = New System.Windows.Forms.PictureBox
-        Me._segment_16 = New System.Windows.Forms.PictureBox
-        Me._segment_15 = New System.Windows.Forms.PictureBox
-        Me._segment_14 = New System.Windows.Forms.PictureBox
-        Me._segment_13 = New System.Windows.Forms.PictureBox
-        Me._segment_12 = New System.Windows.Forms.PictureBox
-        Me._segment_11 = New System.Windows.Forms.PictureBox
-        Me._segment_10 = New System.Windows.Forms.PictureBox
-        Me._segment_9 = New System.Windows.Forms.PictureBox
-        Me._segment_8 = New System.Windows.Forms.PictureBox
-        Me._segment_7 = New System.Windows.Forms.PictureBox
-        Me._segment_6 = New System.Windows.Forms.PictureBox
-        Me._segment_5 = New System.Windows.Forms.PictureBox
-        Me._segment_4 = New System.Windows.Forms.PictureBox
-        Me._segment_3 = New System.Windows.Forms.PictureBox
-        Me._segment_2 = New System.Windows.Forms.PictureBox
-        Me._segment_1 = New System.Windows.Forms.PictureBox
+        Me._ppiece_6 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_5 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_4 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_3 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_2 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_1 = New System.Windows.Forms.PictureBox()
+        Me.Dragger = New System.Windows.Forms.PictureBox()
+        Me._ppiece_24 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_23 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_22 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_21 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_20 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_19 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_18 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_17 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_16 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_15 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_14 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_13 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_12 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_11 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_10 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_9 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_8 = New System.Windows.Forms.PictureBox()
+        Me._ppiece_7 = New System.Windows.Forms.PictureBox()
+        Me._segment_96 = New System.Windows.Forms.PictureBox()
+        Me._segment_95 = New System.Windows.Forms.PictureBox()
+        Me._segment_94 = New System.Windows.Forms.PictureBox()
+        Me._segment_93 = New System.Windows.Forms.PictureBox()
+        Me._segment_92 = New System.Windows.Forms.PictureBox()
+        Me._segment_91 = New System.Windows.Forms.PictureBox()
+        Me._segment_90 = New System.Windows.Forms.PictureBox()
+        Me._segment_89 = New System.Windows.Forms.PictureBox()
+        Me._segment_88 = New System.Windows.Forms.PictureBox()
+        Me._segment_87 = New System.Windows.Forms.PictureBox()
+        Me._segment_86 = New System.Windows.Forms.PictureBox()
+        Me._segment_85 = New System.Windows.Forms.PictureBox()
+        Me._segment_84 = New System.Windows.Forms.PictureBox()
+        Me._segment_83 = New System.Windows.Forms.PictureBox()
+        Me._segment_82 = New System.Windows.Forms.PictureBox()
+        Me._segment_81 = New System.Windows.Forms.PictureBox()
+        Me._segment_80 = New System.Windows.Forms.PictureBox()
+        Me._segment_79 = New System.Windows.Forms.PictureBox()
+        Me._segment_78 = New System.Windows.Forms.PictureBox()
+        Me._segment_77 = New System.Windows.Forms.PictureBox()
+        Me._segment_76 = New System.Windows.Forms.PictureBox()
+        Me._segment_75 = New System.Windows.Forms.PictureBox()
+        Me._segment_74 = New System.Windows.Forms.PictureBox()
+        Me._segment_73 = New System.Windows.Forms.PictureBox()
+        Me._segment_72 = New System.Windows.Forms.PictureBox()
+        Me._segment_71 = New System.Windows.Forms.PictureBox()
+        Me._segment_70 = New System.Windows.Forms.PictureBox()
+        Me._segment_69 = New System.Windows.Forms.PictureBox()
+        Me._segment_68 = New System.Windows.Forms.PictureBox()
+        Me._segment_67 = New System.Windows.Forms.PictureBox()
+        Me._segment_66 = New System.Windows.Forms.PictureBox()
+        Me._segment_65 = New System.Windows.Forms.PictureBox()
+        Me._segment_64 = New System.Windows.Forms.PictureBox()
+        Me._segment_63 = New System.Windows.Forms.PictureBox()
+        Me._segment_62 = New System.Windows.Forms.PictureBox()
+        Me._segment_61 = New System.Windows.Forms.PictureBox()
+        Me._segment_60 = New System.Windows.Forms.PictureBox()
+        Me._segment_59 = New System.Windows.Forms.PictureBox()
+        Me._segment_58 = New System.Windows.Forms.PictureBox()
+        Me._segment_57 = New System.Windows.Forms.PictureBox()
+        Me._segment_56 = New System.Windows.Forms.PictureBox()
+        Me._segment_55 = New System.Windows.Forms.PictureBox()
+        Me._segment_54 = New System.Windows.Forms.PictureBox()
+        Me._segment_53 = New System.Windows.Forms.PictureBox()
+        Me._segment_52 = New System.Windows.Forms.PictureBox()
+        Me._segment_51 = New System.Windows.Forms.PictureBox()
+        Me._segment_50 = New System.Windows.Forms.PictureBox()
+        Me._segment_49 = New System.Windows.Forms.PictureBox()
+        Me._segment_48 = New System.Windows.Forms.PictureBox()
+        Me._segment_47 = New System.Windows.Forms.PictureBox()
+        Me._segment_46 = New System.Windows.Forms.PictureBox()
+        Me._segment_45 = New System.Windows.Forms.PictureBox()
+        Me._segment_44 = New System.Windows.Forms.PictureBox()
+        Me._segment_43 = New System.Windows.Forms.PictureBox()
+        Me._segment_42 = New System.Windows.Forms.PictureBox()
+        Me._segment_41 = New System.Windows.Forms.PictureBox()
+        Me._segment_40 = New System.Windows.Forms.PictureBox()
+        Me._segment_39 = New System.Windows.Forms.PictureBox()
+        Me._segment_38 = New System.Windows.Forms.PictureBox()
+        Me._segment_37 = New System.Windows.Forms.PictureBox()
+        Me._segment_36 = New System.Windows.Forms.PictureBox()
+        Me._segment_35 = New System.Windows.Forms.PictureBox()
+        Me._segment_34 = New System.Windows.Forms.PictureBox()
+        Me._segment_33 = New System.Windows.Forms.PictureBox()
+        Me._segment_32 = New System.Windows.Forms.PictureBox()
+        Me._segment_31 = New System.Windows.Forms.PictureBox()
+        Me._segment_30 = New System.Windows.Forms.PictureBox()
+        Me._segment_29 = New System.Windows.Forms.PictureBox()
+        Me._segment_28 = New System.Windows.Forms.PictureBox()
+        Me._segment_27 = New System.Windows.Forms.PictureBox()
+        Me._segment_26 = New System.Windows.Forms.PictureBox()
+        Me._segment_25 = New System.Windows.Forms.PictureBox()
+        Me._segment_24 = New System.Windows.Forms.PictureBox()
+        Me._segment_23 = New System.Windows.Forms.PictureBox()
+        Me._segment_22 = New System.Windows.Forms.PictureBox()
+        Me._segment_21 = New System.Windows.Forms.PictureBox()
+        Me._segment_20 = New System.Windows.Forms.PictureBox()
+        Me._segment_19 = New System.Windows.Forms.PictureBox()
+        Me._segment_18 = New System.Windows.Forms.PictureBox()
+        Me._segment_17 = New System.Windows.Forms.PictureBox()
+        Me._segment_16 = New System.Windows.Forms.PictureBox()
+        Me._segment_15 = New System.Windows.Forms.PictureBox()
+        Me._segment_14 = New System.Windows.Forms.PictureBox()
+        Me._segment_13 = New System.Windows.Forms.PictureBox()
+        Me._segment_12 = New System.Windows.Forms.PictureBox()
+        Me._segment_11 = New System.Windows.Forms.PictureBox()
+        Me._segment_10 = New System.Windows.Forms.PictureBox()
+        Me._segment_9 = New System.Windows.Forms.PictureBox()
+        Me._segment_8 = New System.Windows.Forms.PictureBox()
+        Me._segment_7 = New System.Windows.Forms.PictureBox()
+        Me._segment_6 = New System.Windows.Forms.PictureBox()
+        Me._segment_5 = New System.Windows.Forms.PictureBox()
+        Me._segment_4 = New System.Windows.Forms.PictureBox()
+        Me._segment_3 = New System.Windows.Forms.PictureBox()
+        Me._segment_2 = New System.Windows.Forms.PictureBox()
+        Me._segment_1 = New System.Windows.Forms.PictureBox()
         Me.ppiece = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
         Me.segment = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mnuFile = New System.Windows.Forms.MenuItem
-        Me.mnuFileNew = New System.Windows.Forms.MenuItem
-        Me.mnuFileExit = New System.Windows.Forms.MenuItem
-        Me.mnuEdit = New System.Windows.Forms.MenuItem
-        Me.mnuEditUndo = New System.Windows.Forms.MenuItem
-        Me.mnuHelp = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MenuItem3 = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.StatusBar1 = New System.Windows.Forms.StatusBar
-        Me.StatusBarPanel1 = New System.Windows.Forms.StatusBarPanel
-        Me.StatusBarPanel2 = New System.Windows.Forms.StatusBarPanel
-        Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel
-        Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel
-        Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel
+        Me.mnuFile = New System.Windows.Forms.MenuItem()
+        Me.mnuFileNew = New System.Windows.Forms.MenuItem()
+        Me.mnuFileExit = New System.Windows.Forms.MenuItem()
+        Me.mnuEdit = New System.Windows.Forms.MenuItem()
+        Me.mnuEditUndo = New System.Windows.Forms.MenuItem()
+        Me.mnuHelp = New System.Windows.Forms.MenuItem()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
+        Me.StatusBar1 = New System.Windows.Forms.StatusBar()
+        Me.StatusBarPanel1 = New System.Windows.Forms.StatusBarPanel()
+        Me.StatusBarPanel2 = New System.Windows.Forms.StatusBarPanel()
+        Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel()
+        Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel()
+        Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel()
         CType(Me._ppiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me._ppiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me._ppiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2086,7 +2084,7 @@ Friend Class frmDiscon
         'mnuHelp
         '
         Me.mnuHelp.Index = 2
-        Me.mnuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem3, Me.MenuItem2})
+        Me.mnuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2})
         Me.mnuHelp.Text = "&Help"
         '
         'MenuItem1
@@ -2094,14 +2092,9 @@ Friend Class frmDiscon
         Me.MenuItem1.Index = 0
         Me.MenuItem1.Text = "&Rules"
         '
-        'MenuItem3
-        '
-        Me.MenuItem3.Index = 1
-        Me.MenuItem3.Text = "&How to"
-        '
         'MenuItem2
         '
-        Me.MenuItem2.Index = 2
+        Me.MenuItem2.Index = 1
         Me.MenuItem2.Text = "&About"
         '
         'StatusBar1
@@ -2506,9 +2499,6 @@ Friend Class frmDiscon
     End Sub
 
     Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
-        'Dim p As Short
-        'Dim aResponse As Object
-
         aTurn.init()
         aPPieces.setup(aBoard)
         aSegments.setup(aBoard)
@@ -2517,13 +2507,6 @@ Friend Class frmDiscon
         If My.Settings.Player2Human Then aTurn.getPlayer(2).status = 2 Else aTurn.getPlayer(2).status = 0
         If My.Settings.Player3Human Then aTurn.getPlayer(3).status = 3 Else aTurn.getPlayer(3).status = 0
         If My.Settings.Player4Human Then aTurn.getPlayer(4).status = 4 Else aTurn.getPlayer(4).status = 0
-        'For p = 1 To aTurn.maxPlayer
-        'aTurn.player = p
-        'aResponse = MsgBox("Is player " & p & " a person?", MsgBoxStyle.YesNo, "Activate?")
-        'If aResponse = MsgBoxResult.Yes Then
-        'aTurn.getPlayer.status = 1
-        'End If
-        'Next p
         aTurn.rndPlayer()
         showStatus()
     End Sub
@@ -2535,22 +2518,22 @@ Friend Class frmDiscon
         Dim i As Integer
 
         aPiece = aPPieces.getPiece(Source.Tag)
-        aPiece.displayed = True
-        aPiece.displayTower()
-        For i = 1 To 50000
+        aPiece.Displayed = True
+        aPiece.DisplayTower()
+        For i = 1 To 10
             Application.DoEvents()
+            System.Threading.Thread.Sleep(100)
         Next
-        aPiece.displayed = False
-        aPiece.draw()
+        aPiece.Displayed = False
+        aPiece.Draw()
     End Sub
 
     Private Sub segment_DragDrop(ByRef Source As System.Windows.Forms.Control, ByRef x As Single, ByRef y As Single)
-        'The routine handles a player piece attempting to capture a segement (a normal move)
+        'The routine handles a player piece attempting to capture a segment (a normal move)
         'The source is the PPiece
         'called from mouseup after dragging
         Dim aPiece As PPiece 'a pointer to a player Piece
         Dim aPlayer As Player
-        'Dim aSegment As Segment
         Dim oldValue As Short 'each move find change in score and add it to player score
         Dim newValue As Short 'scoring
 
@@ -2561,11 +2544,10 @@ Friend Class frmDiscon
             MsgBox("It's player number " & aPlayer.ID & "'s turn.")
             aPPieces.draw()
         Else 'the right person has had a turn
-            oldValue = aPiece.score 'remember the current score
+            oldValue = aPiece.Score 'remember the current score
             aTurn.saveSource(aPiece) 'remember for undo
-            'aSegment = aSegments.getSegmentXY(x, y)
             If mouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
-                If aPiece.move(x, y) Then 'move returns true if destination is legal
+                If aPiece.Move(x, y) Then 'move returns true if destination is legal
                     If aSegments.addAny(aPiece, x, y) Then 'add the dest. seg. to the piece's pile
                         aTurn.incMove(aPiece) 'count moves if second check you're not in foreign territory
                         lastPiece = aPiece 'remember the last piece to move
@@ -2578,7 +2560,7 @@ Friend Class frmDiscon
                     MsgBox("Illegal add to " & x & ", " & y) 'no need to undo
                 End If
             Else 'right click is for abandoning a pile of segments
-                If aPiece.abandon(x, y) Then
+                If aPiece.Abandon(x, y) Then
                     If aSegments.addAny(aPiece, x, y) Then
                         aTurn.incMove(aPiece)
                         lastPiece = aPiece
@@ -2591,15 +2573,11 @@ Friend Class frmDiscon
                     MsgBox("Illegal abandon/add to " & lastPiece.xPos & ", " & lastPiece.yPos)
                 End If
             End If
-            newValue = aPiece.score
-            aPiece.updateTooltip() 'to display colour and height
+            newValue = aPiece.Score
+            aPiece.UpdateTooltip() 'to display colour and height
             aPlayer.score = aPlayer.score - oldValue + newValue
         End If
         showStatus()
-        'aSegments.draw()
-        'aSegments.resize()
-        'aPPieces.draw()
-        'aPPieces.resize()
     End Sub
 
     Private Sub frmDiscon_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
@@ -2674,24 +2652,15 @@ Friend Class frmDiscon
     End Sub
 
     Private Sub MenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem1.Click
-        Dim Retval As Object
         Try
-            Retval = Shell("winhlp32 " & VB6.GetPath & "\discon.hlp", 1)
+            Dim AppPath As String = System.AppDomain.CurrentDomain.BaseDirectory
+            System.Diagnostics.Process.Start(AppPath + "DisconHelp.html")
         Catch ex As Exception
-            MsgBox("Display discon.hlp: " & ex.Message)
+            MsgBox(ex.Message)
         End Try
     End Sub
 
     Private Sub MenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem2.Click
         frmAbout.Show()
     End Sub
-
-    Private Sub MenuItem3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem3.Click
-        Try
-            Help.ShowHelp(_ppiece_1, "discon.htm")
-        Catch ex As Exception
-            MsgBox("Display discon.htm: " & ex.Message)
-        End Try
-    End Sub
-
 End Class

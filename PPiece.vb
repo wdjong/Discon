@@ -14,7 +14,7 @@ Friend Class PPiece
     Dim oBoard As Board 'the board (for dimensions, positional & info)
 
     Private Sub Class_Initialize_Renamed()
-        init()
+        Init()
     End Sub
 
     Public Sub New()
@@ -23,19 +23,19 @@ Friend Class PPiece
     End Sub
 
     'properties
-    Public Property displayed() As Boolean
+    Public Property Displayed() As Boolean
         Get
-            displayed = bDisplayed
+            Displayed = bDisplayed
         End Get
         Set(ByVal Value As Boolean)
             bDisplayed = Value
         End Set
     End Property
 
-    Public Property score() As Short
+    Public Property Score() As Short
         Get
             iScore = cTower.Value
-            score = iScore
+            Score = iScore
         End Get
         Set(ByVal Value As Short)
             'Won't be used normally
@@ -59,8 +59,8 @@ Friend Class PPiece
         End Get
         Set(ByVal Value As Short)
             iXPos = Value
-            cTower.move(iXPos, iYPos)
-            draw()
+            cTower.Move(iXPos, iYPos)
+            Draw()
         End Set
     End Property
 
@@ -70,8 +70,8 @@ Friend Class PPiece
         End Get
         Set(ByVal Value As Short)
             iYPos = Value
-            cTower.move(iXPos, iYPos)
-            draw()
+            cTower.Move(iXPos, iYPos)
+            Draw()
         End Set
     End Property
 
@@ -84,70 +84,113 @@ Friend Class PPiece
         End Set
     End Property
 
-    'methods
-    Function abandon(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
-        abandon = False ' may fail
+    'methods (Alpha)
+    Function Abandon(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
+        Abandon = False ' may fail
         If oBoard.onBoard(aXDest, aYDest) Then
-            If legalMove(aXDest, aYDest) Then
+            If LegalMove(aXDest, aYDest) Then
                 iXPos = aXDest
                 iYPos = aYDest
-                removeAll() 'leave tower behind
-                abandon = True
+                RemoveAll() 'leave tower behind
+                Abandon = True
             End If
         End If
-        draw() 'need to draw it again even if it was dropped illegally
+        Draw() 'need to draw it again even if it was dropped illegally
     End Function
 
-    Function add(ByRef aSegment As Segment) As Boolean
-        add = cTower.add(aSegment)
+    Function Add(ByRef aSegment As Segment) As Boolean
+        Add = cTower.Add(aSegment)
     End Function
 
-    Sub copyTo(ByRef aPPiece As PPiece)
+    Sub CopyTo(ByRef aPPiece As PPiece)
         'copy from this ppiece to the passed ppiece
         Try
-            aPPiece.init() 'otherwise specifying new iXPos moves (and draws) tower
+            aPPiece.Init() 'otherwise specifying new iXPos moves (and draws) tower
             aPPiece.xPos = iXPos
             aPPiece.yPos = iYPos
             aPPiece.owner = iOwner
-            aPPiece.score = iScore
+            aPPiece.Score = iScore
             aPPiece.pPID = iPPID
-            aPPiece.displayed = bDisplayed
-            cTower.copyTo(aPPiece.getTower)
-            aPPiece.getTower.move((aPPiece.xPos), (aPPiece.yPos))
+            aPPiece.Displayed = bDisplayed
+            cTower.CopyTo(aPPiece.GetTower)
+            aPPiece.GetTower.Move((aPPiece.xPos), (aPPiece.yPos))
         Catch ex As Exception
             MsgBox("PPiece.copyTo: " & ex.Message) 'e.g. fails if passed player piece is null / nothing
         End Try
     End Sub
 
-    Sub displayTower()
+    Sub DisplayTower()
         Const xdiv As Byte = 5 'make this less to spread it out to the left more
         Const ydiv As Byte = 10 'make this less to spread it out more upwards
 
-        cTower.display() 'displaying the tower calls segment.drawoffset with similar settings
+        cTower.Display() 'displaying the tower calls segment.drawoffset with similar settings
         frmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth - cTower.height * oBoard.positionWidth / xdiv)
         frmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight - cTower.height * oBoard.positionHeight / ydiv)
         frmDiscon.DefInstance.ppiece(iPPID).BringToFront() 'bring to front
     End Sub
 
-    Sub draw()
+    Sub Draw()
         'represent player piece and it's tower...
         If iPPID <> 0 Then 'ippid = 0 when copying to ppiece object in turn
-            cTower.draw()
+            cTower.Draw()
             frmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth)
             frmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight)
             frmDiscon.DefInstance.ppiece(iPPID).BringToFront() 'bring to front
         End If
     End Sub
 
-    Sub updateTooltip()
-        Try
-            frmDiscon.DefInstance.ToolTip1.SetToolTip(frmDiscon.DefInstance.ppiece(iPPID), cTower.height.ToString & " " & cTower.colour)
-        Catch ex As Exception
-            MsgBox("PPiece.updateTooltip: " & ex.Message)
-        End Try
+    Public Function GetTower() As Tower
+        GetTower = cTower
+    End Function
+
+    Function InForeignHome() As Boolean
+        Dim aHome As Short 'current home
+
+        aHome = oBoard.inHome(iXPos, iYPos)
+        InForeignHome = (aHome > 0 And aHome <> iOwner)
+    End Function
+
+    Sub Init()
+        RemoveAll() 'from tower
+        iXPos = 0
+        iYPos = 0
+        iOwner = 0
+        iPPID = 0
+        bDisplayed = False
     End Sub
 
-    Sub resize()
+    Function LegalMove(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
+        LegalMove = (System.Math.Abs(iXPos - aXDest) = 1 And System.Math.Abs(iYPos - aYDest) = 2) Or (System.Math.Abs(iXPos - aXDest) = 2 And System.Math.Abs(iYPos - aYDest) = 1)
+    End Function
+
+    Function Move(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
+        Move = False ' may fail
+        If oBoard.onBoard(aXDest, aYDest) Then
+            If LegalMove(aXDest, aYDest) Then
+                iXPos = aXDest
+                iYPos = aYDest
+                cTower.Move(iXPos, iYPos)
+                Move = True
+            End If
+        End If
+        Draw() 'need to draw it again even if it was dropped illegally
+    End Function
+
+    Sub Remove()
+        'Remove a piece from the tower
+        cTower.Remove()
+    End Sub
+
+    Sub RemoveAll()
+        'Called from PPieces when reinitializing.
+        Dim i As Short
+
+        For i = 1 To cTower.height
+            cTower.Remove()
+        Next i
+    End Sub
+
+    Sub Resize()
         'Skip errors relating to resize
         Try
             frmDiscon.DefInstance.ppiece(iPPID).Width = VB6.TwipsToPixelsX(oBoard.positionWidth - 5)
@@ -156,62 +199,20 @@ Friend Class PPiece
         End Try
     End Sub
 
-    Public Function getTower() As Tower
-        getTower = cTower
-    End Function
-
-    Function inForeignHome() As Boolean
-        Dim aHome As Short 'current home
-
-        aHome = oBoard.inHome(iXPos, iYPos)
-        inForeignHome = (aHome > 0 And aHome <> iOwner)
-    End Function
-
-    Sub init()
-        removeAll() 'from tower
-        iXPos = 0
-        iYPos = 0
-        iOwner = 0
-        iPPID = 0
-        bDisplayed = False
-    End Sub
-
-    Function legalMove(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
-        legalMove = (System.Math.Abs(iXPos - aXDest) = 1 And System.Math.Abs(iYPos - aYDest) = 2) Or (System.Math.Abs(iXPos - aXDest) = 2 And System.Math.Abs(iYPos - aYDest) = 1)
-    End Function
-
-    Function move(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
-        move = False ' may fail
-        If oBoard.onBoard(aXDest, aYDest) Then
-            If legalMove(aXDest, aYDest) Then
-                iXPos = aXDest
-                iYPos = aYDest
-                cTower.move(iXPos, iYPos)
-                move = True
-            End If
-        End If
-        draw() 'need to draw it again even if it was dropped illegally
-    End Function
-
-    Sub remove()
-        'Remove a piece from the tower
-        cTower.remove()
-    End Sub
-
-    Sub removeAll()
-        'Called from PPieces when reinitializing.
-        Dim i As Short
-
-        For i = 1 To cTower.height
-            cTower.remove()
-        Next i
-    End Sub
-
-    Sub setBoard(ByRef aBoard As Board)
+    Sub SetBoard(ByRef aBoard As Board)
         oBoard = aBoard
     End Sub
 
-    Public Sub setTower(ByRef aTower As Tower)
+    Public Sub SetTower(ByRef aTower As Tower)
         cTower = aTower
     End Sub
+
+    Sub UpdateTooltip()
+        Try
+            frmDiscon.DefInstance.ToolTip1.SetToolTip(frmDiscon.DefInstance.ppiece(iPPID), cTower.height.ToString & " " & cTower.colour)
+        Catch ex As Exception
+            MsgBox("PPiece.updateTooltip: " & ex.Message)
+        End Try
+    End Sub
+
 End Class
