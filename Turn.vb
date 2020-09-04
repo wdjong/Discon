@@ -5,8 +5,8 @@ Friend Class Turn
 	Const cMAXPLAYER As Short = 4 '4 players
 	Const MAXMOVE As Short = 2 '2 moves per turn
     Dim iPlayer As Short 'Current player number
-    Dim oPPiece(MAXMOVE) As PPiece 'New PPiece 'copy the piece before moving it: for undo
-    Dim oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces moved
+    Dim oPPiece(MAXMOVE) As PPiece 'copies of pieces before moving it: for undo
+    Dim oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces that have moved
     Dim oPlayer(cMAXPLAYER) As Player 'New Player
 
     Public Sub New()
@@ -91,12 +91,12 @@ Friend Class Turn
 
     Sub incMove(ByRef aPPiece As PPiece)
         'Increment the move counter
-        'If its the 2nd move then check for either piece being in foreign home if they are
-        'indicate error and undo both pieces.
+        'If its the 2nd move, then check for either piece being in foreign home. If they are, 
+        'indicate error and undo both moves.
         If move = 1 Then
-            oPPieceTo(2) = Nothing
+            oPPieceTo(2) = Nothing 'Clear record of what piece was moved 2nd
         End If
-        oPPieceTo(move) = aPPiece
+        oPPieceTo(move) = aPPiece 'for both move 1 and 2 store a reference to the actual piece moved in the oPPieceTo array
         If move = 2 Then
             If (oPPieceTo(1).InForeignHome Or oPPieceTo(2).InForeignHome) Then
                 MsgBox("You can't end leave your pieces in someone else's home. ")
@@ -104,10 +104,10 @@ Friend Class Turn
                 Exit Sub
             End If
         End If
-        move = move + 1
-        If move > MAXMOVE Then
-            move = 1
+        move += 1
+        If move > MAXMOVE Then 'Next Player
             incPlayer()
+            move = 1
         End If
     End Sub
 
@@ -185,12 +185,13 @@ Friend Class Turn
         'Undo Turn i.e. possibly 2 moves            
         If oPPiece(2).XPos <> 0 And Not oPPieceTo(2) Is Nothing Then 'there is a second move to undo
             oldValue = oPPieceTo(2).Score 'remember the current score
-            oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
-            oPPieceTo(2).Draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
+            oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved.
+            oPPieceTo(2).Draw()
             newValue = oPPieceTo(2).Score
             oPPieceTo(2).UpdateTooltip() 'to display colour and height
-            oPlayer(iPlayer).Score = oPlayer(iPlayer).Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
+            oPlayer(iPlayer).Score = oPlayer(iPlayer).Score - oldValue + newValue
         End If
+
         If oPPiece(1).XPos <> 0 Then 'there is a first move to undo
             oldValue = oPPieceTo(1).Score 'remember the current score
             oPPiece(1).CopyTo(oPPieceTo(1)) 'aPPieces.getPiece(oPPiece(1).pPID)

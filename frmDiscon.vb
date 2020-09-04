@@ -2463,7 +2463,7 @@ Friend Class frmDiscon
         Else
             aTurn.getPlayer(4).Status = 0
         End If
-        aPPieces = New PPieces(getMaxHeight(playerCount)) 'The players each have six red playing pieces This is a collection of them
+        aPPieces = New PPieces(getMaxHeight(playerCount)) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
         aPPieces.setup(aBoard) 'They are positioned in each of the four corners
 
         aTurn.rndPlayer() 'Throw the dice to see whose turn it is
@@ -2471,7 +2471,7 @@ Friend Class frmDiscon
     End Sub
 
     Private Function getMaxHeight(playerCount As Short)
-        Dim MaxHeight As Short = 4
+        Dim MaxHeight As Short = 12
 
         Select Case playerCount
             Case 3
@@ -2509,8 +2509,7 @@ Friend Class frmDiscon
 
     Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
         'Left drag to something, Left drag to something - Undo - pass
-        'Left drag to something, Left drag to nothing - Undo - fail
-
+        'Left drag to something, Left drag to nothing - Undo - fail -- where 
 
         aTurn.undo()
         showStatus() 'Because move is possible wrong
@@ -2595,10 +2594,10 @@ Friend Class frmDiscon
                 If aPiece.Move(x, y) Then 'move returns true if destination is legal
                     If aSegment IsNot Nothing Then 'There are one or more segments to add
                         If aSegments.AddAny(aPiece, x, y) Then 'Add any segments found that are not already in the tower.
-                            aTurn.incMove(aPiece) 'count moves. If second, check you're not in foreign territory
+                            aTurn.incMove(aPiece) 'count move. If second, check you're not in foreign territory
                             lastPiece = aPiece 'remember the last piece to move
                         Else
-                            MsgBox(aPiece.Message)
+                            MsgBox(aSegments.Message)
                             aTurn.undo() 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
                         End If
                     Else
@@ -2606,7 +2605,7 @@ Friend Class frmDiscon
                         lastPiece = aPiece 'remember the last piece to move
                     End If
                 Else 'illegal move
-                    MsgBox("Illegal add to " & x & ", " & y) 'no need to undo
+                    MsgBox("Illegal destination " & x & ", " & y) 'no need to undo
                 End If
             Else 'right click is for abandoning a pile of segments
                 If aPiece.Abandon(x, y) Then

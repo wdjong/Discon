@@ -6,6 +6,8 @@ Friend Class Segments
     Dim aSegments(MAXSEGM) As Segment 'New Segment
     Dim oBoard As Board 'for storing segment information
 
+    Public Property Message() As String
+
     Function AddAny(ByRef aPiece As PPiece, ByRef x As Short, ByRef y As Short) As Boolean
         'Add any pieces that aren't already in the tower to the bottom of the tower (in the right order)
         Dim s1 As Short 'segment index
@@ -32,15 +34,13 @@ Friend Class Segments
                 For s2 = sToAddCount To 1 Step -1
                     If Not aPiece.Add(sToAdd(s2)) Then 'Calls tower Add which should update Vertical position
                         MsgBox(aPiece.Message) 'Please explain.
-                        'Else
-                        '    Debug.Print("Vertical Pos of top piece is" & aPiece.cTower.GetSegment(1).VerticalPos)
                     End If
                 Next
             Else
-                MsgBox("Adding " & sToAddCount & " to existing tower (" & aPiece.cTower.Height & ") exceeds the height restriction: " & aPiece.cTower.MaxHeight)
+                Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.cTower.Height & ") exceeds the height restriction: " & aPiece.cTower.MaxHeight
+                AddAny = False
             End If
         End If
-
 
     End Function
 
@@ -84,8 +84,8 @@ Friend Class Segments
         oBoard = aBoard
         For s = 1 To MAXSEGM
             aSegments(s).SetBoard(aBoard)
-            aSegments(s).ID = s
-            aSegments(s).Move(Int(s / aBoard.maxY) + 1, (s Mod aBoard.maxY) + 1)
+            aSegments(s).ID = s 'unique identifier
+            aSegments(s).Move(Int(s / aBoard.maxY) + 1, (s Mod aBoard.maxY) + 1) 'lay them out based on id to start
             Select Case s
                 Case 1 To MAXSEGM * 2 / 12
                     aSegments(s).Colour = 1 'ivory
@@ -97,10 +97,11 @@ Friend Class Segments
                     aSegments(s).Colour = 4 'purple
             End Select
             aSegments(s).Value = 0
+            aSegments(s).VerticalPos = 1
         Next s
-        aSegments(9).Move(10, 8)
-        aSegments(90).Move(10, 9)
-        For d = 1 To DEGREESOFCHAOS
+        aSegments(9).Move(10, 8) 'the method above does most of the job
+        aSegments(90).Move(10, 9) 'this just finishes it
+        For d = 1 To DEGREESOFCHAOS 'mix them 
             Randomize()
             Swap(Int(Rnd() * MAXSEGM) + 1, Int(Rnd() * MAXSEGM) + 1)
         Next d

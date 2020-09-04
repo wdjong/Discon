@@ -35,6 +35,7 @@ Friend Class PPieces
 			aPieces(p).RemoveAll()
 			aPieces(p).PPID = p 'assign index from control to object
 			aPieces(p).Owner = Int((p - 1) / 6) + 1
+			aPieces(p).UpdateTooltip()
 			aPieces(p).GetTower.Owner = aPieces(p).Owner
 			Select Case aPieces(p).Owner
 				Case 1
