@@ -32,8 +32,8 @@ Friend Class Segments
                 For s2 = sToAddCount To 1 Step -1
                     If Not aPiece.Add(sToAdd(s2)) Then 'Calls tower Add which should update Vertical position
                         MsgBox(aPiece.Message) 'Please explain.
-                    Else
-                        Debug.Print("Vertical Pos of top piece is" & aPiece.cTower.GetSegment(1).VerticalPos)
+                        'Else
+                        '    Debug.Print("Vertical Pos of top piece is" & aPiece.cTower.GetSegment(1).VerticalPos)
                     End If
                 Next
             Else

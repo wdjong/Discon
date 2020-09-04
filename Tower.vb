@@ -91,7 +91,7 @@ Friend Class Tower
             sTower(Height) = nSegment 'set pointer to Segment
             SetVerticalHeights()
             iColour = CheckColours()
-            UpdateScore(iColour)
+            UpdateScore()
             Add = True
         Else
             Message = "You can't add that disc due to height restrictions."
@@ -184,24 +184,27 @@ Friend Class Tower
     End Function
 
     Public Sub CopyTo(ByRef aTower As Tower)
-        'copy from this tower to the passed tower
+        'copy from this tower to the passed (destination) tower
         Dim i As Short
 
         'remove existing discs from passed tower
         Do While aTower.Height > 0
             aTower.Remove()
         Loop
-        For i = 1 To Height
-            If sTower(i).XPos = 0 Then
+        For i = 1 To Height 'of source tower
+            If sTower(i).XPos = 0 Then 'Just in case there's a problem with segments in this tower...
                 MsgBox("sTower(" & i & ") = Nothing")
             End If
-            aTower.SetSegment(i, sTower(i))
+            aTower.SetSegment(i, sTower(i)) 'point to segments
         Next i
         aTower.Owner = iOwner
         aTower.Value = iValue
         aTower.Height = Height
         aTower.XPos = iXPos
         aTower.YPos = iYPos
+        aTower.CheckColours() 'The colour and description may have changed
+        aTower.SetVerticalHeights() 'The vertical height may have changed (i.e. if tower shrunk)
+        aTower.UpdateScore() 'The score of the tower should have changed.
     End Sub
 
     Public Sub Display()
@@ -248,7 +251,7 @@ Friend Class Tower
         Next
     End Function
 
-    Public Sub UpdateScore(ByRef iColour As Short) 'Look up value based on iColour and height
+    Public Sub UpdateScore() 'Look up value based on iColour and height
         Select Case iColour
             Case TColour.blueViolet, TColour.pinkViolet '    	2	3	4	5	6	8	10	12	14	16	20
                 Select Case Height
@@ -496,7 +499,7 @@ Friend Class Tower
             Height -= 1
         End If
         If Height > 0 Then
-            UpdateScore((sTower(Height).Colour))
+            UpdateScore()
         Else
             iValue = 0
         End If

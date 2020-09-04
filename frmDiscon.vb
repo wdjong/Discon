@@ -2508,7 +2508,12 @@ Friend Class frmDiscon
     End Sub
 
     Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
-        aTurn.undo() 'aPPieces 'move and remove current segment
+        'Left drag to something, Left drag to something - Undo - pass
+        'Left drag to something, Left drag to nothing - Undo - fail
+
+
+        aTurn.undo()
+        showStatus() 'Because move is possible wrong
     End Sub
 
     Public Sub mnuFileExit_Popup(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileExit.Popup
@@ -2614,7 +2619,7 @@ Friend Class frmDiscon
                         'aSegments.AddAny(lastPiece, (lastPiece.XPos), (lastPiece.YPos)) 'this should be part of the undo
                     End If
                 Else
-                    MsgBox("Illegal abandon/add to " & lastPiece.XPos & ", " & lastPiece.YPos)
+                    MsgBox("Illegal abandon/add to " & x & ", " & y)
                 End If
             End If
             newValue = aPiece.Score

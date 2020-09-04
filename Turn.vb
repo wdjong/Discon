@@ -53,7 +53,6 @@ Friend Class Turn
             move = MAXMOVE
             decPlayer()
         End If
-        'showStatus()
     End Sub
 
     Sub decPlayer()
@@ -110,7 +109,6 @@ Friend Class Turn
             move = 1
             incPlayer()
         End If
-        'showStatus()
     End Sub
 
     Sub incPlayer()
@@ -181,16 +179,26 @@ Friend Class Turn
     End Sub
 
     Sub undo()
-        'Undo Turn
+        Dim oldValue As Short 'each move, find change in score and add it to player score
+        Dim newValue As Short 'scoring
+
+        'Undo Turn i.e. possibly 2 moves            
         If oPPiece(2).XPos <> 0 And Not oPPieceTo(2) Is Nothing Then 'there is a second move to undo
+            oldValue = oPPieceTo(2).Score 'remember the current score
             oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
             oPPieceTo(2).Draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
+            newValue = oPPieceTo(2).Score
+            oPPieceTo(2).UpdateTooltip() 'to display colour and height
+            oPlayer(iPlayer).Score = oPlayer(iPlayer).Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
         End If
         If oPPiece(1).XPos <> 0 Then 'there is a first move to undo
+            oldValue = oPPieceTo(1).Score 'remember the current score
             oPPiece(1).CopyTo(oPPieceTo(1)) 'aPPieces.getPiece(oPPiece(1).pPID)
             oPPieceTo(1).Draw() 'aPPieces.getPiece(oPPiece(1).pPID).draw
+            newValue = oPPieceTo(1).Score
+            oPPieceTo(1).UpdateTooltip() 'to display colour and height
+            oPlayer(iPlayer).Score = oPlayer(iPlayer).Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
         End If
-        iPlayer = oPPiece(1).Owner
         move = 1
     End Sub
 
