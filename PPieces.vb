@@ -32,10 +32,9 @@ Friend Class PPieces
 		oBoard = aBoard
 		For p = 1 To MAXPPIECE
 			aPieces(p).SetBoard(aBoard)
-			aPieces(p).RemoveAll()
+			aPieces(p).RemoveAll() 'empty Tower, update Colour and Description, UpdateToolTip
 			aPieces(p).PPID = p 'assign index from control to object
 			aPieces(p).Owner = Int((p - 1) / 6) + 1
-			aPieces(p).UpdateTooltip()
 			aPieces(p).GetTower.Owner = aPieces(p).Owner
 			Select Case aPieces(p).Owner
 				Case 1

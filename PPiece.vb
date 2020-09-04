@@ -201,6 +201,9 @@ Friend Class PPiece
         For i = 1 To cTower.Height
             cTower.Remove()
         Next i
+        cTower.CheckColours() 'Also updates Description
+        cTower.UpdateScore()
+        UpdateTooltip()
     End Sub
 
     Sub Resize()
