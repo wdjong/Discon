@@ -3,18 +3,10 @@ Option Explicit On
 Friend Class Player
 	
 	Dim iStatus As Short '0 inactive, 1 human, 2 computer
-	Dim sName As String
-	Dim iPID As Short 'player ID
-	Dim iScore As Short
-	
-    Public Property name() As String
-        Get
-            Return sName
-        End Get
-        Set(ByVal Value As String)
-            sName = Value
-        End Set
-    End Property
+    Dim iPID As Short 'player ID
+    Dim iScore As Short
+
+    Public Property Name() As String
 
     Public Property ID() As Short
         Get
@@ -25,33 +17,29 @@ Friend Class Player
         End Set
     End Property
 
-    Public Property score() As Short
+    Public Property Score() As Short
         Get
-            score = iScore
+            Score = iScore
         End Get
         Set(ByVal Value As Short)
             iScore = Value
         End Set
     End Property
 
-    Public Property status() As Short
+    Public Property Status() As Short
         Get
-            status = iStatus
+            Status = iStatus
         End Get
         Set(ByVal Value As Short)
             iStatus = Value
         End Set
     End Property
 
-    Private Sub Class_Initialize_Renamed()
-        iPID = 0
-        iScore = 0
-        sName = ""
-        iStatus = 0
-    End Sub
-
     Public Sub New()
         MyBase.New()
-        Class_Initialize_Renamed()
+        iPID = 0
+        iScore = 0
+        Name = ""
+        iStatus = 0
     End Sub
 End Class

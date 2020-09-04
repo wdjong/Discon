@@ -2420,42 +2420,67 @@ Friend Class frmDiscon
     Dim mouseButton As Short 'when the mouse button is clicked record which button is used.
     Dim aBoard As New Board
     Dim aSegments As New Segments
-    Dim aPPieces As New PPieces
+    Dim aPPieces As New PPieces(12)
     Dim aTurn As New Turn
-    Dim lastPiece As New PPiece
+    Dim lastPiece As New PPiece(12)
     Dim IsUDraggin As Boolean 'Drop and Drag support of PPieces
     Dim origX As Long
     Dim origY As Long
 
     Private Sub frmDiscon_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         'Set up the game
-        'Dim p As Short
-        'Dim aResponse As MsgBoxResult
+        Dim playerCount As Short = 0
 
         Dragger.Visible = False 'piece used for drag and drop see ppiecemousedown
         mouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
         aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is
         aBoard = New Board 'Board class keeps track of where pieces are
         aSegments = New Segments 'A collection of coloured discs
-        aSegments.setup(aBoard) 'layout the coloured discs on the board randomly
-        aPPieces = New PPieces 'The players each have six red playing piece discs
-        aPPieces.setup(aBoard) 'They are positioned in each of the four corners
+        aSegments.Setup(aBoard) 'layout the coloured discs on the board randomly
+        'Set up players
         frmPreferences.ShowDialog()
-        If My.Settings.Player1Human Then aTurn.getPlayer(1).status = 1 Else aTurn.getPlayer(1).status = 0
-        If My.Settings.Player2Human Then aTurn.getPlayer(2).status = 2 Else aTurn.getPlayer(2).status = 0
-        If My.Settings.Player3Human Then aTurn.getPlayer(3).status = 3 Else aTurn.getPlayer(3).status = 0
-        If My.Settings.Player4Human Then aTurn.getPlayer(4).status = 4 Else aTurn.getPlayer(4).status = 0
-        'For p = 1 To aTurn.maxPlayer 'Determine if each player is man or machine
-        'aTurn.player = p
-        'aResponse = MsgBox("Is player " & p & " a person?", MsgBoxStyle.YesNo, "Activate?")
-        'If aResponse = MsgBoxResult.Yes Then
-        'aTurn.getPlayer.status = 1
-        'End If
-        'Next p
+        If My.Settings.Player1Human Then
+            aTurn.getPlayer(1).Status = 1
+            playerCount += 1
+        Else
+            aTurn.getPlayer(1).Status = 0
+        End If
+        If My.Settings.Player2Human Then
+            aTurn.getPlayer(2).Status = 1
+            playerCount += 1
+        Else
+            aTurn.getPlayer(2).Status = 0
+        End If
+        If My.Settings.Player3Human Then
+            aTurn.getPlayer(3).Status = 1
+            playerCount += 1
+        Else
+            aTurn.getPlayer(3).Status = 0
+        End If
+        If My.Settings.Player4Human Then
+            aTurn.getPlayer(4).Status = 1
+            playerCount += 1
+        Else
+            aTurn.getPlayer(4).Status = 0
+        End If
+        aPPieces = New PPieces(getMaxHeight(playerCount)) 'The players each have six red playing pieces This is a collection of them
+        aPPieces.setup(aBoard) 'They are positioned in each of the four corners
+
         aTurn.rndPlayer() 'Throw the dice to see whose turn it is
         showStatus() 'Let people know whose turn it is
-        'Wait for mouse action... see event handlers below
     End Sub
+
+    Private Function getMaxHeight(playerCount As Short)
+        Dim MaxHeight As Short = 4
+
+        Select Case playerCount
+            Case 3
+                MaxHeight = 10
+            Case 4
+                MaxHeight = 8
+        End Select
+        getMaxHeight = MaxHeight
+    End Function
 
     Private Sub frmDiscon_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Resize
         Dim minDim As Short
@@ -2467,9 +2492,9 @@ Friend Class frmDiscon
         End If
         aBoard.positionHeight = minDim / (aBoard.maxY + 2)
         aBoard.positionWidth = aBoard.positionHeight
-        'Me.Invalidate()
-        aSegments.draw()
-        aSegments.resize()
+        Me.Invalidate()
+        aSegments.Draw()
+        aSegments.Resize()
         aPPieces.draw()
         aPPieces.resize()
     End Sub
@@ -2501,14 +2526,27 @@ Friend Class frmDiscon
     Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
         aTurn.init()
         aPPieces.setup(aBoard)
-        aSegments.setup(aBoard)
+        aSegments.Setup(aBoard)
         frmPreferences.ShowDialog()
-        If My.Settings.Player1Human Then aTurn.getPlayer(1).status = 1 Else aTurn.getPlayer(1).status = 0
-        If My.Settings.Player2Human Then aTurn.getPlayer(2).status = 2 Else aTurn.getPlayer(2).status = 0
-        If My.Settings.Player3Human Then aTurn.getPlayer(3).status = 3 Else aTurn.getPlayer(3).status = 0
-        If My.Settings.Player4Human Then aTurn.getPlayer(4).status = 4 Else aTurn.getPlayer(4).status = 0
+        If My.Settings.Player1Human Then aTurn.getPlayer(1).Status = 1 Else aTurn.getPlayer(1).Status = 0
+        If My.Settings.Player2Human Then aTurn.getPlayer(2).Status = 1 Else aTurn.getPlayer(2).Status = 0
+        If My.Settings.Player3Human Then aTurn.getPlayer(3).Status = 1 Else aTurn.getPlayer(3).Status = 0
+        If My.Settings.Player4Human Then aTurn.getPlayer(4).Status = 1 Else aTurn.getPlayer(4).Status = 0
         aTurn.rndPlayer()
         showStatus()
+    End Sub
+
+    Private Sub MenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem1.Click
+        Try
+            Dim AppPath As String = System.AppDomain.CurrentDomain.BaseDirectory
+            System.Diagnostics.Process.Start(AppPath + "DisconHelp.html")
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub MenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem2.Click
+        frmAbout.Show()
     End Sub
 
     Private Sub DisplayTower(ByRef Source As System.Windows.Forms.Control)
@@ -2533,49 +2571,55 @@ Friend Class frmDiscon
         'The source is the PPiece
         'called from mouseup after dragging
         Dim aPiece As PPiece 'a pointer to a player Piece
+        Dim aSegment As Segment 'a pointer to a segment that might be at the destination
         Dim aPlayer As Player
-        Dim oldValue As Short 'each move find change in score and add it to player score
+        Dim oldValue As Short 'each move, find change in score and add it to player score
         Dim newValue As Short 'scoring
 
         aPiece = aPPieces.getPiece(Source.Tag) 'This is who (which piece to be precise) moved
         'we could pass apiece from the mouseup routine as we've worked it out there already
         aPlayer = aTurn.getPlayer 'This is who's turn it is
-        If aPlayer.ID <> aPiece.owner Then
+        If aPlayer.ID <> aPiece.Owner Then
             MsgBox("It's player number " & aPlayer.ID & "'s turn.")
             aPPieces.draw()
         Else 'the right person has had a turn
             oldValue = aPiece.Score 'remember the current score
             aTurn.saveSource(aPiece) 'remember for undo
+            aSegment = aSegments.GetSegmentXY(x, y) 'Note there maybe more than one this is basically a test that it's not empty...
             If mouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
                 If aPiece.Move(x, y) Then 'move returns true if destination is legal
-                    If aSegments.addAny(aPiece, x, y) Then 'add the dest. seg. to the piece's pile
-                        aTurn.incMove(aPiece) 'count moves if second check you're not in foreign territory
-                        lastPiece = aPiece 'remember the last piece to move
+                    If aSegment IsNot Nothing Then 'There are one or more segments to add
+                        If aSegments.AddAny(aPiece, x, y) Then 'Add any segments found that are not already in the tower.
+                            aTurn.incMove(aPiece) 'count moves. If second, check you're not in foreign territory
+                            lastPiece = aPiece 'remember the last piece to move
+                        Else
+                            MsgBox(aPiece.Message)
+                            aTurn.undo() 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
+                        End If
                     Else
-                        MsgBox("You can't add that piece")
-                        aTurn.undo()
-                        aSegments.addAny(lastPiece, (lastPiece.xPos), (lastPiece.yPos))
+                        aTurn.incMove(aPiece) 'count moves. If second, check you're not in foreign territory
+                        lastPiece = aPiece 'remember the last piece to move
                     End If
                 Else 'illegal move
                     MsgBox("Illegal add to " & x & ", " & y) 'no need to undo
                 End If
             Else 'right click is for abandoning a pile of segments
                 If aPiece.Abandon(x, y) Then
-                    If aSegments.addAny(aPiece, x, y) Then
+                    If aSegments.AddAny(aPiece, x, y) Then
                         aTurn.incMove(aPiece)
                         lastPiece = aPiece
                     Else
-                        MsgBox("You can't add that piece")
+                        'MsgBox("Adding failed")
                         aTurn.undo()
-                        aSegments.addAny(lastPiece, (lastPiece.xPos), (lastPiece.yPos))
+                        'aSegments.AddAny(lastPiece, (lastPiece.XPos), (lastPiece.YPos)) 'this should be part of the undo
                     End If
                 Else
-                    MsgBox("Illegal abandon/add to " & lastPiece.xPos & ", " & lastPiece.yPos)
+                    MsgBox("Illegal abandon/add to " & lastPiece.XPos & ", " & lastPiece.YPos)
                 End If
             End If
             newValue = aPiece.Score
             aPiece.UpdateTooltip() 'to display colour and height
-            aPlayer.score = aPlayer.score - oldValue + newValue
+            aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
         End If
         showStatus()
     End Sub
@@ -2616,7 +2660,7 @@ Friend Class frmDiscon
     End Sub
 
     Private Sub _ppiece_1_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles _ppiece_1.MouseUp, _ppiece_2.MouseUp, _ppiece_3.MouseUp, _ppiece_4.MouseUp, _ppiece_5.MouseUp, _ppiece_6.MouseUp, _ppiece_7.MouseUp, _ppiece_8.MouseUp, _ppiece_9.MouseUp, _ppiece_10.MouseUp, _ppiece_11.MouseUp, _ppiece_12.MouseUp, _ppiece_13.MouseUp, _ppiece_14.MouseUp, _ppiece_15.MouseUp, _ppiece_16.MouseUp, _ppiece_17.MouseUp, _ppiece_18.MouseUp, _ppiece_19.MouseUp, _ppiece_20.MouseUp, _ppiece_21.MouseUp, _ppiece_22.MouseUp, _ppiece_23.MouseUp, _ppiece_24.MouseUp
-        'release the playing piece 'e.x and e.y are pixel position within the piece
+        'release the playing piece. 'e.x and e.y are pixel position within the piece
         Dim aPiece As PPiece 'Player piece
         Dim aXFinish As Short
         Dim aYFinish As Short
@@ -2626,7 +2670,7 @@ Friend Class frmDiscon
             aPiece = aPPieces.getPiece(sender.Tag) 'This is who (which player piece to be precise) moved
             aXFinish = aBoard.getXPosFromMouse(sender.left)
             aYFinish = aBoard.getYPosFromMouse(sender.top)
-            If aXFinish = aPiece.xPos And aYFinish = aPiece.yPos Then '(We just clicked on the thing
+            If aXFinish = aPiece.XPos And aYFinish = aPiece.YPos Then '(We just clicked on the thing
                 DisplayTower(sender)
             Else 'we tried to move somewhere
                 segment_DragDrop(sender, aXFinish, aYFinish)
@@ -2651,16 +2695,4 @@ Friend Class frmDiscon
         Next p
     End Sub
 
-    Private Sub MenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem1.Click
-        Try
-            Dim AppPath As String = System.AppDomain.CurrentDomain.BaseDirectory
-            System.Diagnostics.Process.Start(AppPath + "DisconHelp.html")
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub MenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem2.Click
-        frmAbout.Show()
-    End Sub
 End Class

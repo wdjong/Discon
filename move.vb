@@ -7,9 +7,9 @@ Friend Class move
     Dim oSourceTower As Tower 'what the tower looked like before
 	
 	Public Sub move(ByRef aPiece As PPiece, ByRef aPosition As Position)
-        oSourcePos.xPos = aPiece.xPos 'should modify aPiece to contain a position object
-        oSourcePos.yPos = aPiece.yPos
+        oSourcePos.xPos = aPiece.XPos 'should modify aPiece to contain a position object
+        oSourcePos.yPos = aPiece.YPos
         oSourceTower = aPiece.GetTower
-		MsgBox(oSourceTower.height)
+		MsgBox(oSourceTower.Height)
 	End Sub
 End Class

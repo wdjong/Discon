@@ -8,25 +8,24 @@ Friend Class Segment
 	Private mbytValue As Short 'value of piece
 	Private mbytXPos As Short 'Current file 1 to 8 left to right convert to letters in algebraic notation section
 	Private mbytYPos As Short 'Current rank 1 to 8 bottom to top
-    Dim oBoard As Board 'This is just a reference to the one board for easy access to dimensions etc.
-	
-    Private Sub Class_Initialize_Renamed()
+    Private oBoard As Board 'This is just a reference to the one board for easy access to dimensions etc.
+
+    Public Sub New()
+        MyBase.New()
         iColour = 0
         iSID = 0
         mbooOnBoard = False
         mbytValue = 0
         mbytXPos = 0
         mbytYPos = 0
+        VerticalPos = 1
     End Sub
 
-    Public Sub New()
-        MyBase.New()
-        Class_Initialize_Renamed()
-    End Sub
+    Public Property VerticalPos() 'When towers are left without a piece you need a way to add them back in the right order 1 is lowers (on the board), 2 is on top of that etc 
 
-    Public Property colour() As Short
+    Public Property Colour() As Short
         Get
-            colour = iColour
+            Colour = iColour
         End Get
         Set(ByVal Value As Short)
             iColour = Value
@@ -42,9 +41,9 @@ Friend Class Segment
         End Set
     End Property
 
-    Public ReadOnly Property onBoard() As Boolean
+    Public ReadOnly Property OnBoard() As Boolean
         Get
-            onBoard = mbooOnBoard
+            OnBoard = mbooOnBoard
         End Get
     End Property
 
@@ -57,9 +56,9 @@ Friend Class Segment
         End Set
     End Property
 
-    Public Property xPos() As Short
+    Public Property XPos() As Short
         Get
-            xPos = mbytXPos
+            XPos = mbytXPos
         End Get
         Set(ByVal Value As Short)
             mbytXPos = Value
@@ -67,9 +66,9 @@ Friend Class Segment
         End Set
     End Property
 
-    Public Property yPos() As Short
+    Public Property YPos() As Short
         Get
-            yPos = mbytYPos
+            YPos = mbytYPos
         End Get
         Set(ByVal Value As Short)
             mbytYPos = Value
@@ -77,20 +76,20 @@ Friend Class Segment
         End Set
     End Property
 
-    Public Sub move(ByRef x As Short, ByRef y As Short)
+    Public Sub Move(ByRef x As Short, ByRef y As Short)
         mbytXPos = x 'set new SEG xpos
         mbytYPos = y 'set new SEG ypos
         mbooOnBoard = oBoard.onBoard(x, y)
-        draw()
+        Draw()
     End Sub
 
-    Public Sub remove()
+    Public Sub Remove()
         mbytXPos = 0
         mbytYPos = 0
         mbooOnBoard = False
     End Sub
 
-    Sub draw()
+    Sub Draw()
         'Draw a segment
         Dim x As Short
         Dim y As Short
@@ -103,7 +102,7 @@ Friend Class Segment
         End If
     End Sub
 
-    Sub resize()
+    Sub Resize()
         'Allow the segments to shrink and grow
         Dim d As Short
 
@@ -114,7 +113,7 @@ Friend Class Segment
         End If
     End Sub
 
-    Sub drawOffset(ByRef i As Short)
+    Sub DrawOffset(ByRef i As Short)
         Const xdiv As Short = 5 'make this less to spread it out to the left more
         Const ydiv As Short = 10 'make this less to spread it out more upwards
 
@@ -123,7 +122,7 @@ Friend Class Segment
         frmDiscon.DefInstance.segment(iSID).SendToBack() 'send to back
     End Sub
 
-    Sub setBoard(ByRef aBoard As Board)
+    Sub SetBoard(ByRef aBoard As Board)
         oBoard = aBoard
     End Sub
 End Class

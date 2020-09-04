@@ -6,20 +6,16 @@ Friend Class PPiece
 	Dim iYPos As Short 'horizontal position from 1 to Max (10)
     Dim iOwner As Short 'player ID
 	Dim iScore As Short 'value of tower it's on
-	Dim iPPID As Short 'Player Piece ID
-	Dim bDisplayed As Boolean
-	Const PPIECEWIDTH As Short = 480
+    Dim iPPID As Short 'Player Piece ID
+    Dim bDisplayed As Boolean
+    Const PPIECEWIDTH As Short = 480
 	Const PPIECEHEIGHT As Short = 480
-    Dim cTower As New Tower 'a tower under this piece?
+    Public cTower As New Tower 'a tower under this piece?
     Dim oBoard As Board 'the board (for dimensions, positional & info)
 
-    Private Sub Class_Initialize_Renamed()
-        Init()
-    End Sub
-
-    Public Sub New()
+    Public Sub New(maxTowerHeight As Short)
         MyBase.New()
-        Class_Initialize_Renamed()
+        Init(maxTowerHeight)
     End Sub
 
     'properties
@@ -44,18 +40,18 @@ Friend Class PPiece
         End Set
     End Property
 
-    Public Property owner() As Short
+    Public Property Owner() As Short
         Get
-            owner = iOwner
+            Owner = iOwner
         End Get
         Set(ByVal Value As Short)
             iOwner = Value
         End Set
     End Property
 
-    Public Property xPos() As Short
+    Public Property XPos() As Short
         Get
-            xPos = iXPos
+            XPos = iXPos
         End Get
         Set(ByVal Value As Short)
             iXPos = Value
@@ -64,9 +60,9 @@ Friend Class PPiece
         End Set
     End Property
 
-    Public Property yPos() As Short
+    Public Property YPos() As Short
         Get
-            yPos = iYPos
+            YPos = iYPos
         End Get
         Set(ByVal Value As Short)
             iYPos = Value
@@ -75,14 +71,25 @@ Friend Class PPiece
         End Set
     End Property
 
-    Public Property pPID() As Short
+    Public Property PPID() As Short
         Get
-            pPID = iPPID
+            PPID = iPPID
         End Get
         Set(ByVal Value As Short)
             iPPID = Value
         End Set
     End Property
+
+    Public Property Message() As String
+
+    'Public Property MaxTowerHeight() As Short 'This is something the player needs to know
+    '    Get
+    '        MaxTowerHeight = cTower.MaxHeight
+    '    End Get
+    '    Set(ByVal Value As Short)
+    '        cTower.MaxHeight = Value
+    '    End Set
+    'End Property
 
     'methods (Alpha)
     Function Abandon(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
@@ -95,37 +102,42 @@ Friend Class PPiece
                 Abandon = True
             End If
         End If
+        cTower.CheckColours() 'Updates description used in Tooltip
         Draw() 'need to draw it again even if it was dropped illegally
     End Function
 
     Function Add(ByRef aSegment As Segment) As Boolean
-        Add = cTower.Add(aSegment)
+        Add = False
+        If (cTower.Add(aSegment)) Then 'Note this recalculates score and updates segment vertical position
+            Add = True
+        Else
+            Message = cTower.Message 'Pass back error
+        End If
     End Function
 
     Sub CopyTo(ByRef aPPiece As PPiece)
         'copy from this ppiece to the passed ppiece
         Try
-            aPPiece.Init() 'otherwise specifying new iXPos moves (and draws) tower
-            aPPiece.xPos = iXPos
-            aPPiece.yPos = iYPos
-            aPPiece.owner = iOwner
+            aPPiece.Init(cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
+            aPPiece.XPos = iXPos
+            aPPiece.YPos = iYPos
+            aPPiece.Owner = iOwner
             aPPiece.Score = iScore
-            aPPiece.pPID = iPPID
+            aPPiece.PPID = iPPID
             aPPiece.Displayed = bDisplayed
             cTower.CopyTo(aPPiece.GetTower)
-            aPPiece.GetTower.Move((aPPiece.xPos), (aPPiece.yPos))
+            aPPiece.GetTower.Move((aPPiece.XPos), (aPPiece.YPos))
         Catch ex As Exception
             MsgBox("PPiece.copyTo: " & ex.Message) 'e.g. fails if passed player piece is null / nothing
         End Try
     End Sub
-
     Sub DisplayTower()
         Const xdiv As Byte = 5 'make this less to spread it out to the left more
         Const ydiv As Byte = 10 'make this less to spread it out more upwards
 
         cTower.Display() 'displaying the tower calls segment.drawoffset with similar settings
-        frmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth - cTower.height * oBoard.positionWidth / xdiv)
-        frmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight - cTower.height * oBoard.positionHeight / ydiv)
+        frmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth - cTower.Height * oBoard.positionWidth / xdiv)
+        frmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight - cTower.Height * oBoard.positionHeight / ydiv)
         frmDiscon.DefInstance.ppiece(iPPID).BringToFront() 'bring to front
     End Sub
 
@@ -150,8 +162,9 @@ Friend Class PPiece
         InForeignHome = (aHome > 0 And aHome <> iOwner)
     End Function
 
-    Sub Init()
+    Sub Init(maxTowerHeight As Short)
         RemoveAll() 'from tower
+        cTower.MaxHeight = maxTowerHeight
         iXPos = 0
         iYPos = 0
         iOwner = 0
@@ -182,10 +195,10 @@ Friend Class PPiece
     End Sub
 
     Sub RemoveAll()
-        'Called from PPieces when reinitializing.
+        'Called from PPieces when reinitializing and when Abandoning segments
         Dim i As Short
 
-        For i = 1 To cTower.height
+        For i = 1 To cTower.Height
             cTower.Remove()
         Next i
     End Sub
@@ -209,7 +222,7 @@ Friend Class PPiece
 
     Sub UpdateTooltip()
         Try
-            frmDiscon.DefInstance.ToolTip1.SetToolTip(frmDiscon.DefInstance.ppiece(iPPID), cTower.height.ToString & " " & cTower.colour)
+            frmDiscon.DefInstance.ToolTip1.SetToolTip(frmDiscon.DefInstance.ppiece(iPPID), cTower.Description)
         Catch ex As Exception
             MsgBox("PPiece.updateTooltip: " & ex.Message)
         End Try

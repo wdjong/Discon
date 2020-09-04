@@ -33,22 +33,22 @@ Friend Class PPieces
 		For p = 1 To MAXPPIECE
 			aPieces(p).SetBoard(aBoard)
 			aPieces(p).RemoveAll()
-			aPieces(p).pPID = p 'assign index from control to object
-			aPieces(p).owner = Int((p - 1) / 6) + 1
-			aPieces(p).GetTower.owner = aPieces(p).owner
-			Select Case aPieces(p).owner
+			aPieces(p).PPID = p 'assign index from control to object
+			aPieces(p).Owner = Int((p - 1) / 6) + 1
+			aPieces(p).GetTower.Owner = aPieces(p).Owner
+			Select Case aPieces(p).Owner
 				Case 1
-					aPieces(p).xPos = 1
-					aPieces(p).yPos = 1
+					aPieces(p).XPos = 1
+					aPieces(p).YPos = 1
 				Case 2
-					aPieces(p).xPos = 1
-					aPieces(p).yPos = 10
+					aPieces(p).XPos = 1
+					aPieces(p).YPos = 10
 				Case 3
-					aPieces(p).xPos = 10
-					aPieces(p).yPos = 10
+					aPieces(p).XPos = 10
+					aPieces(p).YPos = 10
 				Case 4
-					aPieces(p).xPos = 10
-					aPieces(p).yPos = 1
+					aPieces(p).XPos = 10
+					aPieces(p).YPos = 1
 			End Select
 			aPieces(p).Draw()
 		Next p
@@ -67,12 +67,11 @@ Friend Class PPieces
 		aPieces(p) = aPiece
 	End Sub
 
-    Public Sub New()
-        Dim p As Short
+	Public Sub New(maxTowerHeight As Short)
+		Dim p As Short
 
-        'oBoard = New Board
-        For p = 1 To MAXPPIECE
-            aPieces(p) = New PPiece
-        Next p
-    End Sub
+		For p = 1 To MAXPPIECE
+			aPieces(p) = New PPiece(maxTowerHeight)
+		Next p
+	End Sub
 End Class

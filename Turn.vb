@@ -4,14 +4,11 @@ Friend Class Turn
 	'a collection of Player objects
 	Const cMAXPLAYER As Short = 4 '4 players
 	Const MAXMOVE As Short = 2 '2 moves per turn
-	
-	'Dim iTurn As Integer 'Each player has a turn
-	Dim iMoveNum As Short 'Each turn consists of 2 moves
-	Dim iPlayer As Short 'Current player number
+    Dim iPlayer As Short 'Current player number
     Dim oPPiece(MAXMOVE) As PPiece 'New PPiece 'copy the piece before moving it: for undo
-	Dim oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces
-    Dim oPlayer(cMAXPLAYER) As player 'New Player
-	
+    Dim oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces moved
+    Dim oPlayer(cMAXPLAYER) As Player 'New Player
+
     Public Sub New()
         'On creation of the object
         MyBase.New()
@@ -26,14 +23,6 @@ Friend Class Turn
     End Property
 
     Public Property move() As Short
-        'There are 2 moves in a turn
-        Get
-            Return iMoveNum
-        End Get
-        Set(ByVal Value As Short)
-            iMoveNum = Value
-        End Set
-    End Property
 
     Public Property player() As Short
         'The current player number
@@ -47,21 +36,21 @@ Friend Class Turn
 
     Public ReadOnly Property score(ByVal aPlayer As Short) As Short
         Get
-            score = oPlayer(aPlayer).score()
+            score = oPlayer(aPlayer).Score()
         End Get
     End Property
 
     Public ReadOnly Property status(ByVal aPlayer As Short) As Short
         Get
-            status = oPlayer(aPlayer).status()
+            status = oPlayer(aPlayer).Status()
         End Get
     End Property
 
     Sub decMove()
         'A move has been undone
-        iMoveNum = iMoveNum - 1
-        If iMoveNum = 0 Then 'it's the end of a turn
-            iMoveNum = MAXMOVE
+        move = move - 1
+        If move = 0 Then 'it's the end of a turn
+            move = MAXMOVE
             decPlayer()
         End If
         'showStatus()
@@ -79,7 +68,7 @@ Friend Class Turn
             If iPlayer <= 0 Then
                 iPlayer = cMAXPLAYER
             End If
-            If oPlayer(iPlayer).status > 0 Then 'active
+            If oPlayer(iPlayer).Status > 0 Then 'active
                 bNotFound = False
             Else
                 iCountInactive = iCountInactive + 1
@@ -91,7 +80,7 @@ Friend Class Turn
         End If
     End Sub
 
-    Function getPlayer() As player
+    Function getPlayer() As Player
         'return the current player's object
         getPlayer = oPlayer(iPlayer)
     End Function
@@ -105,20 +94,20 @@ Friend Class Turn
         'Increment the move counter
         'If its the 2nd move then check for either piece being in foreign home if they are
         'indicate error and undo both pieces.
-        If iMoveNum = 1 Then
+        If move = 1 Then
             oPPieceTo(2) = Nothing
         End If
-        oPPieceTo(iMoveNum) = aPPiece
-        If iMoveNum = 2 Then
+        oPPieceTo(move) = aPPiece
+        If move = 2 Then
             If (oPPieceTo(1).InForeignHome Or oPPieceTo(2).InForeignHome) Then
                 MsgBox("You can't end leave your pieces in someone else's home. ")
                 undo()
                 Exit Sub
             End If
         End If
-        iMoveNum = iMoveNum + 1
-        If iMoveNum > MAXMOVE Then
-            iMoveNum = 1
+        move = move + 1
+        If move > MAXMOVE Then
+            move = 1
             incPlayer()
         End If
         'showStatus()
@@ -136,7 +125,7 @@ Friend Class Turn
             If iPlayer > cMAXPLAYER Then
                 iPlayer = 1
             End If
-            If oPlayer(iPlayer).status > 0 Then
+            If oPlayer(iPlayer).Status > 0 Then
                 bNotFound = False
             Else
                 iCountInactive = iCountInactive + 1
@@ -152,30 +141,28 @@ Friend Class Turn
         'Class initialization called from new()
         Dim i As Short
 
-        iMoveNum = 1
+        move = 1
         iPlayer = 0
         For i = 1 To MAXMOVE
-            oPPiece(i) = New PPiece
-            'oPPieceTo(i) = New PPiece
+            oPPiece(i) = New PPiece(12)
         Next i
         For i = 1 To cMAXPLAYER
             oPlayer(i) = New Player
             oPlayer(i).ID = i
-            oPlayer(i).score = 0
-            'oPlayer(i).status = 0 'inactive
+            oPlayer(i).Score = 0
             Select Case i
                 Case 1
-                    If My.Settings.Player1Human Then oPlayer(i).status = 1 Else oPlayer(i).status = 0
+                    If My.Settings.Player1Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
                 Case 2
-                    If My.Settings.Player2Human Then oPlayer(i).status = 1 Else oPlayer(i).status = 0
+                    If My.Settings.Player2Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
                 Case 3
-                    If My.Settings.Player3Human Then oPlayer(i).status = 1 Else oPlayer(i).status = 0
+                    If My.Settings.Player3Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
                 Case 4
-                    If My.Settings.Player4Human Then oPlayer(i).status = 1 Else oPlayer(i).status = 0
+                    If My.Settings.Player4Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
             End Select
-            oPlayer(i).name = "Player " & i
+            oPlayer(i).Name = "Player " & i
         Next i
-        'showStatus()
+
     End Sub
 
     Sub rndPlayer()
@@ -187,27 +174,24 @@ Friend Class Turn
 
     Sub saveSource(ByRef aPPiece As PPiece)
         'Copy the piece as it was before being moved
-        If iMoveNum = 1 Then
-            oPPiece(2).Init() 'clear the 2nd piece info in the turn history
+        If move = 1 Then
+            oPPiece(2).Init(12) 'clear the 2nd piece info in the turn history
         End If
-        aPPiece.CopyTo(oPPiece(iMoveNum))
+        aPPiece.CopyTo(oPPiece(move))
     End Sub
 
     Sub undo()
         'Undo Turn
-        If oPPiece(2).xPos <> 0 Then 'there is a second move to undo
-            If Not oPPieceTo(2) Is Nothing Then 'there is a second piece to move: this was to fix
-                'error 3/2/2009 where 1st move was illegal due to maximum height and therefore had to be undone
-                oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
-                oPPieceTo(2).Draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
-            End If
+        If oPPiece(2).XPos <> 0 And Not oPPieceTo(2) Is Nothing Then 'there is a second move to undo
+            oPPiece(2).CopyTo(oPPieceTo(2)) 'copy the old information back to the piece that moved. aPPieces.getPiece(oPPiece(2).pPID)
+            oPPieceTo(2).Draw() 'aPPieces.getPiece(oPPiece(2).pPID).draw
         End If
-        If oPPiece(1).xPos <> 0 Then 'there is a first move to undo
+        If oPPiece(1).XPos <> 0 Then 'there is a first move to undo
             oPPiece(1).CopyTo(oPPieceTo(1)) 'aPPieces.getPiece(oPPiece(1).pPID)
             oPPieceTo(1).Draw() 'aPPieces.getPiece(oPPiece(1).pPID).draw
         End If
-        iPlayer = oPPiece(1).owner
-        iMoveNum = 1
+        iPlayer = oPPiece(1).Owner
+        move = 1
     End Sub
 
 

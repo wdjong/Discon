@@ -6,15 +6,14 @@ Friend Class Board
     Dim iBoardLeft As Short '0
     Dim iPositionWidth As Short '480 both piece and square
     Dim iPositionHeight As Short '480
-    Const IMAXX As Short = 10
-    Const IMAXY As Short = 10
+    Const IMAXX As Short = 10 'Width - number of squares
+    Const IMAXY As Short = 10 'Height - number of squares
     Dim iBoardBottom As Short 'BOARDBOTTOM = (MaxY + 1) * PIECEHEIGHT
     Const PIECEID As Short = 0
     Const PIECETEAM As Short = 1
     Dim gBoard(IMAXX, IMAXY, 2) As Short 'original:
     Dim gBoard2(IMAXX, IMAXY, 2) As Short 'copy:
 
-    'UPGRADE_NOTE: Class_Initialize was upgraded to Class_Initialize_Renamed. Click for more: 'ms-help://MS.VSCC.2003/commoner/redir/redirect.htm?keyword="vbup1061"'
     Private Sub Class_Initialize_Renamed()
         Dim x As Short
         Dim y As Short
@@ -30,7 +29,6 @@ Friend Class Board
                 gBoard(x, y, PIECETEAM) = 0
             Next y
         Next x
-        'draw()
     End Sub
 
     Public Sub New()
@@ -40,25 +38,21 @@ Friend Class Board
 
     Public ReadOnly Property maxX() As Object
         Get
-            'UPGRADE_WARNING: Couldn't resolve default property of object maxX. Click for more: 'ms-help://MS.VSCC.2003/commoner/redir/redirect.htm?keyword="vbup1037"'
             maxX = IMAXX
         End Get
     End Property
 
     Public ReadOnly Property maxY() As Object
         Get
-            'UPGRADE_WARNING: Couldn't resolve default property of object maxY. Click for more: 'ms-help://MS.VSCC.2003/commoner/redir/redirect.htm?keyword="vbup1037"'
             maxY = IMAXY
         End Get
     End Property
 
     Public Property positionWidth() As Object
         Get
-            'UPGRADE_WARNING: Couldn't resolve default property of object positionWidth. Click for more: 'ms-help://MS.VSCC.2003/commoner/redir/redirect.htm?keyword="vbup1037"'
             positionWidth = iPositionWidth
         End Get
         Set(ByVal Value As Object)
-            'UPGRADE_WARNING: Couldn't resolve default property of object vNewValue. Click for more: 'ms-help://MS.VSCC.2003/commoner/redir/redirect.htm?keyword="vbup1037"'
             iPositionWidth = Value
         End Set
     End Property
@@ -133,31 +127,29 @@ Friend Class Board
     End Function
 
     Sub draw(ByVal e As System.Drawing.Graphics)
-        Dim myBrush As New System.Drawing.SolidBrush(System.Drawing.Color.Gray)
+        Dim myBrush As New SolidBrush(Color.Gray)
+        Dim myPen As New Pen(Color.AntiqueWhite, 1)
         Dim PWidth As Integer
         Dim PHeight As Integer
+        Dim HomeSquares As Short = 3
+        Dim x As Short
+        Dim y As Short
 
         PWidth = VB6.TwipsToPixelsX(iPositionWidth)
         PHeight = VB6.TwipsToPixelsY(iPositionHeight)
-        'frmDiscon.Cls()
-        Debug.WriteLine(e.ClipBounds.Height)
 
-        'the heights and widths seem mixed up but I'm staying with what was there...
-        myBrush.Color = System.Drawing.Color.DarkGray
-        e.FillRectangle(myBrush, PHeight, PWidth, PHeight * maxX, PWidth * maxY)
-        'frmDiscon.Line (iPositionHeight, iPositionWidth) - (iPositionHeight * (maxX + 1), iPositionWidth * (IMAXY + 1)), colourMain, BF
-        myBrush.Color = System.Drawing.Color.LightSlateGray
-        e.FillRectangle(myBrush, PHeight, PWidth, PHeight * 3, PWidth * 3)
-        'frmDiscon.Line (iPositionHeight, iPositionWidth) - (iPositionHeight * 4, iPositionWidth * 4), colourHome, BF
-        myBrush.Color = System.Drawing.Color.LightSlateGray
-        e.FillRectangle(myBrush, PHeight * 8, PWidth, PHeight * 3, PWidth * 3)
-        'frmDiscon.Line (iPositionHeight * 8, iPositionWidth) - (iPositionHeight * 11, iPositionWidth * 4), colourHome, BF
-        myBrush.Color = System.Drawing.Color.LightSlateGray
-        e.FillRectangle(myBrush, PHeight, PWidth * 8, PHeight * 3, PWidth * 3)
-        'frmDiscon.Line (iPositionHeight, iPositionWidth * 8) - (iPositionHeight * 4, iPositionWidth * 11), colourHome, BF
-        myBrush.Color = System.Drawing.Color.LightSlateGray
-        e.FillRectangle(myBrush, PHeight * 8, PWidth * 8, PHeight * 3, PWidth * 3)
-        'frmDiscon.Line (iPositionHeight * 8, iPositionWidth * 8) - (iPositionHeight * 11, iPositionWidth * 11), colourHome, BF
+        myBrush.Color = Color.DarkGray 'Main board
+        e.FillRectangle(myBrush, PHeight, PWidth, PHeight * maxY, PWidth * maxX)
+        myBrush.Color = Color.LightSlateGray
+        e.FillRectangle(myBrush, PHeight, PWidth, PHeight * HomeSquares, PWidth * HomeSquares) 'Home 2
+        e.FillRectangle(myBrush, PHeight * (maxY + 1 - HomeSquares), PWidth, PHeight * HomeSquares, PWidth * HomeSquares) 'Home 3
+        e.FillRectangle(myBrush, PHeight, PWidth * (maxX + 1 - HomeSquares), PHeight * HomeSquares, PWidth * HomeSquares) 'Home 1
+        e.FillRectangle(myBrush, PHeight * (maxY + 1 - HomeSquares), PWidth * (maxX + 1 - HomeSquares), PHeight * HomeSquares, PWidth * HomeSquares) 'Home 4
+        For x = 1 To maxX
+            For y = 1 To maxY
+                e.DrawRectangle(myPen, x * PWidth, y * PHeight, PWidth, PHeight)
+            Next
+        Next
     End Sub
 
     Sub debugPrint()
@@ -170,14 +162,14 @@ Friend Class Board
                 i = gBoard(x, IMAXY + 1 - y, PIECEID) 'draw starting at top left
                 If i > 0 Then
                     If gBoard(x, IMAXY + 1 - y, PIECETEAM) = -1 Then
-                        System.Diagnostics.Debug.Write("-")
+                        Debug.Write("-")
                     Else
-                        System.Diagnostics.Debug.Write(" ")
+                        Debug.Write(" ")
                     End If
-                    System.Diagnostics.Debug.Write(VB6.Format(i, "00 "))
+                    Debug.Write(VB6.Format(i, "00 "))
                 End If
             Next x
-            System.Diagnostics.Debug.WriteLine("")
+            Debug.WriteLine("")
         Next y
     End Sub
 
