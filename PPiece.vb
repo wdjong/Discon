@@ -115,18 +115,19 @@ Friend Class PPiece
         End If
     End Function
 
-    Sub CopyTo(ByRef aPPiece As PPiece)
+    Sub CopyTo(ByRef DestPlayerPiece As PPiece)
         'copy from this ppiece to the passed ppiece
         Try
-            aPPiece.Init(cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
-            aPPiece.XPos = iXPos
-            aPPiece.YPos = iYPos
-            aPPiece.Owner = iOwner
-            aPPiece.Score = iScore
-            aPPiece.PPID = iPPID
-            aPPiece.Displayed = bDisplayed
-            cTower.CopyTo(aPPiece.GetTower)
-            aPPiece.GetTower.Move((aPPiece.XPos), (aPPiece.YPos))
+            DestPlayerPiece.Init(cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
+            DestPlayerPiece.Score = iScore
+            DestPlayerPiece.Owner = iOwner
+            DestPlayerPiece.XPos = iXPos
+            DestPlayerPiece.YPos = iYPos
+            DestPlayerPiece.PPID = iPPID
+            DestPlayerPiece.Displayed = bDisplayed
+            cTower.CopyTo(DestPlayerPiece.GetTower)
+            DestPlayerPiece.GetTower.MaxHeight = cTower.MaxHeight
+            DestPlayerPiece.GetTower.Move((DestPlayerPiece.XPos), (DestPlayerPiece.YPos))
         Catch ex As Exception
             MsgBox("PPiece.copyTo: " & ex.Message) 'e.g. fails if passed player piece is null / nothing
         End Try
@@ -152,6 +153,7 @@ Friend Class PPiece
     End Sub
 
     Public Function GetTower() As Tower
+        'I often wonder what the point of encapsulating this is...
         GetTower = cTower
     End Function
 
@@ -163,13 +165,14 @@ Friend Class PPiece
     End Function
 
     Sub Init(maxTowerHeight As Short)
-        RemoveAll() 'from tower
-        cTower.MaxHeight = maxTowerHeight
+        iScore = 0
+        iOwner = 0
         iXPos = 0
         iYPos = 0
-        iOwner = 0
         iPPID = 0
         bDisplayed = False
+        RemoveAll() 'from tower
+        cTower.MaxHeight = maxTowerHeight
     End Sub
 
     Function LegalMove(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
@@ -203,7 +206,7 @@ Friend Class PPiece
         Next i
         cTower.CheckColours() 'Also updates Description
         cTower.UpdateScore()
-        UpdateTooltip()
+        'UpdateTooltip() because this is ultimately called by something in a New routine starting with the New for frmDiscon it you can't do the tooltip thing here.
     End Sub
 
     Sub Resize()
@@ -225,9 +228,13 @@ Friend Class PPiece
 
     Sub UpdateTooltip()
         Try
-            frmDiscon.DefInstance.ToolTip1.SetToolTip(frmDiscon.DefInstance.ppiece(iPPID), cTower.Description)
+            Dim aControl As Control = frmDiscon.DefInstance.ppiece(iPPID) 'Player piece as determined by iPPID
+            Dim aCaption As String = Owner & ": "
+            aCaption += cTower.Description 'as determined in cTower.CheckColor()
+            aCaption += "(" & cTower.Height & ")"
+            frmDiscon.DefInstance.ToolTip1.SetToolTip(aControl, aCaption)
         Catch ex As Exception
-            MsgBox("PPiece.updateTooltip: " & ex.Message)
+            'MsgBox("PPiece.updateTooltip: " & ex.Message)
         End Try
     End Sub
 

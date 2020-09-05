@@ -1,17 +1,25 @@
 Option Strict Off
 Option Explicit On
 Friend Class Turn
-	'a collection of Player objects
-	Const cMAXPLAYER As Short = 4 '4 players
-	Const MAXMOVE As Short = 2 '2 moves per turn
-    Dim iPlayer As Short 'Current player number
-    Dim oPPiece(MAXMOVE) As PPiece 'copies of pieces before moving it: for undo
-    Dim oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces that have moved
-    Dim oPlayer(cMAXPLAYER) As Player 'New Player
+    'a collection of Player objects
+    Private Const cMAXPLAYER As Short = 4 '4 players
+    Private Const MAXMOVE As Short = 2 '2 moves per turn
+    Private iPlayer As Short 'Current player number
+    Private ReadOnly oPPiece(MAXMOVE) As PPiece 'copies of pieces before moving it: for undo
+    Private ReadOnly oPPieceTo(MAXMOVE) As PPiece 'pointers to actual pieces that have moved updated in 
+    Private ReadOnly oPlayer(cMAXPLAYER) As Player 'list of pointers to player objects
+    Private ReadOnly random As New Random()
 
     Public Sub New()
         'On creation of the object
         MyBase.New()
+        Dim i As Short
+        For i = 1 To MAXMOVE
+            oPPiece(i) = New PPiece(12)
+        Next i
+        For i = 1 To maxPlayer
+            oPlayer(i) = New Player()
+        Next
         init()
     End Sub
 
@@ -23,6 +31,20 @@ Friend Class Turn
     End Property
 
     Public Property move() As Short
+
+    Public Property PlayerCount() As Short 'Active players
+
+    Public ReadOnly Property MaxHeight() As Short
+        Get
+            MaxHeight = 4
+            Select Case PlayerCount
+                Case 3
+                    MaxHeight = 10
+                Case 4
+                    MaxHeight = 8
+            End Select
+        End Get
+    End Property
 
     Public Property player() As Short
         'The current player number
@@ -91,8 +113,9 @@ Friend Class Turn
 
     Sub incMove(ByRef aPPiece As PPiece)
         'Increment the move counter
-        'If its the 2nd move, then check for either piece being in foreign home. If they are, 
+        'If it's the 2nd move, then check for either piece being in foreign home. If they are, 
         'indicate error and undo both moves.
+        'oPPieceTo() are references to the piece being moved. oPPiece() are copies
         If move = 1 Then
             oPPieceTo(2) = Nothing 'Clear record of what piece was moved 2nd
         End If
@@ -136,51 +159,76 @@ Friend Class Turn
     End Sub
 
     Sub init()
-        'Class initialization called from new()
+        'Called from new, after preferences have been updated e.g. on new game
         Dim i As Short
 
-        move = 1
-        iPlayer = 0
-        For i = 1 To MAXMOVE
-            oPPiece(i) = New PPiece(12)
-        Next i
+        move = 1 'of the 
+        PlayerCount = 0 'work out active players
         For i = 1 To cMAXPLAYER
-            oPlayer(i) = New Player
             oPlayer(i).ID = i
             oPlayer(i).Score = 0
             Select Case i
                 Case 1
-                    If My.Settings.Player1Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
+                    If My.Settings.Player1Human Then
+                        oPlayer(i).Status = 1
+                        PlayerCount += 1
+                    Else
+                        oPlayer(i).Status = 0
+                    End If
                 Case 2
-                    If My.Settings.Player2Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
+                    If My.Settings.Player2Human Then
+                        oPlayer(i).Status = 1
+                        PlayerCount += 1
+                    Else
+                        oPlayer(i).Status = 0
+                    End If
                 Case 3
-                    If My.Settings.Player3Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
+                    If My.Settings.Player3Human Then
+                        oPlayer(i).Status = 1
+                        PlayerCount += 1
+                    Else
+                        oPlayer(i).Status = 0
+                    End If
                 Case 4
-                    If My.Settings.Player4Human Then oPlayer(i).Status = 1 Else oPlayer(i).Status = 0
+                    If My.Settings.Player4Human Then
+                        oPlayer(i).Status = 1
+                        PlayerCount += 1
+                    Else
+                        oPlayer(i).Status = 0
+                    End If
             End Select
             oPlayer(i).Name = "Player " & i
         Next i
-
+        rndPlayer() 'pick starter
     End Sub
 
     Sub rndPlayer()
         'Choose someone to start
-        Randomize(Now.Ticks)
-        iPlayer = Int(Rnd() * cMAXPLAYER) + 1
-        incPlayer()
+        Dim i As Short = 0
+        iPlayer = random.Next(1, 5)
+        'Debug.Print(iPlayer)
+        Do While oPlayer(iPlayer).Status = 0 And i < 100 'Keep going till you find a participating player.
+            iPlayer = random.Next(1, 5) 'Int(Rnd() * PlayerCount) + 1 'Who'll go first
+            'Debug.Print(iPlayer)
+            i += 1
+        Loop
     End Sub
 
     Sub saveSource(ByRef aPPiece As PPiece)
         'Copy the piece as it was before being moved
+        'oPieceTo is a reference to the piece/s involved in the move updated in incMove (after the move) for use in checking legality of final position i.e. if move 1 still in opposition home
         If move = 1 Then
             oPPiece(2).Init(12) 'clear the 2nd piece info in the turn history
         End If
-        aPPiece.CopyTo(oPPiece(move))
+        aPPiece.CopyTo(oPPiece(move)) 'copy of piece being moved
     End Sub
 
     Sub undo()
+
         Dim oldValue As Short 'each move, find change in score and add it to player score
         Dim newValue As Short 'scoring
+
+        iPlayer = oPPiece(1).Owner 'ctrl-z can happen after incPlayer() (in incMove())
 
         'Undo Turn i.e. possibly 2 moves            
         If oPPiece(2).XPos <> 0 And Not oPPieceTo(2) Is Nothing Then 'there is a second move to undo

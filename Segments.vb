@@ -77,6 +77,7 @@ Friend Class Segments
     End Sub
 
     Sub Setup(ByRef aBoard As Board)
+        'layout segments on board then randomize them
         Dim s As Short
         Dim d As Short
         Const DEGREESOFCHAOS As Short = 150

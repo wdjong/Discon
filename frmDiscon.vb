@@ -3,7 +3,7 @@ Option Explicit On
 Friend Class frmDiscon
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
-    Public Sub New()
+    Public Sub New() 'Stack overflow can happen if any of the New routines ends up calling something that assumes the form is functions like UpdateTooltip
         MyBase.New()
         If m_vb6FormDefInstance Is Nothing Then
             If m_InitializingDefInstance Then
@@ -2417,6 +2417,7 @@ Friend Class frmDiscon
         End Set
     End Property
 #End Region
+
     Dim mouseButton As Short 'when the mouse button is clicked record which button is used.
     Dim aBoard As New Board
     Dim aSegments As New Segments
@@ -2428,59 +2429,22 @@ Friend Class frmDiscon
     Dim origY As Long
 
     Private Sub frmDiscon_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-        'Set up the game
-        Dim playerCount As Short = 0
-
+        'Set up the game -- All New objects should be created here.... (i.e. have other Init routines for File New Game that don't create new objects. Reuse objects
         Dragger.Visible = False 'piece used for drag and drop see ppiecemousedown
         mouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
-        aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is
-        aBoard = New Board 'Board class keeps track of where pieces are
+
+        aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is / incl. basic game/rule info like MaxHeight
+        aBoard = New Board 'Board class keeps track of where pieces are and relates closely to frmDiscon
         aSegments = New Segments 'A collection of coloured discs
-        aSegments.Setup(aBoard) 'layout the coloured discs on the board randomly
-        'Set up players
-        frmPreferences.ShowDialog()
-        If My.Settings.Player1Human Then
-            aTurn.getPlayer(1).Status = 1
-            playerCount += 1
-        Else
-            aTurn.getPlayer(1).Status = 0
-        End If
-        If My.Settings.Player2Human Then
-            aTurn.getPlayer(2).Status = 1
-            playerCount += 1
-        Else
-            aTurn.getPlayer(2).Status = 0
-        End If
-        If My.Settings.Player3Human Then
-            aTurn.getPlayer(3).Status = 1
-            playerCount += 1
-        Else
-            aTurn.getPlayer(3).Status = 0
-        End If
-        If My.Settings.Player4Human Then
-            aTurn.getPlayer(4).Status = 1
-            playerCount += 1
-        Else
-            aTurn.getPlayer(4).Status = 0
-        End If
-        aPPieces = New PPieces(getMaxHeight(playerCount)) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
+        aSegments.Setup(aBoard) 'layout the coloured discs on the board and then randomize them
+        frmPreferences.ShowDialog() 'Find out who's playing
+        aTurn.init() 'works our active players and maxheight and who'll go first
+        aPPieces = New PPieces(aTurn.MaxHeight) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
         aPPieces.setup(aBoard) 'They are positioned in each of the four corners
 
-        aTurn.rndPlayer() 'Throw the dice to see whose turn it is
         showStatus() 'Let people know whose turn it is
     End Sub
 
-    Private Function getMaxHeight(playerCount As Short)
-        Dim MaxHeight As Short = 12
-
-        Select Case playerCount
-            Case 3
-                MaxHeight = 10
-            Case 4
-                MaxHeight = 8
-        End Select
-        getMaxHeight = MaxHeight
-    End Function
 
     Private Sub frmDiscon_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Resize
         Dim minDim As Short
@@ -2508,9 +2472,6 @@ Friend Class frmDiscon
     End Sub
 
     Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
-        'Left drag to something, Left drag to something - Undo - pass
-        'Left drag to something, Left drag to nothing - Undo - fail -- where 
-
         aTurn.undo()
         showStatus() 'Because move is possible wrong
     End Sub
@@ -2528,15 +2489,11 @@ Friend Class frmDiscon
     End Sub
 
     Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
-        aTurn.init()
+        frmPreferences.ShowDialog() 'popup to ask about players
+        aTurn.init() 'Turn object works out active players, maximum tower height and who'll go first
+        aSegments.Setup(aBoard) 'segments are drawn and randomized
         aPPieces.setup(aBoard)
-        aSegments.Setup(aBoard)
-        frmPreferences.ShowDialog()
-        If My.Settings.Player1Human Then aTurn.getPlayer(1).Status = 1 Else aTurn.getPlayer(1).Status = 0
-        If My.Settings.Player2Human Then aTurn.getPlayer(2).Status = 1 Else aTurn.getPlayer(2).Status = 0
-        If My.Settings.Player3Human Then aTurn.getPlayer(3).Status = 1 Else aTurn.getPlayer(3).Status = 0
-        If My.Settings.Player4Human Then aTurn.getPlayer(4).Status = 1 Else aTurn.getPlayer(4).Status = 0
-        aTurn.rndPlayer()
+        aPPieces.MaxHeight = aTurn.MaxHeight 'The pieces, have towers and, when adding, they need to know about height restrictions.
         showStatus()
     End Sub
 
@@ -2585,7 +2542,7 @@ Friend Class frmDiscon
         aPlayer = aTurn.getPlayer 'This is who's turn it is
         If aPlayer.ID <> aPiece.Owner Then
             MsgBox("It's player number " & aPlayer.ID & "'s turn.")
-            aPPieces.draw()
+            aPiece.Draw() 'aPPieces.draw()
         Else 'the right person has had a turn
             oldValue = aPiece.Score 'remember the current score
             aTurn.saveSource(aPiece) 'remember for undo
@@ -2605,7 +2562,8 @@ Friend Class frmDiscon
                         lastPiece = aPiece 'remember the last piece to move
                     End If
                 Else 'illegal move
-                    MsgBox("Illegal destination " & x & ", " & y) 'no need to undo
+                    MsgBox("Illegal move from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y) 'no need to undo
+                    aPiece.Draw()
                 End If
             Else 'right click is for abandoning a pile of segments
                 If aPiece.Abandon(x, y) Then
@@ -2618,7 +2576,7 @@ Friend Class frmDiscon
                         'aSegments.AddAny(lastPiece, (lastPiece.XPos), (lastPiece.YPos)) 'this should be part of the undo
                     End If
                 Else
-                    MsgBox("Illegal abandon/add to " & x & ", " & y)
+                    MsgBox("Illegal abandon from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y)
                 End If
             End If
             newValue = aPiece.Score

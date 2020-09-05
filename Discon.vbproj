@@ -113,8 +113,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Discon.doc" />
-    <None Include="Issues.doc" />
     <None Include="My Project\Settings.settings">
       <CustomToolNamespace>My</CustomToolNamespace>
       <Generator>SettingsSingleFileGenerator</Generator>
