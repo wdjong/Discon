@@ -548,6 +548,7 @@ Friend Class frmDiscon
         Me.Dragger.TabIndex = 121
         Me.Dragger.TabStop = False
         Me.ToolTip1.SetToolTip(Me.Dragger, "Dragger")
+        Me.Dragger.Visible = False
         '
         '_ppiece_24
         '
@@ -2418,19 +2419,21 @@ Friend Class frmDiscon
     End Property
 #End Region
 
-    Dim mouseButton As Short 'when the mouse button is clicked record which button is used.
-    Dim aBoard As New Board
-    Dim aSegments As New Segments
-    Dim aPPieces As New PPieces(12)
-    Dim aTurn As New Turn
-    Dim lastPiece As New PPiece(12)
-    Dim IsUDraggin As Boolean 'Drop and Drag support of PPieces
-    Dim origX As Long
-    Dim origY As Long
+    Private mouseButton As Short 'when the mouse button is clicked record which button is used.
+    Private aBoard As New Board
+    Private aSegments As New Segments
+    Private aPPieces As New PPieces(12)
+    Private aTurn As New Turn
+    'Dim lastPiece As New PPiece(12)
+    Private IsUDraggin As Boolean 'Drop and Drag support of PPieces
+    Private IsUDisplayin As Boolean 'While displaying disable drag and drop
+    Private origX As Long
+    Private origY As Long
+    Private GameOver As Boolean
 
     Private Sub frmDiscon_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         'Set up the game -- All New objects should be created here.... (i.e. have other Init routines for File New Game that don't create new objects. Reuse objects
-        Dragger.Visible = False 'piece used for drag and drop see ppiecemousedown
+        ''Dragger.Visible = False 'piece used for drag and drop see ppiecemousedown
         mouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
 
         aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is / incl. basic game/rule info like MaxHeight
@@ -2438,13 +2441,13 @@ Friend Class frmDiscon
         aSegments = New Segments 'A collection of coloured discs
         aSegments.Setup(aBoard) 'layout the coloured discs on the board and then randomize them
         frmPreferences.ShowDialog() 'Find out who's playing
-        aTurn.init() 'works our active players and maxheight and who'll go first
+        aTurn.Init() 'works our active players and maxheight and who'll go first
         aPPieces = New PPieces(aTurn.MaxHeight) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
         aPPieces.setup(aBoard) 'They are positioned in each of the four corners
+        GameOver = False
 
         showStatus() 'Let people know whose turn it is
     End Sub
-
 
     Private Sub frmDiscon_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Resize
         Dim minDim As Short
@@ -2472,7 +2475,7 @@ Friend Class frmDiscon
     End Sub
 
     Public Sub mnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
-        aTurn.undo()
+        aTurn.Undo()
         showStatus() 'Because move is possible wrong
     End Sub
 
@@ -2490,11 +2493,12 @@ Friend Class frmDiscon
 
     Public Sub mnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
         frmPreferences.ShowDialog() 'popup to ask about players
-        aTurn.init() 'Turn object works out active players, maximum tower height and who'll go first
+        aTurn.Init() 'Turn object works out active players, maximum tower height and who'll go first
         aSegments.Setup(aBoard) 'segments are drawn and randomized
         aPPieces.setup(aBoard)
         aPPieces.MaxHeight = aTurn.MaxHeight 'The pieces, have towers and, when adding, they need to know about height restrictions.
         showStatus()
+        GameOver = False
     End Sub
 
     Private Sub MenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MenuItem1.Click
@@ -2516,15 +2520,20 @@ Friend Class frmDiscon
         Dim aPiece As PPiece
         Dim i As Integer
 
-        aPiece = aPPieces.getPiece(Source.Tag)
-        aPiece.Displayed = True
-        aPiece.DisplayTower()
-        For i = 1 To 10
-            Application.DoEvents()
-            System.Threading.Thread.Sleep(100)
-        Next
-        aPiece.Displayed = False
-        aPiece.Draw()
+        If Not IsUDisplayin Then
+            IsUDisplayin = True 'prevent drag and drop
+            aPiece = aPPieces.getPiece(Source.Tag)
+            aPiece.Displayed = True
+            aPiece.DisplayTower()
+            For i = 1 To 10
+                Application.DoEvents()
+                System.Threading.Thread.Sleep(100)
+            Next
+            aPiece.Displayed = False
+            aPiece.Draw()
+            IsUDisplayin = False
+        End If
+
     End Sub
 
     Private Sub segment_DragDrop(ByRef Source As System.Windows.Forms.Control, ByRef x As Single, ByRef y As Single)
@@ -2539,40 +2548,40 @@ Friend Class frmDiscon
 
         aPiece = aPPieces.getPiece(Source.Tag) 'This is who (which piece to be precise) moved
         'we could pass apiece from the mouseup routine as we've worked it out there already
-        aPlayer = aTurn.getPlayer 'This is who's turn it is
+        aPlayer = aTurn.GetPlayer 'This is who's turn it is
         If aPlayer.ID <> aPiece.Owner Then
             MsgBox("It's player number " & aPlayer.ID & "'s turn.")
             aPiece.Draw() 'aPPieces.draw()
         Else 'the right person has had a turn
             oldValue = aPiece.Score 'remember the current score
-            aTurn.saveSource(aPiece) 'remember for undo
-            aSegment = aSegments.GetSegmentXY(x, y) 'Note there maybe more than one this is basically a test that it's not empty...
+            aTurn.SaveSource(aPiece) 'Before move, remember for undo
             If mouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
-                If aPiece.Move(x, y) Then 'move returns true if destination is legal
+                If aPiece.Move(x, y) Then 'move player piece (image and object including existing tower) if destination is legal
+                    aSegment = aSegments.GetSegmentXY(x, y) 'Note: there maybe more than one this is basically a test that it's not empty...
                     If aSegment IsNot Nothing Then 'There are one or more segments to add
-                        If aSegments.AddAny(aPiece, x, y) Then 'Add any segments found that are not already in the tower.
-                            aTurn.incMove(aPiece) 'count move. If second, check you're not in foreign territory
-                            lastPiece = aPiece 'remember the last piece to move
+                        If aSegments.AddAny(aPiece, x, y) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight
+                            aTurn.IncMove() 'count move. If second, check you're not in foreign territory
+                            'lastPiece = aPiece 'remember the last piece to move
                         Else
-                            MsgBox(aSegments.Message)
-                            aTurn.undo() 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
+                            MsgBox(aSegments.Message) 'Problem adding: display reason
+                            aTurn.Undo() 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
                         End If
                     Else
-                        aTurn.incMove(aPiece) 'count moves. If second, check you're not in foreign territory
-                        lastPiece = aPiece 'remember the last piece to move
+                        aTurn.IncMove() 'count moves. If second, check you're not in foreign territory
+                        'lastPiece = aPiece 'remember the last piece to move
                     End If
                 Else 'illegal move
                     MsgBox("Illegal move from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y) 'no need to undo
                     aPiece.Draw()
                 End If
             Else 'right click is for abandoning a pile of segments
-                If aPiece.Abandon(x, y) Then
+                If aPiece.Abandon(x, y) Then 'move player piece (image and object removes tower and updates) (but not tower yet) if destination is legal
                     If aSegments.AddAny(aPiece, x, y) Then
-                        aTurn.incMove(aPiece)
-                        lastPiece = aPiece
+                        aTurn.IncMove()
+                        'lastPiece = aPiece
                     Else
                         'MsgBox("Adding failed")
-                        aTurn.undo()
+                        aTurn.Undo()
                         'aSegments.AddAny(lastPiece, (lastPiece.XPos), (lastPiece.YPos)) 'this should be part of the undo
                     End If
                 Else
@@ -2582,9 +2591,22 @@ Friend Class frmDiscon
             newValue = aPiece.Score
             aPiece.UpdateTooltip() 'to display colour and height
             aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
+            If CountOwned() = aSegments.MaxSegments() Then
+                GameOver = True
+                MsgBox(aTurn.LeadingPlayer() & " won.")
+            End If
         End If
         showStatus()
     End Sub
+
+    Private Function CountOwned() As Object
+        Dim i As Short
+
+        CountOwned = 0
+        For i = 1 To 24
+            CountOwned += aPPieces.getPiece(i).GetTower.Height
+        Next
+    End Function
 
     Private Sub frmDiscon_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
         aBoard.draw(e.Graphics)
@@ -2596,11 +2618,11 @@ Friend Class frmDiscon
         'the sender is the object that detected the mousedown event... should be the player piece
         'e.x and e.y are pixel position within the piece
         'add them to the sender.left and sender.top to derive the mouse position on the form
-        If Not IsUDraggin Then
+        If Not GameOver And Not IsUDraggin And Not IsUDisplayin Then 'Not dragging and not displaying
             IsUDraggin = True
-            Dragger = sender 'copy position etc.?
-            Dragger.Visible = True
-            Dragger.BringToFront()
+            ''Dragger = sender 'copy position etc.?
+            ''Dragger.Visible = True
+            ''Dragger.BringToFront()
             origX = e.X 'remember where we started from (clicked)
             origY = e.Y
             If e.Button = MouseButtons.Right Then
@@ -2612,12 +2634,15 @@ Friend Class frmDiscon
     End Sub
 
     Private Sub PPieceMouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles _ppiece_1.MouseMove, _ppiece_2.MouseMove, _ppiece_3.MouseMove, _ppiece_4.MouseMove, _ppiece_5.MouseMove, _ppiece_6.MouseMove, _ppiece_7.MouseMove, _ppiece_8.MouseMove, _ppiece_9.MouseMove, _ppiece_10.MouseMove, _ppiece_11.MouseMove, _ppiece_12.MouseMove, _ppiece_13.MouseMove, _ppiece_14.MouseMove, _ppiece_15.MouseMove, _ppiece_16.MouseMove, _ppiece_17.MouseMove, _ppiece_18.MouseMove, _ppiece_19.MouseMove, _ppiece_20.MouseMove, _ppiece_21.MouseMove, _ppiece_22.MouseMove, _ppiece_23.MouseMove, _ppiece_24.MouseMove
+        'Reposition the player piece
+        'e.x and e.y are relative pixel position within the piece
+        'add them to the sender.left and sender.top to derive the mouse position on the form
         If IsUDraggin Then
-            ' reposition the dragging representation of the player piece
-            'e.x and e.y are pixel position within the piece
-            'add them to the sender.left and sender.top to derive the mouse position on the form
-            Dragger.Left = sender.left + e.X - origX
-            Dragger.Top = sender.top + e.Y - origY
+            'sender is Player piece control (picturebox)
+            sender.Left = sender.left + e.X - origX
+            sender.Top = sender.top + e.Y - origY
+            ''Dragger.Left = sender.left + e.X - origX
+            ''Dragger.Top = sender.top + e.Y - origY
         End If
     End Sub
 
@@ -2647,10 +2672,10 @@ Friend Class frmDiscon
         Dim aSB As Windows.Forms.StatusBar
 
         aSB = StatusBar1
-        aSB.Panels(0).Text = "Player " & aTurn.player & " move " & aTurn.move
-        For p = 1 To aTurn.maxPlayer
-            If aTurn.status(p) = 1 Then 'this player is in the game
-                aSB.Panels(p).Text = "Score " & p & ": " & aTurn.score(p)
+        aSB.Panels(0).Text = "Player " & aTurn.Player & " move " & aTurn.Move
+        For p = 1 To aTurn.MaxPlayer
+            If aTurn.Status(p) = 1 Then 'this player is in the game
+                aSB.Panels(p).Text = "Score " & p & ": " & aTurn.Score(p)
             Else
                 aSB.Panels(p).Text = ""
             End If

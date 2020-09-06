@@ -6,6 +6,13 @@ Friend Class Segments
     Dim aSegments(MAXSEGM) As Segment 'New Segment
     Dim oBoard As Board 'for storing segment information
 
+    Public ReadOnly Property MaxSegments()
+        'Supports knowing when the game is over
+        Get
+            MaxSegments = MAXSEGM
+        End Get
+    End Property
+
     Public Property Message() As String
 
     Function AddAny(ByRef aPiece As PPiece, ByRef x As Short, ByRef y As Short) As Boolean
@@ -88,19 +95,19 @@ Friend Class Segments
             aSegments(s).ID = s 'unique identifier
             aSegments(s).Move(Int(s / aBoard.maxY) + 1, (s Mod aBoard.maxY) + 1) 'lay them out based on id to start
             Select Case s
-                Case 1 To MAXSEGM * 2 / 12
-                    aSegments(s).Colour = 1 'ivory
-                Case MAXSEGM * 2 / 12 + 1 To MAXSEGM * 5 / 12
-                    aSegments(s).Colour = 2 'pink
-                Case MAXSEGM * 5 / 12 + 1 To MAXSEGM * 8 / 12
-                    aSegments(s).Colour = 3 'blue
-                Case MAXSEGM * 8 / 12 + 1 To MAXSEGM
-                    aSegments(s).Colour = 4 'purple
+                Case 1 To 16 'MAXSEGM * 2 / 12 '
+                    aSegments(s).Colour = 1 '16 Ivory
+                Case 17 To 40 'MAXSEGM * 2 / 12 + 1 To MAXSEGM * 5 / 12
+                    aSegments(s).Colour = 2 '24 Pink  
+                Case 49 To 64 'MAXSEGM * 5 / 12 + 1 To MAXSEGM * 8 / 12
+                    aSegments(s).Colour = 3 '24 Blue
+                Case 65 To 96 'MAXSEGM * 8 / 12 + 1 To MAXSEGM
+                    aSegments(s).Colour = 4 '32 Purple
             End Select
             aSegments(s).Value = 0
             aSegments(s).VerticalPos = 1
         Next s
-        aSegments(9).Move(10, 8) 'the method above does most of the job
+        aSegments(9).Move(10, 8) 'the Move method above does most of the job
         aSegments(90).Move(10, 9) 'this just finishes it
         For d = 1 To DEGREESOFCHAOS 'mix them 
             Randomize()
@@ -125,19 +132,6 @@ Friend Class Segments
         Next x
     End Sub
 
-    'Sub SetSegment(ByRef s As Short, ByRef aSegment As Segment)
-    '    aSegments(s) = aSegment
-    'End Sub
-
-    'Sub SetBoard(ByRef aBoard As Board)
-    '    Dim i As Short
-
-    '    oBoard = aBoard
-    '    For i = 1 To MAXSEGM
-    '        aSegments(i).SetBoard(aBoard)
-    '    Next i
-    'End Sub
-
     Sub Swap(ByRef i As Short, ByRef j As Short)
         'swap two segement positions during initialization
         Dim x As Short
@@ -157,4 +151,5 @@ Friend Class Segments
             aSegments(i) = New Segment
         Next i
     End Sub
+
 End Class

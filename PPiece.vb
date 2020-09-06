@@ -180,6 +180,7 @@ Friend Class PPiece
     End Function
 
     Function Move(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
+        'Checks position legality and updates Player Piece position and draws piece in new position
         Move = False ' may fail
         If oBoard.onBoard(aXDest, aYDest) Then
             If LegalMove(aXDest, aYDest) Then
@@ -229,7 +230,7 @@ Friend Class PPiece
     Sub UpdateTooltip()
         Try
             Dim aControl As Control = frmDiscon.DefInstance.ppiece(iPPID) 'Player piece as determined by iPPID
-            Dim aCaption As String = Owner & ": "
+            Dim aCaption As String = Owner & "-" & PPID & ": " 'show owner and player piece id
             aCaption += cTower.Description 'as determined in cTower.CheckColor()
             aCaption += "(" & cTower.Height & ")"
             frmDiscon.DefInstance.ToolTip1.SetToolTip(aControl, aCaption)
