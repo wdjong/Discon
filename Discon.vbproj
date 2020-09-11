@@ -7,11 +7,10 @@
     <ProjectGuid>{6FE22E48-7298-404A-8255-89DFBE4EE735}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Discon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>discon</AssemblyName>
+    <AssemblyName>Discon</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -35,7 +34,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
-    <DocumentationFile>discon.xml</DocumentationFile>
+    <DocumentationFile>Discon.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -53,7 +52,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
-    <DocumentationFile>discon.xml</DocumentationFile>
+    <DocumentationFile>Discon.xml</DocumentationFile>
     <BaseAddress>285212672</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
@@ -107,6 +106,9 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmHistory.resx">
+      <DependentUpon>frmHistory.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -130,7 +132,13 @@
     <Compile Include="Board.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="frmDiscon.vb">
+    <Compile Include="FrmDiscon.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHistory.Designer.vb">
+      <DependentUpon>frmHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHistory.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPreferences.designer.vb">
@@ -179,8 +187,8 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDiscon.resX">
-      <DependentUpon>frmDiscon.vb</DependentUpon>
+    <EmbeddedResource Include="FrmDiscon.resX">
+      <DependentUpon>FrmDiscon.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPreferences.resx">
@@ -194,6 +202,7 @@
     <Content Include="3.gif" />
     <Content Include="4.gif" />
     <Content Include="blue.gif" />
+    <Content Include="Discon.ico" />
     <Content Include="DisconHelp.html" />
     <Content Include="ivory.gif" />
     <Content Include="pink.gif" />

@@ -20,12 +20,12 @@ Partial Class frmPreferences
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPreferences))
-        Me.btnOK = New System.Windows.Forms.Button
-        Me.btnCancel = New System.Windows.Forms.Button
-        Me.chkPlayer1 = New System.Windows.Forms.CheckBox
-        Me.chkPlayer2 = New System.Windows.Forms.CheckBox
-        Me.chkPlayer3 = New System.Windows.Forms.CheckBox
-        Me.chkPlayer4 = New System.Windows.Forms.CheckBox
+        Me.btnOK = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.chkPlayer1 = New System.Windows.Forms.CheckBox()
+        Me.chkPlayer2 = New System.Windows.Forms.CheckBox()
+        Me.chkPlayer3 = New System.Windows.Forms.CheckBox()
+        Me.chkPlayer4 = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'btnOK

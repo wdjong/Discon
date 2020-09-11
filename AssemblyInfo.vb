@@ -11,10 +11,10 @@ Imports System.Runtime.InteropServices
 
 
 <Assembly: AssemblyTitle("Discon")> 
-<Assembly: AssemblyDescription("Tower building game")> 
-<Assembly: AssemblyCompany("Walter")> 
-<Assembly: AssemblyProduct("Discon game software")> 
-<Assembly: AssemblyCopyright("copyright W de Jong 2002-2006")> 
+<Assembly: AssemblyDescription("Tower building game")>
+<Assembly: AssemblyCompany("Walter de Jong")>
+<Assembly: AssemblyProduct("Discon game software")>
+<Assembly: AssemblyCopyright("copyright W de Jong 2002-2020")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
@@ -29,6 +29,6 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below
 
 
-<Assembly:  AssemblyVersion("2.0.*")>
+<Assembly: AssemblyVersion("3.0.*")>
 
 

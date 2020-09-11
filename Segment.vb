@@ -80,7 +80,7 @@ Friend Class Segment
         mbytXPos = x 'set new SEG xpos
         mbytYPos = y 'set new SEG ypos
         mbooOnBoard = oBoard.onBoard(x, y)
-        Draw()
+        'Draw()
     End Sub
 
     Public Sub Remove()
@@ -97,8 +97,8 @@ Friend Class Segment
         If Not oBoard Is Nothing Then
             x = mbytXPos * oBoard.positionWidth
             y = (oBoard.maxY + 1 - mbytYPos) * oBoard.positionHeight
-            frmDiscon.DefInstance.segment(iSID).Left = VB6.TwipsToPixelsX(x)
-            frmDiscon.DefInstance.segment(iSID).Top = VB6.TwipsToPixelsY(y)
+            FrmDiscon.DefInstance.segment(iSID).Left = VB6.TwipsToPixelsX(x)
+            FrmDiscon.DefInstance.segment(iSID).Top = VB6.TwipsToPixelsY(y)
         End If
     End Sub
 
@@ -108,8 +108,8 @@ Friend Class Segment
 
         If Not oBoard Is Nothing Then
             d = oBoard.positionWidth - 5
-            frmDiscon.DefInstance.segment(iSID).Width = VB6.TwipsToPixelsX(d)
-            frmDiscon.DefInstance.segment(iSID).Height = VB6.TwipsToPixelsY(d)
+            FrmDiscon.DefInstance.segment(iSID).Width = VB6.TwipsToPixelsX(d)
+            FrmDiscon.DefInstance.segment(iSID).Height = VB6.TwipsToPixelsY(d)
         End If
     End Sub
 
@@ -117,9 +117,9 @@ Friend Class Segment
         Const xdiv As Short = 5 'make this less to spread it out to the left more
         Const ydiv As Short = 10 'make this less to spread it out more upwards
 
-        frmDiscon.DefInstance.segment(iSID).Left = VB6.TwipsToPixelsX(mbytXPos * oBoard.positionWidth - i * oBoard.positionWidth / xdiv)
-        frmDiscon.DefInstance.segment(iSID).Top = VB6.TwipsToPixelsY((oBoard.maxY + 1 - mbytYPos) * oBoard.positionHeight - i * oBoard.positionHeight / ydiv)
-        frmDiscon.DefInstance.segment(iSID).SendToBack() 'send to back
+        FrmDiscon.DefInstance.segment(iSID).Left = VB6.TwipsToPixelsX(mbytXPos * oBoard.positionWidth - i * oBoard.positionWidth / xdiv)
+        FrmDiscon.DefInstance.segment(iSID).Top = VB6.TwipsToPixelsY((oBoard.maxY + 1 - mbytYPos) * oBoard.positionHeight - i * oBoard.positionHeight / ydiv)
+        FrmDiscon.DefInstance.segment(iSID).SendToBack() 'send to back
     End Sub
 
     Sub SetBoard(ByRef aBoard As Board)

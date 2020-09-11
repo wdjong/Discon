@@ -1,10 +1,10 @@
 Public Class frmPreferences
 
-    Private Sub btnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
+    Private Sub BtnCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancel.Click
         Me.Close()
     End Sub
 
-    Private Sub frmSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FrmSettings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'Populate form with current settings
         chkPlayer1.Checked = My.Settings.Player1Human
         chkPlayer2.Checked = My.Settings.Player2Human
@@ -12,7 +12,7 @@ Public Class frmPreferences
         chkPlayer4.Checked = My.Settings.Player4Human
     End Sub
 
-    Private Sub btnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
+    Private Sub BtnOK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOK.Click
         ' Update Settings.settings
         My.Settings.Player1Human = chkPlayer1.Checked
         My.Settings.Player2Human = chkPlayer2.Checked

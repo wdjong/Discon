@@ -2,20 +2,32 @@ Option Strict Off
 Option Explicit On
 Friend Class Segments
 
-    Const MAXSEGM As Short = 96 '16 Ivory, 24 Blue, 24 Pink and 32 Purple
-    Dim aSegments(MAXSEGM) As Segment 'New Segment
-    Dim oBoard As Board 'for storing segment information
+    Const cMAXSEGM As Short = 96 '16 Ivory, 24 Blue, 24 Pink and 32 Purple
+    Private mSegments(cMAXSEGM) As Segment 'New Segment
+    Private mBoard As Board 'for storing segment information
 
+    'Constructor
+    Public Sub New()
+        'Initialize array of segments
+        Dim i As Short
+
+        For i = 1 To cMAXSEGM
+            mSegments(i) = New Segment
+        Next i
+    End Sub
+
+    'Properties
     Public ReadOnly Property MaxSegments()
         'Supports knowing when the game is over
         Get
-            MaxSegments = MAXSEGM
+            MaxSegments = cMAXSEGM
         End Get
     End Property
 
     Public Property Message() As String
 
-    Function AddAny(ByRef aPiece As PPiece, ByRef x As Short, ByRef y As Short) As Boolean
+    'Methods
+    Friend Function AddAny(aPiece As PPiece) As Boolean
         'Add any pieces that aren't already in the tower to the bottom of the tower (in the right order)
         Dim s1 As Short 'segment index
         Dim s2 As Short 'segment index
@@ -24,43 +36,104 @@ Friend Class Segments
         Dim existingCount As Short = 0 'handle the case where teh segments have already been moved there.
         'Prevent exceeding maximum
 
-        AddAny = True
-        For s1 = 1 To MAXSEGM 'check all segment locations for a match with the location of the passed piece
-            If aSegments(s1).XPos = x And aSegments(s1).YPos = y Then
-                If aPiece.cTower.IDExists(aSegments(s1).ID) Then
+        Try
+            AddAny = True
+            For s1 = 1 To cMAXSEGM 'check all segment locations for a match with the location of the passed piece
+                If mSegments(s1).XPos = aPiece.XPos And mSegments(s1).YPos = aPiece.YPos Then
+                    If aPiece.GetTower.IDExists(mSegments(s1).ID) Then 'check if id is already in player piece's tower.
+                        existingCount += 1
+                    Else
+                        sToAdd(mSegments(s1).VerticalPos) = mSegments(s1) 'put the segment in order in the pile of segments to add
+                        sToAddCount += 1
+                    End If
+                End If
+            Next s1
+
+            If sToAddCount > 0 Then
+                If aPiece.GetTower.Height + sToAddCount <= aPiece.GetTower.MaxHeight Then
+                    For s2 = sToAddCount To 1 Step -1
+                        If Not aPiece.Add(sToAdd(s2)) Then 'Calls tower Add which should update Vertical position
+                            MsgBox(aPiece.Message) 'Please explain.
+                        End If
+                    Next
+                Else
+                    Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.GetTower.Height & ") exceeds the height restriction: " & aPiece.GetTower.MaxHeight
+                    Debug.Print(Message)
+                    AddAny = False
+                End If
+            End If
+        Catch ex As Exception
+            Message = ex.Message
+            Debug.Print(Message)
+            'Stop
+        End Try
+
+    End Function
+
+    Friend Function AddN(aPiece As PPiece, n As Short) As Boolean
+        'Add n segments pieces that aren't already in the tower to the bottom of the tower (in the right order)
+        Dim s1 As Short 'segment index
+        Dim s2 As Short 'segment index
+        Dim sToAdd(12) As Segment 'Found segments
+        Dim sToAddCount As Short = 0 'Track how many to be added
+        Dim existingCount As Short = 0 'handle the case where teh segments have already been moved there.
+        'Prevent exceeding maximum
+
+        AddN = True
+        For s1 = 1 To cMAXSEGM 'check all segment locations for a match with the location of the passed piece
+            If mSegments(s1).XPos = aPiece.XPos And mSegments(s1).YPos = aPiece.YPos Then
+                If aPiece.GetTower.IDExists(mSegments(s1).ID) Then 'check if id is already in player piece's tower.
                     existingCount += 1
                 Else
-                    sToAdd(aSegments(s1).VerticalPos) = aSegments(s1) 'put the segment in order in the pile of segments to add
+                    sToAdd(mSegments(s1).VerticalPos) = mSegments(s1) 'put the segment in order in the pile of segments to add
                     sToAddCount += 1
                 End If
             End If
         Next s1
 
+        If n <> sToAddCount Then
+            MsgBox("AddN: There are not " & n & " to add.")
+        End If
+
         If sToAddCount > 0 Then
-            If aPiece.cTower.Height + sToAddCount <= aPiece.cTower.MaxHeight Then
+            If aPiece.GetTower.Height + sToAddCount <= aPiece.GetTower.MaxHeight Then
                 For s2 = sToAddCount To 1 Step -1
                     If Not aPiece.Add(sToAdd(s2)) Then 'Calls tower Add which should update Vertical position
                         MsgBox(aPiece.Message) 'Please explain.
                     End If
                 Next
             Else
-                Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.cTower.Height & ") exceeds the height restriction: " & aPiece.cTower.MaxHeight
-                AddAny = False
+                Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.GetTower.Height & ") exceeds the height restriction: " & aPiece.GetTower.MaxHeight
+                Debug.Print(Message)
+                AddN = False
             End If
         End If
 
     End Function
 
+    Function CountSegmentXY(aPPiece As PPiece) As Short
+        Dim s As Short
+
+        CountSegmentXY = 0
+        For s = 1 To cMAXSEGM 'check all segment locations for a match with the location of the passed piece
+            If mSegments(s).XPos = aPPiece.XPos And mSegments(s).YPos = aPPiece.YPos Then
+                If Not aPPiece.GetTower.IDExists(mSegments(s).ID) Then 'check if id is already in player piece's tower.
+                    CountSegmentXY += 1
+                End If
+            End If
+        Next s
+    End Function
+
     Sub Draw()
         Dim s As Short
 
-        For s = 1 To MAXSEGM
-            aSegments(s).Draw()
+        For s = 1 To cMAXSEGM
+            mSegments(s).Draw()
         Next s
     End Sub
 
     Function GetSegment(ByRef s As Short) As Segment
-        GetSegment = aSegments(s)
+        GetSegment = mSegments(s)
     End Function
 
     Function GetSegmentXY(ByVal x As Short, ByVal y As Short) As Segment
@@ -68,18 +141,26 @@ Friend Class Segments
         Dim s As Short
 
         GetSegmentXY = Nothing
-        For s = 1 To MAXSEGM
-            If aSegments(s).XPos = x And aSegments(s).YPos = y Then
-                GetSegmentXY = aSegments(s)
+        For s = 1 To cMAXSEGM
+            If mSegments(s).XPos = x And mSegments(s).YPos = y Then
+                GetSegmentXY = mSegments(s)
             End If
         Next s
     End Function
 
+    Friend Function GetSegmentXY(aPPiece2 As PPiece) As Segment
+        Throw New NotImplementedException()
+    End Function
+
+    Friend Sub RemoveN(aPPiece As PPiece, n As Short)
+        aPPiece.Remove(n) 'Calls tower Remove which updates Vertical position for tower
+    End Sub
+
     Sub Resize()
         Dim s As Short
 
-        For s = 1 To MAXSEGM
-            aSegments(s).Resize()
+        For s = 1 To cMAXSEGM
+            mSegments(s).Resize()
         Next s
     End Sub
 
@@ -89,29 +170,29 @@ Friend Class Segments
         Dim d As Short
         Const DEGREESOFCHAOS As Short = 150
 
-        oBoard = aBoard
-        For s = 1 To MAXSEGM
-            aSegments(s).SetBoard(aBoard)
-            aSegments(s).ID = s 'unique identifier
-            aSegments(s).Move(Int(s / aBoard.maxY) + 1, (s Mod aBoard.maxY) + 1) 'lay them out based on id to start
-            Select Case s
+        mBoard = aBoard
+        For s = 1 To cMAXSEGM
+            mSegments(s).SetBoard(aBoard)
+            mSegments(s).ID = s 'unique identifier
+            Select Case s 'Allocate colours
                 Case 1 To 16 'MAXSEGM * 2 / 12 '
-                    aSegments(s).Colour = 1 '16 Ivory
+                    mSegments(s).Colour = 1 '16 Ivory
                 Case 17 To 40 'MAXSEGM * 2 / 12 + 1 To MAXSEGM * 5 / 12
-                    aSegments(s).Colour = 2 '24 Pink  
-                Case 49 To 64 'MAXSEGM * 5 / 12 + 1 To MAXSEGM * 8 / 12
-                    aSegments(s).Colour = 3 '24 Blue
+                    mSegments(s).Colour = 2 '24 Pink  
+                Case 40 To 64 'MAXSEGM * 5 / 12 + 1 To MAXSEGM * 8 / 12
+                    mSegments(s).Colour = 3 '24 Blue
                 Case 65 To 96 'MAXSEGM * 8 / 12 + 1 To MAXSEGM
-                    aSegments(s).Colour = 4 '32 Purple
+                    mSegments(s).Colour = 4 '32 Purple
             End Select
-            aSegments(s).Value = 0
-            aSegments(s).VerticalPos = 1
+            mSegments(s).Value = 0
+            mSegments(s).VerticalPos = 1
+            mSegments(s).Move(Int(s / aBoard.maxY) + 1, (s Mod aBoard.maxY) + 1) 'lay them out based on id to start
         Next s
-        aSegments(9).Move(10, 8) 'the Move method above does most of the job
-        aSegments(90).Move(10, 9) 'this just finishes it
+        mSegments(9).Move(10, 8) 'the Move method above does most of the job
+        mSegments(90).Move(10, 9) 'this just finishes it
         For d = 1 To DEGREESOFCHAOS 'mix them 
             Randomize()
-            Swap(Int(Rnd() * MAXSEGM) + 1, Int(Rnd() * MAXSEGM) + 1)
+            Swap(Int(Rnd() * cMAXSEGM) + 1, Int(Rnd() * cMAXSEGM) + 1)
         Next d
     End Sub
 
@@ -122,11 +203,11 @@ Friend Class Segments
         Dim y As Short
         Dim i As Short
 
-        For x = 1 To oBoard.maxX 'each board position
-            For y = 1 To oBoard.maxY
-                i = oBoard.getGBoardID(x, y) 'NB IDs are 1 to 32
+        For x = 1 To mBoard.maxX 'each board position
+            For y = 1 To mBoard.maxY
+                i = mBoard.getGBoardID(x, y) 'NB IDs are 1 to 32
                 If i > 0 Then 'if a piece is on it
-                    aSegments(i).Move(x, y)
+                    mSegments(i).Move(x, y)
                 End If
             Next y
         Next x
@@ -137,19 +218,10 @@ Friend Class Segments
         Dim x As Short
         Dim y As Short
 
-        x = aSegments(i).XPos
-        y = aSegments(i).YPos
-        aSegments(i).Move((aSegments(j).XPos), (aSegments(j).YPos))
-        aSegments(j).Move(x, y)
-    End Sub
-
-    Public Sub New()
-        'Initialize array of segments
-        Dim i As Short
-
-        For i = 1 To MAXSEGM
-            aSegments(i) = New Segment
-        Next i
+        x = mSegments(i).XPos
+        y = mSegments(i).YPos
+        mSegments(i).Move((mSegments(j).XPos), (mSegments(j).YPos))
+        mSegments(j).Move(x, y)
     End Sub
 
 End Class

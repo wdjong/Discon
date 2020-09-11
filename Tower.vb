@@ -235,7 +235,7 @@ Friend Class Tower
         Dim i As Short
 
         For i = 1 To Height
-            sTower(i).Move(xDest, yDest) 'each disc
+            sTower(i).Move(xDest, yDest)
         Next i
     End Sub
 
@@ -493,16 +493,12 @@ Friend Class Tower
     End Sub
 
     Public Sub Remove()
-        'remove the last/bottom disc from the tower
+        'remove the last/bottom disc from the tower 'Note: top segment in tower has index 1, bottom segment in index = height
         If Height > 0 Then
             sTower(Height) = Nothing 'set pointer to nothing
             Height -= 1
         End If
-        If Height > 0 Then
-            UpdateScore()
-        Else
-            iValue = 0
-        End If
+        UpdateScore()
         'SetVerticalHeights() 'Don't adjust Vertical Height here. Just remove from piece. Since you can't undo the building the vertical height should remain unchanged.
     End Sub
 
