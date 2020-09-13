@@ -1,8 +1,10 @@
-Option Strict Off
-Option Explicit On
-Imports System.Security.Cryptography
+'Option Strict Off
+'Option Explicit On
+'Imports System.Security.Cryptography
+Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.html
 
-Friend Class Turn
+<Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
+Public Class Turn
     'a collection of Player objects
     Private Const cMAXPLAYER As Short = 4 '4 players
     Private Const cMAXMOVE As Short = 2 '2 moves per turn
@@ -19,7 +21,7 @@ Friend Class Turn
         MyBase.New()
         Dim i As Short
         For i = 1 To cMAXMOVE
-            mPPieceCopies(i) = New PPiece(12)
+            mPPieceCopies(i) = New PPiece(i, 12)
         Next i
         For i = 1 To MaxPlayer
             mPlayers(i) = New Player()
@@ -91,6 +93,19 @@ Friend Class Turn
     Public Property Message() As String
 
     'Methods
+    Public Sub CopyTo(ByRef DestTurn As Turn)
+        'copy from this Turn to the passed Turn
+        Dim p As Short 'player index
+        Try
+            DestTurn.Player = Player
+            For p = 1 To MaxPlayer
+                GetPlayer(p).CopyTo(DestTurn.GetPlayer(p))
+            Next
+        Catch ex As Exception
+            Message = ex.Message
+            Debug.Print(Message)
+        End Try
+    End Sub
 
     Public Sub DecMove()
         'Decrement the move counter
@@ -146,18 +161,18 @@ Friend Class Turn
         Try
             IncMove = True
             If Move = 2 Then
-            If (mPPieceRefs(1).InForeignHome Or mPPieceRefs(2).InForeignHome) Then
-                Message = "You can't end leave your pieces in someone else's home. "
-                Debug.Print(Message)
-                IncMove = False
-                Exit Function
+                If (mPPieceRefs(1).InForeignHome Or mPPieceRefs(2).InForeignHome) Then
+                    Message = "You can't end leave your pieces in someone else's home. "
+                    Debug.Print(Message)
+                    IncMove = False
+                    Exit Function
+                End If
             End If
-        End If
-        Move += 1
-        If Move > cMAXMOVE Then 'Next Player
-            IncPlayer()
-            Move = 1
-        End If
+            Move += 1
+            If Move > cMAXMOVE Then 'Next Player
+                IncPlayer()
+                Move = 1
+            End If
 
         Catch ex As Exception
             Message = ex.Message
@@ -197,7 +212,7 @@ Friend Class Turn
         Move = 1 'of the 
         PlayerCount = 0 'work out active players
         For i = 1 To cMAXPLAYER
-            mPlayers(i).ID = i
+            mPlayers(i).PID = i
             mPlayers(i).Score = 0
             Select Case i
                 Case 1
@@ -246,11 +261,11 @@ Friend Class Turn
                 If aPlayer.Score > LeadingScore Then
 
                     iLeaderCount = 1 'a leader found
-                    iLeadingID(1) = aPlayer.ID 'store id
+                    iLeadingID(1) = aPlayer.PID 'store id
                     LeadingScore = aPlayer.Score 'remember best score
                 ElseIf aPlayer.Score = LeadingScore Then
                     iLeaderCount += 1 'another leader found
-                    iLeadingID(iLeaderCount) = aPlayer.ID
+                    iLeadingID(iLeaderCount) = aPlayer.PID
                 End If
             End If
         Next
@@ -291,7 +306,7 @@ Friend Class Turn
         'Copy the piece as it was before being moved
         'oPieceTo is a reference to the piece/s involved in the move updated in incMove (after the move) for use in checking legality of final position i.e. if move 1 still in opposition home
         If Move = 1 Then
-            mPPieceCopies(2).Init(12) 'clear the 2nd piece info in the turn history
+            mPPieceCopies(2).Init(2, 12) 'clear the 2nd piece info in the turn history
             mPPieceRefs(2) = Nothing
         End If
         aPPiece.CopyTo(mPPieceCopies(Move)) 'copy of piece being moved

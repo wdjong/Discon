@@ -1,41 +1,41 @@
-Option Strict Off
-Option Explicit On
-Friend Class PPiece
+'Option Strict Off
+'Option Explicit On
+Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.html
 
+<Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
+Public Class PPiece
+
+    'Private Const PPIECEWIDTH As Short = 480 'You'd think you'd work this out from the board.
+    'Private Const PPIECEHEIGHT As Short = 480
+    Private iPPID As Short 'Player Piece ID
+    Private iOwner As Short 'player ID
     Private iXPos As Short 'horizontal position from 1 to Max (10)
     Private iYPos As Short 'horizontal position from 1 to Max (10)
-    Private iOwner As Short 'player ID
-    Private iScore As Short 'value of tower it's on
-    Private iPPID As Short 'Player Piece ID
-    Private bDisplayed As Boolean
-    Private Const PPIECEWIDTH As Short = 480
-    Private Const PPIECEHEIGHT As Short = 480
-    Private cTower As New Tower 'a tower under this piece?
-    Private oBoard As New Board 'the board (for dimensions, positional & info)
+    Private ReadOnly cTower As New Tower 'The tower under this piece
+    Private oBoard As Board 'reference to the board for dimensions, positional & info
+    'Private bDisplayed As Boolean 
 
-    Public Sub New(maxTowerHeight As Short)
+    Public Sub New(aPPID As Short, maxTowerHeight As Short)
         MyBase.New()
-        Init(maxTowerHeight)
+        Init(aPPID, maxTowerHeight)
     End Sub
 
     'properties
-    Public Property Displayed() As Boolean
-        Get
-            Displayed = bDisplayed
-        End Get
-        Set(ByVal Value As Boolean)
-            bDisplayed = Value
-        End Set
-    End Property
+    'Public Property Displayed() As Boolean
+    '    Get
+    '        Displayed = bDisplayed
+    '    End Get
+    '    Set(ByVal Value As Boolean)
+    '        bDisplayed = Value
+    '    End Set
+    'End Property
 
     Public Property Score() As Short
         Get
-            iScore = cTower.Value
-            Score = iScore
+            Score = cTower.Value
         End Get
         Set(ByVal Value As Short)
             'Won't be used normally
-            iScore = Value
             cTower.Value = Value
         End Set
     End Property
@@ -84,7 +84,7 @@ Friend Class PPiece
 
     Public Function Abandon(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
         Abandon = False ' may fail
-        If oBoard.onBoard(aXDest, aYDest) Then
+        If oBoard.OnBoard(aXDest, aYDest) Then
             If LegalMove(aXDest, aYDest) Then
                 iXPos = aXDest
                 iYPos = aYDest
@@ -94,6 +94,10 @@ Friend Class PPiece
         End If
         cTower.CheckColours() 'Updates description used in Tooltip
         Draw() 'need to draw it again even if it was dropped illegally
+    End Function
+
+    Friend Function GetBoardRef() As Board
+        GetBoardRef = oBoard
     End Function
 
     Public Function Add(ByRef aSegment As Segment) As Boolean
@@ -109,16 +113,16 @@ Friend Class PPiece
     Public Sub CopyTo(ByRef DestPlayerPiece As PPiece)
         'copy from this ppiece to the passed ppiece
         Try
-            DestPlayerPiece.Init(cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
-            DestPlayerPiece.Score = iScore
+            DestPlayerPiece.Init(iPPID, cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
+            'DestPlayerPiece.Score = iScore
             DestPlayerPiece.Owner = iOwner
             DestPlayerPiece.XPos = iXPos
             DestPlayerPiece.YPos = iYPos
             DestPlayerPiece.PPID = iPPID
-            DestPlayerPiece.Displayed = bDisplayed
-            cTower.CopyTo(DestPlayerPiece.GetTower)
-            DestPlayerPiece.GetTower.MaxHeight = cTower.MaxHeight
-            DestPlayerPiece.GetTower.Move((DestPlayerPiece.XPos), (DestPlayerPiece.YPos))
+            'DestPlayerPiece.Displayed = bDisplayed
+            cTower.CopyTo(DestPlayerPiece.GetTowerRef)
+            'DestPlayerPiece.GetTower.MaxHeight = cTower.MaxHeight' part of cTower.copyTo
+            DestPlayerPiece.GetTowerRef.Move((DestPlayerPiece.XPos), (DestPlayerPiece.YPos)) ' part of cTower.copyTo
         Catch ex As Exception
             Message = ex.Message
             Debug.Print(Message) 'MsgBox("PPiece.copyTo: " & ex.Message) 'e.g. fails if passed player piece is null / nothing
@@ -130,41 +134,56 @@ Friend Class PPiece
         Const ydiv As Byte = 10 'make this less to spread it out more upwards
 
         cTower.Display() 'displaying the tower calls segment.drawoffset with similar settings
-        FrmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth - cTower.Height * oBoard.positionWidth / xdiv)
-        FrmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight - cTower.Height * oBoard.positionHeight / ydiv)
-        FrmDiscon.DefInstance.ppiece(iPPID).BringToFront() 'bring to front
+        FrmDiscon.DefInstance.PPiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.PositionWidth - cTower.Height * oBoard.PositionWidth / xdiv)
+        FrmDiscon.DefInstance.PPiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.MaxY + 1) - iYPos) * oBoard.PositionHeight - cTower.Height * oBoard.PositionHeight / ydiv)
+        FrmDiscon.DefInstance.PPiece(iPPID).BringToFront() 'bring to front
     End Sub
 
     Public Sub Draw()
         'represent player piece and it's tower...
         If iPPID <> 0 Then 'ippid = 0 when copying to ppiece object in turn
             cTower.Draw()
-            FrmDiscon.DefInstance.ppiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.positionWidth)
-            FrmDiscon.DefInstance.ppiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.maxY + 1) - iYPos) * oBoard.positionHeight)
-            FrmDiscon.DefInstance.ppiece(iPPID).BringToFront() 'bring to front
+            FrmDiscon.DefInstance.PPiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.PositionWidth)
+            FrmDiscon.DefInstance.PPiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.MaxY + 1) - iYPos) * oBoard.PositionHeight)
+            FrmDiscon.DefInstance.PPiece(iPPID).BringToFront() 'bring to front
         End If
         Application.DoEvents()
     End Sub
 
-    Public Function GetTower() As Tower
+    Public Function GetTowerRef() As Tower
         'I often wonder what the point of encapsulating this is...
-        GetTower = cTower
+        GetTowerRef = cTower
     End Function
 
     Public Function InForeignHome() As Boolean
         Dim aHome As Short 'current home
 
-        aHome = oBoard.inHome(iXPos, iYPos)
+        aHome = oBoard.InHome(iXPos, iYPos)
         InForeignHome = (aHome > 0 And aHome <> iOwner)
     End Function
 
-    Public Sub Init(maxTowerHeight As Short)
-        iScore = 0
-        iOwner = 0
-        iXPos = 0
-        iYPos = 0
-        iPPID = 0
-        bDisplayed = False
+    Public Sub Init(aPPID As Short, maxTowerHeight As Short)
+        PPID = aPPID
+        Owner = Int((aPPID - 1) / 6) + 1
+        Select Case Owner
+            Case 1
+                XPos = 1
+                YPos = 1
+            Case 2
+                XPos = 1
+                YPos = 10
+            Case 3
+                XPos = 10
+                YPos = 10
+            Case 4
+                XPos = 10
+                YPos = 1
+            Case Else 'Something went wrong
+                Message = "aPieces(" & aPPID & ").Owner = " & Owner
+                XPos = 5
+                YPos = 5
+        End Select
+
         RemoveAll() 'from tower
         cTower.MaxHeight = maxTowerHeight
     End Sub
@@ -180,7 +199,7 @@ Friend Class PPiece
         'Checks position legality and updates Player Piece position and draws piece in new position
         Try
             Move = False ' may fail
-            If oBoard.onBoard(aXDest, aYDest) Then
+            If oBoard.OnBoard(aXDest, aYDest) Then
                 If LegalMove(aXDest, aYDest) Then
                     iXPos = aXDest
                     iYPos = aYDest
@@ -230,7 +249,7 @@ Friend Class PPiece
                 aXDest -= 1 'left 1 '7 o'clock
                 aYDest -= 2 'down 2
         End Select
-        If oBoard.onBoard(aXDest, aYDest) Then
+        If oBoard.OnBoard(aXDest, aYDest) Then
             If LegalMove(aXDest, aYDest) Then
                 iXPos = aXDest
                 iYPos = aYDest
@@ -273,7 +292,7 @@ Friend Class PPiece
                 aXOrig += 1 'back from left 1 '7 o'clock = '1 o'clock
                 aYOrig += 2 'down 2
         End Select
-        If oBoard.onBoard(aXOrig, aYOrig) Then
+        If oBoard.OnBoard(aXOrig, aYOrig) Then
             iXPos = aXOrig
             iYPos = aYOrig
             cTower.Move(iXPos, iYPos) 'Move tower with player piece
@@ -308,23 +327,22 @@ Friend Class PPiece
     Public Sub Resize()
         'Skip errors relating to resize
         Try
-            FrmDiscon.DefInstance.ppiece(iPPID).Width = VB6.TwipsToPixelsX(oBoard.positionWidth - 5)
-            FrmDiscon.DefInstance.ppiece(iPPID).Height = VB6.TwipsToPixelsY(oBoard.positionHeight - 5)
+            FrmDiscon.DefInstance.PPiece(iPPID).Width = VB6.TwipsToPixelsX(oBoard.PositionWidth - 5)
+            FrmDiscon.DefInstance.PPiece(iPPID).Height = VB6.TwipsToPixelsY(oBoard.PositionHeight - 5)
         Catch ex As Exception
+            Message = ex.Message
+            Debug.Print(Message)
         End Try
     End Sub
 
-    Public Sub SetBoard(ByRef aBoard As Board)
+    Public Sub SetBoardRef(ByRef aBoard As Board)
+        'Just used to get dimensions
         oBoard = aBoard
-    End Sub
-
-    Public Sub SetTower(ByRef aTower As Tower)
-        cTower = aTower
     End Sub
 
     Public Sub UpdateTooltip()
         Try
-            Dim aControl As Control = FrmDiscon.DefInstance.ppiece(iPPID) 'Player piece as determined by iPPID
+            Dim aControl As Control = FrmDiscon.DefInstance.PPiece(iPPID) 'Player piece as determined by iPPID
             Dim aCaption As String = Owner & "-" & PPID & ": " 'show owner and player piece id
             aCaption += cTower.Description 'as determined in cTower.CheckColor()
             aCaption += "(" & cTower.Height & ")"

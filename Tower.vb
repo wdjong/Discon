@@ -1,14 +1,17 @@
-Option Strict Off
-Option Explicit On
-Friend Class Tower
+'Option Strict Off
+'Option Explicit On
+Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.html
 
-    Private sTower(12) As Segment 'Pointers to Segments
+<Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
+Public Class Tower
+
+    Private ReadOnly sTower(12) As Segment 'Pointers to Segments
     Private iXPos As Short 'horizontal position from 1 to Max position
     Private iYPos As Short 'vertical position from 1 to Max position
     Private iValue As Short 'score for this tower
     Private iOwner As Short 'player number 1 to 4
     Private iColour As Short '
-    Private tColours() As String = {"none", "ivory", "pink", "blue", "violet", "ivory-pink", "ivory-blue", "ivory-violet", "pink-blue", "pink-violet", "blue-violet", "mixed"}
+    Private ReadOnly tColours() As String = {"none", "ivory", "pink", "blue", "violet", "ivory-pink", "ivory-blue", "ivory-violet", "pink-blue", "pink-violet", "blue-violet", "mixed"}
 
     Enum TColour
         none = 0
@@ -202,6 +205,7 @@ Friend Class Tower
         aTower.Height = Height
         aTower.XPos = iXPos
         aTower.YPos = iYPos
+        aTower.MaxHeight = MaxHeight
         aTower.CheckColours() 'The colour and description may have changed
         aTower.SetVerticalHeights() 'The vertical height may have changed (i.e. if tower shrunk)
         aTower.UpdateScore() 'The score of the tower should have changed.
@@ -245,7 +249,7 @@ Friend Class Tower
         IDExists = False
 
         For s = 1 To Height
-            If sTower(s).ID = id Then
+            If sTower(s).SID = id Then
                 IDExists = True
             End If
         Next

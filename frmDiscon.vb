@@ -1,5 +1,8 @@
 Option Strict Off
 Option Explicit On
+Imports System.IO
+Imports System.Runtime.Serialization.Formatters.Binary
+
 Friend Class FrmDiscon
     Inherits System.Windows.Forms.Form
 #Region "Windows Form Designer generated code "
@@ -30,137 +33,138 @@ Friend Class FrmDiscon
         End If
         MyBase.Dispose(Disposing)
     End Sub
+
     'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
     Public ToolTip1 As System.Windows.Forms.ToolTip
-    Public WithEvents _ppiece_24 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_23 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_22 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_21 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_20 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_19 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_18 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_17 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_16 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_15 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_14 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_13 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_12 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_11 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_10 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_9 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_8 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_7 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_6 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_5 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_4 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_3 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_2 As System.Windows.Forms.PictureBox
-    Public WithEvents _ppiece_1 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_96 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_95 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_94 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_93 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_92 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_91 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_90 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_89 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_88 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_87 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_86 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_85 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_84 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_83 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_82 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_81 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_80 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_79 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_78 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_77 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_76 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_75 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_74 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_73 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_72 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_71 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_70 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_69 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_68 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_67 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_66 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_65 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_64 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_63 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_62 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_61 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_60 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_59 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_58 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_57 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_56 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_55 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_54 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_53 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_52 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_51 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_50 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_49 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_48 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_47 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_46 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_45 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_44 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_43 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_42 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_41 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_40 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_39 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_38 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_37 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_36 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_35 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_34 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_33 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_32 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_31 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_30 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_29 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_28 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_27 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_26 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_25 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_24 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_23 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_22 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_21 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_20 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_19 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_18 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_17 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_16 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_15 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_14 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_13 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_12 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_11 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_10 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_9 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_8 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_7 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_6 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_5 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_4 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_3 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_2 As System.Windows.Forms.PictureBox
-    Public WithEvents _segment_1 As System.Windows.Forms.PictureBox
-    Public WithEvents ppiece As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-    Public WithEvents segment As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-    Public WithEvents mnuFileNew As System.Windows.Forms.MenuItem
-    Public WithEvents mnuFileExit As System.Windows.Forms.MenuItem
-    Public WithEvents mnuFile As System.Windows.Forms.MenuItem
-    Public WithEvents mnuEditUndo As System.Windows.Forms.MenuItem
-    Public WithEvents mnuEdit As System.Windows.Forms.MenuItem
-    Public WithEvents mnuHelp As System.Windows.Forms.MenuItem
+    Public WithEvents PPiece_24 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_23 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_22 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_21 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_20 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_19 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_18 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_17 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_16 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_15 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_14 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_13 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_12 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_11 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_10 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_9 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_8 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_7 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_6 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_5 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_4 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_3 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_2 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece_1 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_96 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_95 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_94 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_93 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_92 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_91 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_90 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_89 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_88 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_87 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_86 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_85 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_84 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_83 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_82 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_81 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_80 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_79 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_78 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_77 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_76 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_75 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_74 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_73 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_72 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_71 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_70 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_69 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_68 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_67 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_66 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_65 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_64 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_63 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_62 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_61 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_60 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_59 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_58 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_57 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_56 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_55 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_54 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_53 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_52 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_51 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_50 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_49 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_48 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_47 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_46 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_45 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_44 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_43 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_42 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_41 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_40 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_39 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_38 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_37 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_36 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_35 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_34 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_33 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_32 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_31 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_30 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_29 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_28 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_27 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_26 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_25 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_24 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_23 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_22 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_21 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_20 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_19 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_18 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_17 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_16 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_15 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_14 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_13 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_12 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_11 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_10 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_9 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_8 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_7 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_6 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_5 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_4 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_3 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_2 As System.Windows.Forms.PictureBox
+    Public WithEvents Segment_1 As System.Windows.Forms.PictureBox
+    Public WithEvents PPiece As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents Segment As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents MnuFileNew As System.Windows.Forms.MenuItem
+    Public WithEvents MnuFileExit As System.Windows.Forms.MenuItem
+    Public WithEvents MnuFile As System.Windows.Forms.MenuItem
+    Public WithEvents MnuEditUndo As System.Windows.Forms.MenuItem
+    Public WithEvents MnuEdit As System.Windows.Forms.MenuItem
+    Public WithEvents MnuHelp As System.Windows.Forms.MenuItem
     Public MainMenu1 As System.Windows.Forms.MainMenu
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.
@@ -173,272 +177,276 @@ Friend Class FrmDiscon
     Friend WithEvents StatusBarPanel4 As System.Windows.Forms.StatusBarPanel
     Friend WithEvents StatusBarPanel5 As System.Windows.Forms.StatusBarPanel
     Friend WithEvents MnuHelpRules As System.Windows.Forms.MenuItem
-    Friend WithEvents mnuHelpAbout As System.Windows.Forms.MenuItem
+    Friend WithEvents MnuSave As MenuItem
+    Friend WithEvents MnuLoad As MenuItem
+    Friend WithEvents MnuHelpAbout As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmDiscon))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me._ppiece_6 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_5 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_4 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_3 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_2 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_1 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_6 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_5 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_4 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_3 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_2 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_1 = New System.Windows.Forms.PictureBox()
         Me.Dragger = New System.Windows.Forms.PictureBox()
-        Me._ppiece_24 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_23 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_22 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_21 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_20 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_19 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_18 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_17 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_16 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_15 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_14 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_13 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_12 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_11 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_10 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_9 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_8 = New System.Windows.Forms.PictureBox()
-        Me._ppiece_7 = New System.Windows.Forms.PictureBox()
-        Me._segment_96 = New System.Windows.Forms.PictureBox()
-        Me._segment_95 = New System.Windows.Forms.PictureBox()
-        Me._segment_94 = New System.Windows.Forms.PictureBox()
-        Me._segment_93 = New System.Windows.Forms.PictureBox()
-        Me._segment_92 = New System.Windows.Forms.PictureBox()
-        Me._segment_91 = New System.Windows.Forms.PictureBox()
-        Me._segment_90 = New System.Windows.Forms.PictureBox()
-        Me._segment_89 = New System.Windows.Forms.PictureBox()
-        Me._segment_88 = New System.Windows.Forms.PictureBox()
-        Me._segment_87 = New System.Windows.Forms.PictureBox()
-        Me._segment_86 = New System.Windows.Forms.PictureBox()
-        Me._segment_85 = New System.Windows.Forms.PictureBox()
-        Me._segment_84 = New System.Windows.Forms.PictureBox()
-        Me._segment_83 = New System.Windows.Forms.PictureBox()
-        Me._segment_82 = New System.Windows.Forms.PictureBox()
-        Me._segment_81 = New System.Windows.Forms.PictureBox()
-        Me._segment_80 = New System.Windows.Forms.PictureBox()
-        Me._segment_79 = New System.Windows.Forms.PictureBox()
-        Me._segment_78 = New System.Windows.Forms.PictureBox()
-        Me._segment_77 = New System.Windows.Forms.PictureBox()
-        Me._segment_76 = New System.Windows.Forms.PictureBox()
-        Me._segment_75 = New System.Windows.Forms.PictureBox()
-        Me._segment_74 = New System.Windows.Forms.PictureBox()
-        Me._segment_73 = New System.Windows.Forms.PictureBox()
-        Me._segment_72 = New System.Windows.Forms.PictureBox()
-        Me._segment_71 = New System.Windows.Forms.PictureBox()
-        Me._segment_70 = New System.Windows.Forms.PictureBox()
-        Me._segment_69 = New System.Windows.Forms.PictureBox()
-        Me._segment_68 = New System.Windows.Forms.PictureBox()
-        Me._segment_67 = New System.Windows.Forms.PictureBox()
-        Me._segment_66 = New System.Windows.Forms.PictureBox()
-        Me._segment_65 = New System.Windows.Forms.PictureBox()
-        Me._segment_64 = New System.Windows.Forms.PictureBox()
-        Me._segment_63 = New System.Windows.Forms.PictureBox()
-        Me._segment_62 = New System.Windows.Forms.PictureBox()
-        Me._segment_61 = New System.Windows.Forms.PictureBox()
-        Me._segment_60 = New System.Windows.Forms.PictureBox()
-        Me._segment_59 = New System.Windows.Forms.PictureBox()
-        Me._segment_58 = New System.Windows.Forms.PictureBox()
-        Me._segment_57 = New System.Windows.Forms.PictureBox()
-        Me._segment_56 = New System.Windows.Forms.PictureBox()
-        Me._segment_55 = New System.Windows.Forms.PictureBox()
-        Me._segment_54 = New System.Windows.Forms.PictureBox()
-        Me._segment_53 = New System.Windows.Forms.PictureBox()
-        Me._segment_52 = New System.Windows.Forms.PictureBox()
-        Me._segment_51 = New System.Windows.Forms.PictureBox()
-        Me._segment_50 = New System.Windows.Forms.PictureBox()
-        Me._segment_49 = New System.Windows.Forms.PictureBox()
-        Me._segment_48 = New System.Windows.Forms.PictureBox()
-        Me._segment_47 = New System.Windows.Forms.PictureBox()
-        Me._segment_46 = New System.Windows.Forms.PictureBox()
-        Me._segment_45 = New System.Windows.Forms.PictureBox()
-        Me._segment_44 = New System.Windows.Forms.PictureBox()
-        Me._segment_43 = New System.Windows.Forms.PictureBox()
-        Me._segment_42 = New System.Windows.Forms.PictureBox()
-        Me._segment_41 = New System.Windows.Forms.PictureBox()
-        Me._segment_40 = New System.Windows.Forms.PictureBox()
-        Me._segment_39 = New System.Windows.Forms.PictureBox()
-        Me._segment_38 = New System.Windows.Forms.PictureBox()
-        Me._segment_37 = New System.Windows.Forms.PictureBox()
-        Me._segment_36 = New System.Windows.Forms.PictureBox()
-        Me._segment_35 = New System.Windows.Forms.PictureBox()
-        Me._segment_34 = New System.Windows.Forms.PictureBox()
-        Me._segment_33 = New System.Windows.Forms.PictureBox()
-        Me._segment_32 = New System.Windows.Forms.PictureBox()
-        Me._segment_31 = New System.Windows.Forms.PictureBox()
-        Me._segment_30 = New System.Windows.Forms.PictureBox()
-        Me._segment_29 = New System.Windows.Forms.PictureBox()
-        Me._segment_28 = New System.Windows.Forms.PictureBox()
-        Me._segment_27 = New System.Windows.Forms.PictureBox()
-        Me._segment_26 = New System.Windows.Forms.PictureBox()
-        Me._segment_25 = New System.Windows.Forms.PictureBox()
-        Me._segment_24 = New System.Windows.Forms.PictureBox()
-        Me._segment_23 = New System.Windows.Forms.PictureBox()
-        Me._segment_22 = New System.Windows.Forms.PictureBox()
-        Me._segment_21 = New System.Windows.Forms.PictureBox()
-        Me._segment_20 = New System.Windows.Forms.PictureBox()
-        Me._segment_19 = New System.Windows.Forms.PictureBox()
-        Me._segment_18 = New System.Windows.Forms.PictureBox()
-        Me._segment_17 = New System.Windows.Forms.PictureBox()
-        Me._segment_16 = New System.Windows.Forms.PictureBox()
-        Me._segment_15 = New System.Windows.Forms.PictureBox()
-        Me._segment_14 = New System.Windows.Forms.PictureBox()
-        Me._segment_13 = New System.Windows.Forms.PictureBox()
-        Me._segment_12 = New System.Windows.Forms.PictureBox()
-        Me._segment_11 = New System.Windows.Forms.PictureBox()
-        Me._segment_10 = New System.Windows.Forms.PictureBox()
-        Me._segment_9 = New System.Windows.Forms.PictureBox()
-        Me._segment_8 = New System.Windows.Forms.PictureBox()
-        Me._segment_7 = New System.Windows.Forms.PictureBox()
-        Me._segment_6 = New System.Windows.Forms.PictureBox()
-        Me._segment_5 = New System.Windows.Forms.PictureBox()
-        Me._segment_4 = New System.Windows.Forms.PictureBox()
-        Me._segment_3 = New System.Windows.Forms.PictureBox()
-        Me._segment_2 = New System.Windows.Forms.PictureBox()
-        Me._segment_1 = New System.Windows.Forms.PictureBox()
-        Me.ppiece = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
-        Me.segment = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
+        Me.PPiece_24 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_23 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_22 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_21 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_20 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_19 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_18 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_17 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_16 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_15 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_14 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_13 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_12 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_11 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_10 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_9 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_8 = New System.Windows.Forms.PictureBox()
+        Me.PPiece_7 = New System.Windows.Forms.PictureBox()
+        Me.Segment_96 = New System.Windows.Forms.PictureBox()
+        Me.Segment_95 = New System.Windows.Forms.PictureBox()
+        Me.Segment_94 = New System.Windows.Forms.PictureBox()
+        Me.Segment_93 = New System.Windows.Forms.PictureBox()
+        Me.Segment_92 = New System.Windows.Forms.PictureBox()
+        Me.Segment_91 = New System.Windows.Forms.PictureBox()
+        Me.Segment_90 = New System.Windows.Forms.PictureBox()
+        Me.Segment_89 = New System.Windows.Forms.PictureBox()
+        Me.Segment_88 = New System.Windows.Forms.PictureBox()
+        Me.Segment_87 = New System.Windows.Forms.PictureBox()
+        Me.Segment_86 = New System.Windows.Forms.PictureBox()
+        Me.Segment_85 = New System.Windows.Forms.PictureBox()
+        Me.Segment_84 = New System.Windows.Forms.PictureBox()
+        Me.Segment_83 = New System.Windows.Forms.PictureBox()
+        Me.Segment_82 = New System.Windows.Forms.PictureBox()
+        Me.Segment_81 = New System.Windows.Forms.PictureBox()
+        Me.Segment_80 = New System.Windows.Forms.PictureBox()
+        Me.Segment_79 = New System.Windows.Forms.PictureBox()
+        Me.Segment_78 = New System.Windows.Forms.PictureBox()
+        Me.Segment_77 = New System.Windows.Forms.PictureBox()
+        Me.Segment_76 = New System.Windows.Forms.PictureBox()
+        Me.Segment_75 = New System.Windows.Forms.PictureBox()
+        Me.Segment_74 = New System.Windows.Forms.PictureBox()
+        Me.Segment_73 = New System.Windows.Forms.PictureBox()
+        Me.Segment_72 = New System.Windows.Forms.PictureBox()
+        Me.Segment_71 = New System.Windows.Forms.PictureBox()
+        Me.Segment_70 = New System.Windows.Forms.PictureBox()
+        Me.Segment_69 = New System.Windows.Forms.PictureBox()
+        Me.Segment_68 = New System.Windows.Forms.PictureBox()
+        Me.Segment_67 = New System.Windows.Forms.PictureBox()
+        Me.Segment_66 = New System.Windows.Forms.PictureBox()
+        Me.Segment_65 = New System.Windows.Forms.PictureBox()
+        Me.Segment_64 = New System.Windows.Forms.PictureBox()
+        Me.Segment_63 = New System.Windows.Forms.PictureBox()
+        Me.Segment_62 = New System.Windows.Forms.PictureBox()
+        Me.Segment_61 = New System.Windows.Forms.PictureBox()
+        Me.Segment_60 = New System.Windows.Forms.PictureBox()
+        Me.Segment_59 = New System.Windows.Forms.PictureBox()
+        Me.Segment_58 = New System.Windows.Forms.PictureBox()
+        Me.Segment_57 = New System.Windows.Forms.PictureBox()
+        Me.Segment_56 = New System.Windows.Forms.PictureBox()
+        Me.Segment_55 = New System.Windows.Forms.PictureBox()
+        Me.Segment_54 = New System.Windows.Forms.PictureBox()
+        Me.Segment_53 = New System.Windows.Forms.PictureBox()
+        Me.Segment_52 = New System.Windows.Forms.PictureBox()
+        Me.Segment_51 = New System.Windows.Forms.PictureBox()
+        Me.Segment_50 = New System.Windows.Forms.PictureBox()
+        Me.Segment_49 = New System.Windows.Forms.PictureBox()
+        Me.Segment_48 = New System.Windows.Forms.PictureBox()
+        Me.Segment_47 = New System.Windows.Forms.PictureBox()
+        Me.Segment_46 = New System.Windows.Forms.PictureBox()
+        Me.Segment_45 = New System.Windows.Forms.PictureBox()
+        Me.Segment_44 = New System.Windows.Forms.PictureBox()
+        Me.Segment_43 = New System.Windows.Forms.PictureBox()
+        Me.Segment_42 = New System.Windows.Forms.PictureBox()
+        Me.Segment_41 = New System.Windows.Forms.PictureBox()
+        Me.Segment_40 = New System.Windows.Forms.PictureBox()
+        Me.Segment_39 = New System.Windows.Forms.PictureBox()
+        Me.Segment_38 = New System.Windows.Forms.PictureBox()
+        Me.Segment_37 = New System.Windows.Forms.PictureBox()
+        Me.Segment_36 = New System.Windows.Forms.PictureBox()
+        Me.Segment_35 = New System.Windows.Forms.PictureBox()
+        Me.Segment_34 = New System.Windows.Forms.PictureBox()
+        Me.Segment_33 = New System.Windows.Forms.PictureBox()
+        Me.Segment_32 = New System.Windows.Forms.PictureBox()
+        Me.Segment_31 = New System.Windows.Forms.PictureBox()
+        Me.Segment_30 = New System.Windows.Forms.PictureBox()
+        Me.Segment_29 = New System.Windows.Forms.PictureBox()
+        Me.Segment_28 = New System.Windows.Forms.PictureBox()
+        Me.Segment_27 = New System.Windows.Forms.PictureBox()
+        Me.Segment_26 = New System.Windows.Forms.PictureBox()
+        Me.Segment_25 = New System.Windows.Forms.PictureBox()
+        Me.Segment_24 = New System.Windows.Forms.PictureBox()
+        Me.Segment_23 = New System.Windows.Forms.PictureBox()
+        Me.Segment_22 = New System.Windows.Forms.PictureBox()
+        Me.Segment_21 = New System.Windows.Forms.PictureBox()
+        Me.Segment_20 = New System.Windows.Forms.PictureBox()
+        Me.Segment_19 = New System.Windows.Forms.PictureBox()
+        Me.Segment_18 = New System.Windows.Forms.PictureBox()
+        Me.Segment_17 = New System.Windows.Forms.PictureBox()
+        Me.Segment_16 = New System.Windows.Forms.PictureBox()
+        Me.Segment_15 = New System.Windows.Forms.PictureBox()
+        Me.Segment_14 = New System.Windows.Forms.PictureBox()
+        Me.Segment_13 = New System.Windows.Forms.PictureBox()
+        Me.Segment_12 = New System.Windows.Forms.PictureBox()
+        Me.Segment_11 = New System.Windows.Forms.PictureBox()
+        Me.Segment_10 = New System.Windows.Forms.PictureBox()
+        Me.Segment_9 = New System.Windows.Forms.PictureBox()
+        Me.Segment_8 = New System.Windows.Forms.PictureBox()
+        Me.Segment_7 = New System.Windows.Forms.PictureBox()
+        Me.Segment_6 = New System.Windows.Forms.PictureBox()
+        Me.Segment_5 = New System.Windows.Forms.PictureBox()
+        Me.Segment_4 = New System.Windows.Forms.PictureBox()
+        Me.Segment_3 = New System.Windows.Forms.PictureBox()
+        Me.Segment_2 = New System.Windows.Forms.PictureBox()
+        Me.Segment_1 = New System.Windows.Forms.PictureBox()
+        Me.PPiece = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
+        Me.Segment = New Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray(Me.components)
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.mnuFile = New System.Windows.Forms.MenuItem()
-        Me.mnuFileNew = New System.Windows.Forms.MenuItem()
-        Me.mnuFileExit = New System.Windows.Forms.MenuItem()
-        Me.mnuEdit = New System.Windows.Forms.MenuItem()
-        Me.mnuEditUndo = New System.Windows.Forms.MenuItem()
-        Me.mnuHelp = New System.Windows.Forms.MenuItem()
+        Me.MnuFile = New System.Windows.Forms.MenuItem()
+        Me.MnuFileNew = New System.Windows.Forms.MenuItem()
+        Me.MnuSave = New System.Windows.Forms.MenuItem()
+        Me.MnuLoad = New System.Windows.Forms.MenuItem()
+        Me.MnuFileExit = New System.Windows.Forms.MenuItem()
+        Me.MnuEdit = New System.Windows.Forms.MenuItem()
+        Me.MnuEditUndo = New System.Windows.Forms.MenuItem()
+        Me.MnuHelp = New System.Windows.Forms.MenuItem()
         Me.MnuHelpRules = New System.Windows.Forms.MenuItem()
-        Me.mnuHelpAbout = New System.Windows.Forms.MenuItem()
+        Me.MnuHelpAbout = New System.Windows.Forms.MenuItem()
         Me.StatusBar1 = New System.Windows.Forms.StatusBar()
         Me.StatusBarPanel1 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel2 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel()
-        CType(Me._ppiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Dragger, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_24, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_23, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_22, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_21, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_20, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_19, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_18, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_17, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_16, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_15, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_14, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_13, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_12, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_11, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_10, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._ppiece_7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_96, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_95, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_94, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_93, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_92, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_91, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_90, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_89, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_88, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_87, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_86, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_85, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_84, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_83, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_82, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_81, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_80, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_79, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_78, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_77, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_76, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_75, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_74, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_73, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_72, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_71, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_70, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_69, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_68, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_67, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_66, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_65, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_64, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_63, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_62, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_61, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_60, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_59, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_58, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_57, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_56, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_55, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_54, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_53, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_52, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_51, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_50, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_49, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_48, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_47, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_46, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_45, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_44, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_43, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_42, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_41, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_40, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_39, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_38, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_37, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_36, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_35, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_34, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_33, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_32, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_31, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_30, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_29, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_28, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_27, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_26, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_25, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_24, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_23, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_22, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_21, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_20, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_19, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_18, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_17, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_16, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_15, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_14, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_13, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_12, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_11, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_10, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me._segment_1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ppiece, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.segment, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_24, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_23, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_22, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_21, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_20, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_18, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_17, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_16, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_14, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_13, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_11, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece_7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_96, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_95, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_94, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_93, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_92, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_91, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_90, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_89, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_88, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_87, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_86, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_85, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_84, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_83, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_82, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_81, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_80, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_79, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_78, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_77, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_76, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_75, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_74, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_73, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_72, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_71, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_70, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_69, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_68, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_67, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_66, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_65, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_64, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_63, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_62, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_61, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_60, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_59, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_58, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_57, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_56, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_55, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_54, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_53, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_52, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_51, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_50, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_49, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_48, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_47, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_46, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_45, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_44, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_43, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_42, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_41, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_40, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_39, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_38, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_37, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_36, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_35, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_34, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_33, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_32, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_31, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_30, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_29, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_28, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_27, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_26, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_25, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_24, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_23, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_22, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_21, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_20, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_18, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_17, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_16, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_14, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_13, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_12, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_11, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_10, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_9, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_8, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment_1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PPiece, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Segment, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StatusBarPanel1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StatusBarPanel2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.StatusBarPanel3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -446,95 +454,95 @@ Friend Class FrmDiscon
         CType(Me.StatusBarPanel5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        '_ppiece_6
+        'PPiece_6
         '
-        Me._ppiece_6.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_6.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_6.Image = CType(resources.GetObject("_ppiece_6.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_6, CType(6, Short))
-        Me._ppiece_6.Location = New System.Drawing.Point(200, 96)
-        Me._ppiece_6.Name = "_ppiece_6"
-        Me._ppiece_6.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_6.TabIndex = 19
-        Me._ppiece_6.TabStop = False
-        Me._ppiece_6.Tag = "6"
-        Me.ToolTip1.SetToolTip(Me._ppiece_6, "6")
+        Me.PPiece_6.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_6.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_6.Image = CType(resources.GetObject("PPiece_6.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_6, CType(6, Short))
+        Me.PPiece_6.Location = New System.Drawing.Point(200, 96)
+        Me.PPiece_6.Name = "PPiece_6"
+        Me.PPiece_6.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_6.TabIndex = 19
+        Me.PPiece_6.TabStop = False
+        Me.PPiece_6.Tag = "6"
+        Me.ToolTip1.SetToolTip(Me.PPiece_6, "6")
         '
-        '_ppiece_5
+        'PPiece_5
         '
-        Me._ppiece_5.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_5.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_5.Image = CType(resources.GetObject("_ppiece_5.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_5, CType(5, Short))
-        Me._ppiece_5.Location = New System.Drawing.Point(168, 96)
-        Me._ppiece_5.Name = "_ppiece_5"
-        Me._ppiece_5.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_5.TabIndex = 20
-        Me._ppiece_5.TabStop = False
-        Me._ppiece_5.Tag = "5"
-        Me.ToolTip1.SetToolTip(Me._ppiece_5, "5")
+        Me.PPiece_5.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_5.Image = CType(resources.GetObject("PPiece_5.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_5, CType(5, Short))
+        Me.PPiece_5.Location = New System.Drawing.Point(168, 96)
+        Me.PPiece_5.Name = "PPiece_5"
+        Me.PPiece_5.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_5.TabIndex = 20
+        Me.PPiece_5.TabStop = False
+        Me.PPiece_5.Tag = "5"
+        Me.ToolTip1.SetToolTip(Me.PPiece_5, "5")
         '
-        '_ppiece_4
+        'PPiece_4
         '
-        Me._ppiece_4.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_4.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_4.Image = CType(resources.GetObject("_ppiece_4.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_4, CType(4, Short))
-        Me._ppiece_4.Location = New System.Drawing.Point(136, 96)
-        Me._ppiece_4.Name = "_ppiece_4"
-        Me._ppiece_4.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_4.TabIndex = 21
-        Me._ppiece_4.TabStop = False
-        Me._ppiece_4.Tag = "4"
-        Me.ToolTip1.SetToolTip(Me._ppiece_4, "4")
+        Me.PPiece_4.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_4.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_4.Image = CType(resources.GetObject("PPiece_4.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_4, CType(4, Short))
+        Me.PPiece_4.Location = New System.Drawing.Point(136, 96)
+        Me.PPiece_4.Name = "PPiece_4"
+        Me.PPiece_4.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_4.TabIndex = 21
+        Me.PPiece_4.TabStop = False
+        Me.PPiece_4.Tag = "4"
+        Me.ToolTip1.SetToolTip(Me.PPiece_4, "4")
         '
-        '_ppiece_3
+        'PPiece_3
         '
-        Me._ppiece_3.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_3.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_3.Image = CType(resources.GetObject("_ppiece_3.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_3, CType(3, Short))
-        Me._ppiece_3.Location = New System.Drawing.Point(104, 96)
-        Me._ppiece_3.Name = "_ppiece_3"
-        Me._ppiece_3.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_3.TabIndex = 22
-        Me._ppiece_3.TabStop = False
-        Me._ppiece_3.Tag = "3"
-        Me.ToolTip1.SetToolTip(Me._ppiece_3, "3")
+        Me.PPiece_3.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_3.Image = CType(resources.GetObject("PPiece_3.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_3, CType(3, Short))
+        Me.PPiece_3.Location = New System.Drawing.Point(104, 96)
+        Me.PPiece_3.Name = "PPiece_3"
+        Me.PPiece_3.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_3.TabIndex = 22
+        Me.PPiece_3.TabStop = False
+        Me.PPiece_3.Tag = "3"
+        Me.ToolTip1.SetToolTip(Me.PPiece_3, "3")
         '
-        '_ppiece_2
+        'PPiece_2
         '
-        Me._ppiece_2.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_2.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_2.Image = CType(resources.GetObject("_ppiece_2.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_2, CType(2, Short))
-        Me._ppiece_2.Location = New System.Drawing.Point(72, 96)
-        Me._ppiece_2.Name = "_ppiece_2"
-        Me._ppiece_2.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_2.TabIndex = 23
-        Me._ppiece_2.TabStop = False
-        Me._ppiece_2.Tag = "2"
-        Me.ToolTip1.SetToolTip(Me._ppiece_2, "2")
+        Me.PPiece_2.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_2.Image = CType(resources.GetObject("PPiece_2.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_2, CType(2, Short))
+        Me.PPiece_2.Location = New System.Drawing.Point(72, 96)
+        Me.PPiece_2.Name = "PPiece_2"
+        Me.PPiece_2.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_2.TabIndex = 23
+        Me.PPiece_2.TabStop = False
+        Me.PPiece_2.Tag = "2"
+        Me.ToolTip1.SetToolTip(Me.PPiece_2, "2")
         '
-        '_ppiece_1
+        'PPiece_1
         '
-        Me._ppiece_1.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_1.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_1.Image = CType(resources.GetObject("_ppiece_1.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_1, CType(1, Short))
-        Me._ppiece_1.Location = New System.Drawing.Point(40, 96)
-        Me._ppiece_1.Name = "_ppiece_1"
-        Me._ppiece_1.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_1.TabIndex = 24
-        Me._ppiece_1.TabStop = False
-        Me._ppiece_1.Tag = "1"
-        Me.ToolTip1.SetToolTip(Me._ppiece_1, "1")
+        Me.PPiece_1.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_1.Image = CType(resources.GetObject("PPiece_1.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_1, CType(1, Short))
+        Me.PPiece_1.Location = New System.Drawing.Point(40, 96)
+        Me.PPiece_1.Name = "PPiece_1"
+        Me.PPiece_1.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_1.TabIndex = 24
+        Me.PPiece_1.TabStop = False
+        Me.PPiece_1.Tag = "1"
+        Me.ToolTip1.SetToolTip(Me.PPiece_1, "1")
         '
         'Dragger
         '
@@ -550,1553 +558,1563 @@ Friend Class FrmDiscon
         Me.ToolTip1.SetToolTip(Me.Dragger, "Dragger")
         Me.Dragger.Visible = False
         '
-        '_ppiece_24
-        '
-        Me._ppiece_24.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_24.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_24.Image = CType(resources.GetObject("_ppiece_24.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_24, CType(24, Short))
-        Me._ppiece_24.Location = New System.Drawing.Point(200, 0)
-        Me._ppiece_24.Name = "_ppiece_24"
-        Me._ppiece_24.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_24.TabIndex = 1
-        Me._ppiece_24.TabStop = False
-        Me._ppiece_24.Tag = "24"
-        '
-        '_ppiece_23
-        '
-        Me._ppiece_23.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_23.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_23.Image = CType(resources.GetObject("_ppiece_23.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_23, CType(23, Short))
-        Me._ppiece_23.Location = New System.Drawing.Point(168, 0)
-        Me._ppiece_23.Name = "_ppiece_23"
-        Me._ppiece_23.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_23.TabIndex = 2
-        Me._ppiece_23.TabStop = False
-        Me._ppiece_23.Tag = "23"
-        '
-        '_ppiece_22
-        '
-        Me._ppiece_22.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_22.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_22.Image = CType(resources.GetObject("_ppiece_22.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_22, CType(22, Short))
-        Me._ppiece_22.Location = New System.Drawing.Point(136, 0)
-        Me._ppiece_22.Name = "_ppiece_22"
-        Me._ppiece_22.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_22.TabIndex = 3
-        Me._ppiece_22.TabStop = False
-        Me._ppiece_22.Tag = "22"
-        '
-        '_ppiece_21
-        '
-        Me._ppiece_21.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_21.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_21.Image = CType(resources.GetObject("_ppiece_21.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_21, CType(21, Short))
-        Me._ppiece_21.Location = New System.Drawing.Point(104, 0)
-        Me._ppiece_21.Name = "_ppiece_21"
-        Me._ppiece_21.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_21.TabIndex = 4
-        Me._ppiece_21.TabStop = False
-        Me._ppiece_21.Tag = "21"
-        '
-        '_ppiece_20
-        '
-        Me._ppiece_20.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_20.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_20.Image = CType(resources.GetObject("_ppiece_20.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_20, CType(20, Short))
-        Me._ppiece_20.Location = New System.Drawing.Point(40, 0)
-        Me._ppiece_20.Name = "_ppiece_20"
-        Me._ppiece_20.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_20.TabIndex = 5
-        Me._ppiece_20.TabStop = False
-        Me._ppiece_20.Tag = "20"
-        '
-        '_ppiece_19
-        '
-        Me._ppiece_19.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_19.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_19.Image = CType(resources.GetObject("_ppiece_19.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_19, CType(19, Short))
-        Me._ppiece_19.Location = New System.Drawing.Point(72, 0)
-        Me._ppiece_19.Name = "_ppiece_19"
-        Me._ppiece_19.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_19.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_19.TabIndex = 6
-        Me._ppiece_19.TabStop = False
-        Me._ppiece_19.Tag = "19"
-        '
-        '_ppiece_18
-        '
-        Me._ppiece_18.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_18.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_18.Image = CType(resources.GetObject("_ppiece_18.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_18, CType(18, Short))
-        Me._ppiece_18.Location = New System.Drawing.Point(200, 32)
-        Me._ppiece_18.Name = "_ppiece_18"
-        Me._ppiece_18.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_18.TabIndex = 7
-        Me._ppiece_18.TabStop = False
-        Me._ppiece_18.Tag = "18"
-        '
-        '_ppiece_17
-        '
-        Me._ppiece_17.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_17.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_17.Image = CType(resources.GetObject("_ppiece_17.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_17, CType(17, Short))
-        Me._ppiece_17.Location = New System.Drawing.Point(168, 32)
-        Me._ppiece_17.Name = "_ppiece_17"
-        Me._ppiece_17.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_17.TabIndex = 8
-        Me._ppiece_17.TabStop = False
-        Me._ppiece_17.Tag = "17"
-        '
-        '_ppiece_16
-        '
-        Me._ppiece_16.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_16.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_16.Image = CType(resources.GetObject("_ppiece_16.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_16, CType(16, Short))
-        Me._ppiece_16.Location = New System.Drawing.Point(136, 32)
-        Me._ppiece_16.Name = "_ppiece_16"
-        Me._ppiece_16.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_16.TabIndex = 9
-        Me._ppiece_16.TabStop = False
-        Me._ppiece_16.Tag = "16"
-        '
-        '_ppiece_15
-        '
-        Me._ppiece_15.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_15.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_15.Image = CType(resources.GetObject("_ppiece_15.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_15, CType(15, Short))
-        Me._ppiece_15.Location = New System.Drawing.Point(104, 32)
-        Me._ppiece_15.Name = "_ppiece_15"
-        Me._ppiece_15.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_15.TabIndex = 10
-        Me._ppiece_15.TabStop = False
-        Me._ppiece_15.Tag = "15"
-        '
-        '_ppiece_14
-        '
-        Me._ppiece_14.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_14.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_14.Image = CType(resources.GetObject("_ppiece_14.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_14, CType(14, Short))
-        Me._ppiece_14.Location = New System.Drawing.Point(72, 32)
-        Me._ppiece_14.Name = "_ppiece_14"
-        Me._ppiece_14.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_14.TabIndex = 11
-        Me._ppiece_14.TabStop = False
-        Me._ppiece_14.Tag = "14"
-        '
-        '_ppiece_13
-        '
-        Me._ppiece_13.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_13.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_13.Image = CType(resources.GetObject("_ppiece_13.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_13, CType(13, Short))
-        Me._ppiece_13.Location = New System.Drawing.Point(40, 32)
-        Me._ppiece_13.Name = "_ppiece_13"
-        Me._ppiece_13.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_13.TabIndex = 12
-        Me._ppiece_13.TabStop = False
-        Me._ppiece_13.Tag = "13"
-        '
-        '_ppiece_12
-        '
-        Me._ppiece_12.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_12.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_12.Image = CType(resources.GetObject("_ppiece_12.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_12, CType(12, Short))
-        Me._ppiece_12.Location = New System.Drawing.Point(200, 64)
-        Me._ppiece_12.Name = "_ppiece_12"
-        Me._ppiece_12.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_12.TabIndex = 13
-        Me._ppiece_12.TabStop = False
-        Me._ppiece_12.Tag = "12"
-        '
-        '_ppiece_11
-        '
-        Me._ppiece_11.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_11.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_11.Image = CType(resources.GetObject("_ppiece_11.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_11, CType(11, Short))
-        Me._ppiece_11.Location = New System.Drawing.Point(168, 64)
-        Me._ppiece_11.Name = "_ppiece_11"
-        Me._ppiece_11.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_11.TabIndex = 14
-        Me._ppiece_11.TabStop = False
-        Me._ppiece_11.Tag = "11"
-        '
-        '_ppiece_10
-        '
-        Me._ppiece_10.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_10.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_10.Image = CType(resources.GetObject("_ppiece_10.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_10, CType(10, Short))
-        Me._ppiece_10.Location = New System.Drawing.Point(136, 64)
-        Me._ppiece_10.Name = "_ppiece_10"
-        Me._ppiece_10.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_10.TabIndex = 15
-        Me._ppiece_10.TabStop = False
-        Me._ppiece_10.Tag = "10"
-        '
-        '_ppiece_9
-        '
-        Me._ppiece_9.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_9.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_9.Image = CType(resources.GetObject("_ppiece_9.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_9, CType(9, Short))
-        Me._ppiece_9.Location = New System.Drawing.Point(104, 64)
-        Me._ppiece_9.Name = "_ppiece_9"
-        Me._ppiece_9.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_9.TabIndex = 16
-        Me._ppiece_9.TabStop = False
-        Me._ppiece_9.Tag = "9"
-        '
-        '_ppiece_8
-        '
-        Me._ppiece_8.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_8.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_8.Image = CType(resources.GetObject("_ppiece_8.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_8, CType(8, Short))
-        Me._ppiece_8.Location = New System.Drawing.Point(72, 64)
-        Me._ppiece_8.Name = "_ppiece_8"
-        Me._ppiece_8.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_8.TabIndex = 17
-        Me._ppiece_8.TabStop = False
-        Me._ppiece_8.Tag = "8"
-        '
-        '_ppiece_7
-        '
-        Me._ppiece_7.BackColor = System.Drawing.Color.Transparent
-        Me._ppiece_7.Cursor = System.Windows.Forms.Cursors.Default
-        Me._ppiece_7.Image = CType(resources.GetObject("_ppiece_7.Image"), System.Drawing.Image)
-        Me.ppiece.SetIndex(Me._ppiece_7, CType(7, Short))
-        Me._ppiece_7.Location = New System.Drawing.Point(40, 64)
-        Me._ppiece_7.Name = "_ppiece_7"
-        Me._ppiece_7.Size = New System.Drawing.Size(30, 30)
-        Me._ppiece_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._ppiece_7.TabIndex = 18
-        Me._ppiece_7.TabStop = False
-        Me._ppiece_7.Tag = "7"
-        '
-        '_segment_96
-        '
-        Me._segment_96.BackColor = System.Drawing.Color.Transparent
-        Me._segment_96.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_96.Image = CType(resources.GetObject("_segment_96.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_96, CType(96, Short))
-        Me._segment_96.Location = New System.Drawing.Point(432, 160)
-        Me._segment_96.Name = "_segment_96"
-        Me._segment_96.Size = New System.Drawing.Size(30, 30)
-        Me._segment_96.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_96.TabIndex = 25
-        Me._segment_96.TabStop = False
-        '
-        '_segment_95
-        '
-        Me._segment_95.BackColor = System.Drawing.Color.Transparent
-        Me._segment_95.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_95.Image = CType(resources.GetObject("_segment_95.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_95, CType(95, Short))
-        Me._segment_95.Location = New System.Drawing.Point(304, 192)
-        Me._segment_95.Name = "_segment_95"
-        Me._segment_95.Size = New System.Drawing.Size(30, 30)
-        Me._segment_95.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_95.TabIndex = 26
-        Me._segment_95.TabStop = False
-        '
-        '_segment_94
-        '
-        Me._segment_94.BackColor = System.Drawing.Color.Transparent
-        Me._segment_94.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_94.Image = CType(resources.GetObject("_segment_94.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_94, CType(94, Short))
-        Me._segment_94.Location = New System.Drawing.Point(240, 96)
-        Me._segment_94.Name = "_segment_94"
-        Me._segment_94.Size = New System.Drawing.Size(30, 30)
-        Me._segment_94.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_94.TabIndex = 27
-        Me._segment_94.TabStop = False
-        '
-        '_segment_93
-        '
-        Me._segment_93.BackColor = System.Drawing.Color.Transparent
-        Me._segment_93.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_93.Image = CType(resources.GetObject("_segment_93.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_93, CType(93, Short))
-        Me._segment_93.Location = New System.Drawing.Point(272, 96)
-        Me._segment_93.Name = "_segment_93"
-        Me._segment_93.Size = New System.Drawing.Size(30, 30)
-        Me._segment_93.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_93.TabIndex = 28
-        Me._segment_93.TabStop = False
-        '
-        '_segment_92
-        '
-        Me._segment_92.BackColor = System.Drawing.Color.Transparent
-        Me._segment_92.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_92.Image = CType(resources.GetObject("_segment_92.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_92, CType(92, Short))
-        Me._segment_92.Location = New System.Drawing.Point(304, 96)
-        Me._segment_92.Name = "_segment_92"
-        Me._segment_92.Size = New System.Drawing.Size(30, 30)
-        Me._segment_92.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_92.TabIndex = 29
-        Me._segment_92.TabStop = False
-        '
-        '_segment_91
-        '
-        Me._segment_91.BackColor = System.Drawing.Color.Transparent
-        Me._segment_91.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_91.Image = CType(resources.GetObject("_segment_91.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_91, CType(91, Short))
-        Me._segment_91.Location = New System.Drawing.Point(336, 96)
-        Me._segment_91.Name = "_segment_91"
-        Me._segment_91.Size = New System.Drawing.Size(30, 30)
-        Me._segment_91.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_91.TabIndex = 30
-        Me._segment_91.TabStop = False
-        '
-        '_segment_90
-        '
-        Me._segment_90.BackColor = System.Drawing.Color.Transparent
-        Me._segment_90.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_90.Image = CType(resources.GetObject("_segment_90.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_90, CType(90, Short))
-        Me._segment_90.Location = New System.Drawing.Point(368, 96)
-        Me._segment_90.Name = "_segment_90"
-        Me._segment_90.Size = New System.Drawing.Size(30, 30)
-        Me._segment_90.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_90.TabIndex = 31
-        Me._segment_90.TabStop = False
-        '
-        '_segment_89
-        '
-        Me._segment_89.BackColor = System.Drawing.Color.Transparent
-        Me._segment_89.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_89.Image = CType(resources.GetObject("_segment_89.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_89, CType(89, Short))
-        Me._segment_89.Location = New System.Drawing.Point(240, 128)
-        Me._segment_89.Name = "_segment_89"
-        Me._segment_89.Size = New System.Drawing.Size(30, 30)
-        Me._segment_89.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_89.TabIndex = 32
-        Me._segment_89.TabStop = False
-        '
-        '_segment_88
-        '
-        Me._segment_88.BackColor = System.Drawing.Color.Transparent
-        Me._segment_88.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_88.Image = CType(resources.GetObject("_segment_88.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_88, CType(88, Short))
-        Me._segment_88.Location = New System.Drawing.Point(272, 128)
-        Me._segment_88.Name = "_segment_88"
-        Me._segment_88.Size = New System.Drawing.Size(30, 30)
-        Me._segment_88.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_88.TabIndex = 33
-        Me._segment_88.TabStop = False
-        '
-        '_segment_87
-        '
-        Me._segment_87.BackColor = System.Drawing.Color.Transparent
-        Me._segment_87.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_87.Image = CType(resources.GetObject("_segment_87.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_87, CType(87, Short))
-        Me._segment_87.Location = New System.Drawing.Point(304, 128)
-        Me._segment_87.Name = "_segment_87"
-        Me._segment_87.Size = New System.Drawing.Size(30, 30)
-        Me._segment_87.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_87.TabIndex = 34
-        Me._segment_87.TabStop = False
-        '
-        '_segment_86
-        '
-        Me._segment_86.BackColor = System.Drawing.Color.Transparent
-        Me._segment_86.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_86.Image = CType(resources.GetObject("_segment_86.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_86, CType(86, Short))
-        Me._segment_86.Location = New System.Drawing.Point(336, 128)
-        Me._segment_86.Name = "_segment_86"
-        Me._segment_86.Size = New System.Drawing.Size(30, 30)
-        Me._segment_86.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_86.TabIndex = 35
-        Me._segment_86.TabStop = False
-        '
-        '_segment_85
-        '
-        Me._segment_85.BackColor = System.Drawing.Color.Transparent
-        Me._segment_85.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_85.Image = CType(resources.GetObject("_segment_85.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_85, CType(85, Short))
-        Me._segment_85.Location = New System.Drawing.Point(368, 128)
-        Me._segment_85.Name = "_segment_85"
-        Me._segment_85.Size = New System.Drawing.Size(30, 30)
-        Me._segment_85.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_85.TabIndex = 36
-        Me._segment_85.TabStop = False
-        '
-        '_segment_84
-        '
-        Me._segment_84.BackColor = System.Drawing.Color.Transparent
-        Me._segment_84.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_84.Image = CType(resources.GetObject("_segment_84.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_84, CType(84, Short))
-        Me._segment_84.Location = New System.Drawing.Point(240, 160)
-        Me._segment_84.Name = "_segment_84"
-        Me._segment_84.Size = New System.Drawing.Size(30, 30)
-        Me._segment_84.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_84.TabIndex = 37
-        Me._segment_84.TabStop = False
-        '
-        '_segment_83
-        '
-        Me._segment_83.BackColor = System.Drawing.Color.Transparent
-        Me._segment_83.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_83.Image = CType(resources.GetObject("_segment_83.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_83, CType(83, Short))
-        Me._segment_83.Location = New System.Drawing.Point(272, 160)
-        Me._segment_83.Name = "_segment_83"
-        Me._segment_83.Size = New System.Drawing.Size(30, 30)
-        Me._segment_83.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_83.TabIndex = 38
-        Me._segment_83.TabStop = False
-        '
-        '_segment_82
-        '
-        Me._segment_82.BackColor = System.Drawing.Color.Transparent
-        Me._segment_82.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_82.Image = CType(resources.GetObject("_segment_82.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_82, CType(82, Short))
-        Me._segment_82.Location = New System.Drawing.Point(304, 160)
-        Me._segment_82.Name = "_segment_82"
-        Me._segment_82.Size = New System.Drawing.Size(30, 30)
-        Me._segment_82.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_82.TabIndex = 39
-        Me._segment_82.TabStop = False
-        '
-        '_segment_81
-        '
-        Me._segment_81.BackColor = System.Drawing.Color.Transparent
-        Me._segment_81.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_81.Image = CType(resources.GetObject("_segment_81.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_81, CType(81, Short))
-        Me._segment_81.Location = New System.Drawing.Point(336, 160)
-        Me._segment_81.Name = "_segment_81"
-        Me._segment_81.Size = New System.Drawing.Size(30, 30)
-        Me._segment_81.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_81.TabIndex = 40
-        Me._segment_81.TabStop = False
-        '
-        '_segment_80
-        '
-        Me._segment_80.BackColor = System.Drawing.Color.Transparent
-        Me._segment_80.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_80.Image = CType(resources.GetObject("_segment_80.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_80, CType(80, Short))
-        Me._segment_80.Location = New System.Drawing.Point(368, 160)
-        Me._segment_80.Name = "_segment_80"
-        Me._segment_80.Size = New System.Drawing.Size(30, 30)
-        Me._segment_80.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_80.TabIndex = 41
-        Me._segment_80.TabStop = False
-        '
-        '_segment_79
-        '
-        Me._segment_79.BackColor = System.Drawing.Color.Transparent
-        Me._segment_79.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_79.Image = CType(resources.GetObject("_segment_79.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_79, CType(79, Short))
-        Me._segment_79.Location = New System.Drawing.Point(400, 160)
-        Me._segment_79.Name = "_segment_79"
-        Me._segment_79.Size = New System.Drawing.Size(30, 30)
-        Me._segment_79.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_79.TabIndex = 42
-        Me._segment_79.TabStop = False
-        '
-        '_segment_78
-        '
-        Me._segment_78.BackColor = System.Drawing.Color.Transparent
-        Me._segment_78.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_78.Image = CType(resources.GetObject("_segment_78.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_78, CType(78, Short))
-        Me._segment_78.Location = New System.Drawing.Point(240, 192)
-        Me._segment_78.Name = "_segment_78"
-        Me._segment_78.Size = New System.Drawing.Size(30, 30)
-        Me._segment_78.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_78.TabIndex = 43
-        Me._segment_78.TabStop = False
-        '
-        '_segment_77
-        '
-        Me._segment_77.BackColor = System.Drawing.Color.Transparent
-        Me._segment_77.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_77.Image = CType(resources.GetObject("_segment_77.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_77, CType(77, Short))
-        Me._segment_77.Location = New System.Drawing.Point(400, 96)
-        Me._segment_77.Name = "_segment_77"
-        Me._segment_77.Size = New System.Drawing.Size(30, 30)
-        Me._segment_77.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_77.TabIndex = 44
-        Me._segment_77.TabStop = False
-        '
-        '_segment_76
-        '
-        Me._segment_76.BackColor = System.Drawing.Color.Transparent
-        Me._segment_76.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_76.Image = CType(resources.GetObject("_segment_76.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_76, CType(76, Short))
-        Me._segment_76.Location = New System.Drawing.Point(432, 96)
-        Me._segment_76.Name = "_segment_76"
-        Me._segment_76.Size = New System.Drawing.Size(30, 30)
-        Me._segment_76.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_76.TabIndex = 45
-        Me._segment_76.TabStop = False
-        '
-        '_segment_75
-        '
-        Me._segment_75.BackColor = System.Drawing.Color.Transparent
-        Me._segment_75.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_75.Image = CType(resources.GetObject("_segment_75.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_75, CType(75, Short))
-        Me._segment_75.Location = New System.Drawing.Point(464, 96)
-        Me._segment_75.Name = "_segment_75"
-        Me._segment_75.Size = New System.Drawing.Size(30, 30)
-        Me._segment_75.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_75.TabIndex = 46
-        Me._segment_75.TabStop = False
-        '
-        '_segment_74
-        '
-        Me._segment_74.BackColor = System.Drawing.Color.Transparent
-        Me._segment_74.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_74.Image = CType(resources.GetObject("_segment_74.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_74, CType(74, Short))
-        Me._segment_74.Location = New System.Drawing.Point(400, 128)
-        Me._segment_74.Name = "_segment_74"
-        Me._segment_74.Size = New System.Drawing.Size(30, 30)
-        Me._segment_74.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_74.TabIndex = 47
-        Me._segment_74.TabStop = False
-        '
-        '_segment_73
-        '
-        Me._segment_73.BackColor = System.Drawing.Color.Transparent
-        Me._segment_73.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_73.Image = CType(resources.GetObject("_segment_73.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_73, CType(73, Short))
-        Me._segment_73.Location = New System.Drawing.Point(432, 128)
-        Me._segment_73.Name = "_segment_73"
-        Me._segment_73.Size = New System.Drawing.Size(30, 30)
-        Me._segment_73.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_73.TabIndex = 48
-        Me._segment_73.TabStop = False
-        '
-        '_segment_72
-        '
-        Me._segment_72.BackColor = System.Drawing.Color.Transparent
-        Me._segment_72.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_72.Image = CType(resources.GetObject("_segment_72.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_72, CType(72, Short))
-        Me._segment_72.Location = New System.Drawing.Point(464, 128)
-        Me._segment_72.Name = "_segment_72"
-        Me._segment_72.Size = New System.Drawing.Size(30, 30)
-        Me._segment_72.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_72.TabIndex = 49
-        Me._segment_72.TabStop = False
-        '
-        '_segment_71
-        '
-        Me._segment_71.BackColor = System.Drawing.Color.Transparent
-        Me._segment_71.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_71.Image = CType(resources.GetObject("_segment_71.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_71, CType(71, Short))
-        Me._segment_71.Location = New System.Drawing.Point(464, 160)
-        Me._segment_71.Name = "_segment_71"
-        Me._segment_71.Size = New System.Drawing.Size(30, 30)
-        Me._segment_71.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_71.TabIndex = 50
-        Me._segment_71.TabStop = False
-        '
-        '_segment_70
-        '
-        Me._segment_70.BackColor = System.Drawing.Color.Transparent
-        Me._segment_70.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_70.Image = CType(resources.GetObject("_segment_70.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_70, CType(70, Short))
-        Me._segment_70.Location = New System.Drawing.Point(272, 192)
-        Me._segment_70.Name = "_segment_70"
-        Me._segment_70.Size = New System.Drawing.Size(30, 30)
-        Me._segment_70.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_70.TabIndex = 51
-        Me._segment_70.TabStop = False
-        '
-        '_segment_69
-        '
-        Me._segment_69.BackColor = System.Drawing.Color.Transparent
-        Me._segment_69.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_69.Image = CType(resources.GetObject("_segment_69.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_69, CType(69, Short))
-        Me._segment_69.Location = New System.Drawing.Point(336, 192)
-        Me._segment_69.Name = "_segment_69"
-        Me._segment_69.Size = New System.Drawing.Size(30, 30)
-        Me._segment_69.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_69.TabIndex = 52
-        Me._segment_69.TabStop = False
-        '
-        '_segment_68
-        '
-        Me._segment_68.BackColor = System.Drawing.Color.Transparent
-        Me._segment_68.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_68.Image = CType(resources.GetObject("_segment_68.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_68, CType(68, Short))
-        Me._segment_68.Location = New System.Drawing.Point(368, 192)
-        Me._segment_68.Name = "_segment_68"
-        Me._segment_68.Size = New System.Drawing.Size(30, 30)
-        Me._segment_68.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_68.TabIndex = 53
-        Me._segment_68.TabStop = False
-        '
-        '_segment_67
-        '
-        Me._segment_67.BackColor = System.Drawing.Color.Transparent
-        Me._segment_67.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_67.Image = CType(resources.GetObject("_segment_67.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_67, CType(67, Short))
-        Me._segment_67.Location = New System.Drawing.Point(400, 192)
-        Me._segment_67.Name = "_segment_67"
-        Me._segment_67.Size = New System.Drawing.Size(30, 30)
-        Me._segment_67.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_67.TabIndex = 54
-        Me._segment_67.TabStop = False
-        '
-        '_segment_66
-        '
-        Me._segment_66.BackColor = System.Drawing.Color.Transparent
-        Me._segment_66.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_66.Image = CType(resources.GetObject("_segment_66.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_66, CType(66, Short))
-        Me._segment_66.Location = New System.Drawing.Point(432, 192)
-        Me._segment_66.Name = "_segment_66"
-        Me._segment_66.Size = New System.Drawing.Size(30, 30)
-        Me._segment_66.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_66.TabIndex = 55
-        Me._segment_66.TabStop = False
-        '
-        '_segment_65
-        '
-        Me._segment_65.BackColor = System.Drawing.Color.Transparent
-        Me._segment_65.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_65.Image = CType(resources.GetObject("_segment_65.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_65, CType(65, Short))
-        Me._segment_65.Location = New System.Drawing.Point(464, 192)
-        Me._segment_65.Name = "_segment_65"
-        Me._segment_65.Size = New System.Drawing.Size(30, 30)
-        Me._segment_65.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_65.TabIndex = 56
-        Me._segment_65.TabStop = False
-        '
-        '_segment_64
-        '
-        Me._segment_64.BackColor = System.Drawing.Color.Transparent
-        Me._segment_64.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_64.Image = CType(resources.GetObject("_segment_64.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_64, CType(64, Short))
-        Me._segment_64.Location = New System.Drawing.Point(200, 128)
-        Me._segment_64.Name = "_segment_64"
-        Me._segment_64.Size = New System.Drawing.Size(30, 30)
-        Me._segment_64.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_64.TabIndex = 57
-        Me._segment_64.TabStop = False
-        '
-        '_segment_63
-        '
-        Me._segment_63.BackColor = System.Drawing.Color.Transparent
-        Me._segment_63.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_63.Image = CType(resources.GetObject("_segment_63.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_63, CType(63, Short))
-        Me._segment_63.Location = New System.Drawing.Point(144, 128)
-        Me._segment_63.Name = "_segment_63"
-        Me._segment_63.Size = New System.Drawing.Size(30, 30)
-        Me._segment_63.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_63.TabIndex = 58
-        Me._segment_63.TabStop = False
-        '
-        '_segment_62
-        '
-        Me._segment_62.BackColor = System.Drawing.Color.Transparent
-        Me._segment_62.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_62.Image = CType(resources.GetObject("_segment_62.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_62, CType(62, Short))
-        Me._segment_62.Location = New System.Drawing.Point(120, 128)
-        Me._segment_62.Name = "_segment_62"
-        Me._segment_62.Size = New System.Drawing.Size(30, 30)
-        Me._segment_62.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_62.TabIndex = 59
-        Me._segment_62.TabStop = False
-        '
-        '_segment_61
-        '
-        Me._segment_61.BackColor = System.Drawing.Color.Transparent
-        Me._segment_61.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_61.Image = CType(resources.GetObject("_segment_61.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_61, CType(61, Short))
-        Me._segment_61.Location = New System.Drawing.Point(88, 128)
-        Me._segment_61.Name = "_segment_61"
-        Me._segment_61.Size = New System.Drawing.Size(30, 30)
-        Me._segment_61.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_61.TabIndex = 60
-        Me._segment_61.TabStop = False
-        '
-        '_segment_60
-        '
-        Me._segment_60.BackColor = System.Drawing.Color.Transparent
-        Me._segment_60.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_60.Image = CType(resources.GetObject("_segment_60.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_60, CType(60, Short))
-        Me._segment_60.Location = New System.Drawing.Point(64, 128)
-        Me._segment_60.Name = "_segment_60"
-        Me._segment_60.Size = New System.Drawing.Size(30, 30)
-        Me._segment_60.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_60.TabIndex = 61
-        Me._segment_60.TabStop = False
-        '
-        '_segment_59
-        '
-        Me._segment_59.BackColor = System.Drawing.Color.Transparent
-        Me._segment_59.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_59.Image = CType(resources.GetObject("_segment_59.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_59, CType(59, Short))
-        Me._segment_59.Location = New System.Drawing.Point(32, 128)
-        Me._segment_59.Name = "_segment_59"
-        Me._segment_59.Size = New System.Drawing.Size(30, 30)
-        Me._segment_59.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_59.TabIndex = 62
-        Me._segment_59.TabStop = False
-        '
-        '_segment_58
-        '
-        Me._segment_58.BackColor = System.Drawing.Color.Transparent
-        Me._segment_58.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_58.Image = CType(resources.GetObject("_segment_58.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_58, CType(58, Short))
-        Me._segment_58.Location = New System.Drawing.Point(8, 128)
-        Me._segment_58.Name = "_segment_58"
-        Me._segment_58.Size = New System.Drawing.Size(30, 30)
-        Me._segment_58.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_58.TabIndex = 63
-        Me._segment_58.TabStop = False
-        '
-        '_segment_57
-        '
-        Me._segment_57.BackColor = System.Drawing.Color.Transparent
-        Me._segment_57.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_57.Image = CType(resources.GetObject("_segment_57.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_57, CType(57, Short))
-        Me._segment_57.Location = New System.Drawing.Point(8, 160)
-        Me._segment_57.Name = "_segment_57"
-        Me._segment_57.Size = New System.Drawing.Size(30, 30)
-        Me._segment_57.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_57.TabIndex = 64
-        Me._segment_57.TabStop = False
-        '
-        '_segment_56
-        '
-        Me._segment_56.BackColor = System.Drawing.Color.Transparent
-        Me._segment_56.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_56.Image = CType(resources.GetObject("_segment_56.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_56, CType(56, Short))
-        Me._segment_56.Location = New System.Drawing.Point(32, 160)
-        Me._segment_56.Name = "_segment_56"
-        Me._segment_56.Size = New System.Drawing.Size(30, 30)
-        Me._segment_56.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_56.TabIndex = 65
-        Me._segment_56.TabStop = False
-        '
-        '_segment_55
-        '
-        Me._segment_55.BackColor = System.Drawing.Color.Transparent
-        Me._segment_55.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_55.Image = CType(resources.GetObject("_segment_55.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_55, CType(55, Short))
-        Me._segment_55.Location = New System.Drawing.Point(64, 160)
-        Me._segment_55.Name = "_segment_55"
-        Me._segment_55.Size = New System.Drawing.Size(27, 30)
-        Me._segment_55.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_55.TabIndex = 66
-        Me._segment_55.TabStop = False
-        '
-        '_segment_54
-        '
-        Me._segment_54.BackColor = System.Drawing.Color.Transparent
-        Me._segment_54.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_54.Image = CType(resources.GetObject("_segment_54.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_54, CType(54, Short))
-        Me._segment_54.Location = New System.Drawing.Point(88, 160)
-        Me._segment_54.Name = "_segment_54"
-        Me._segment_54.Size = New System.Drawing.Size(30, 30)
-        Me._segment_54.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_54.TabIndex = 67
-        Me._segment_54.TabStop = False
-        '
-        '_segment_53
-        '
-        Me._segment_53.BackColor = System.Drawing.Color.Transparent
-        Me._segment_53.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_53.Image = CType(resources.GetObject("_segment_53.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_53, CType(53, Short))
-        Me._segment_53.Location = New System.Drawing.Point(120, 160)
-        Me._segment_53.Name = "_segment_53"
-        Me._segment_53.Size = New System.Drawing.Size(30, 30)
-        Me._segment_53.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_53.TabIndex = 68
-        Me._segment_53.TabStop = False
-        '
-        '_segment_52
-        '
-        Me._segment_52.BackColor = System.Drawing.Color.Transparent
-        Me._segment_52.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_52.Image = CType(resources.GetObject("_segment_52.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_52, CType(52, Short))
-        Me._segment_52.Location = New System.Drawing.Point(144, 160)
-        Me._segment_52.Name = "_segment_52"
-        Me._segment_52.Size = New System.Drawing.Size(30, 30)
-        Me._segment_52.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_52.TabIndex = 69
-        Me._segment_52.TabStop = False
-        '
-        '_segment_51
-        '
-        Me._segment_51.BackColor = System.Drawing.Color.Transparent
-        Me._segment_51.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_51.Image = CType(resources.GetObject("_segment_51.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_51, CType(51, Short))
-        Me._segment_51.Location = New System.Drawing.Point(176, 160)
-        Me._segment_51.Name = "_segment_51"
-        Me._segment_51.Size = New System.Drawing.Size(30, 30)
-        Me._segment_51.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_51.TabIndex = 70
-        Me._segment_51.TabStop = False
-        '
-        '_segment_50
-        '
-        Me._segment_50.BackColor = System.Drawing.Color.Transparent
-        Me._segment_50.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_50.Image = CType(resources.GetObject("_segment_50.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_50, CType(50, Short))
-        Me._segment_50.Location = New System.Drawing.Point(200, 160)
-        Me._segment_50.Name = "_segment_50"
-        Me._segment_50.Size = New System.Drawing.Size(30, 30)
-        Me._segment_50.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_50.TabIndex = 71
-        Me._segment_50.TabStop = False
-        '
-        '_segment_49
-        '
-        Me._segment_49.BackColor = System.Drawing.Color.Transparent
-        Me._segment_49.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_49.Image = CType(resources.GetObject("_segment_49.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_49, CType(49, Short))
-        Me._segment_49.Location = New System.Drawing.Point(8, 192)
-        Me._segment_49.Name = "_segment_49"
-        Me._segment_49.Size = New System.Drawing.Size(30, 30)
-        Me._segment_49.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_49.TabIndex = 72
-        Me._segment_49.TabStop = False
-        '
-        '_segment_48
-        '
-        Me._segment_48.BackColor = System.Drawing.Color.Transparent
-        Me._segment_48.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_48.Image = CType(resources.GetObject("_segment_48.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_48, CType(48, Short))
-        Me._segment_48.Location = New System.Drawing.Point(32, 192)
-        Me._segment_48.Name = "_segment_48"
-        Me._segment_48.Size = New System.Drawing.Size(30, 30)
-        Me._segment_48.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_48.TabIndex = 73
-        Me._segment_48.TabStop = False
-        '
-        '_segment_47
-        '
-        Me._segment_47.BackColor = System.Drawing.Color.Transparent
-        Me._segment_47.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_47.Image = CType(resources.GetObject("_segment_47.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_47, CType(47, Short))
-        Me._segment_47.Location = New System.Drawing.Point(64, 192)
-        Me._segment_47.Name = "_segment_47"
-        Me._segment_47.Size = New System.Drawing.Size(30, 30)
-        Me._segment_47.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_47.TabIndex = 74
-        Me._segment_47.TabStop = False
-        '
-        '_segment_46
-        '
-        Me._segment_46.BackColor = System.Drawing.Color.Transparent
-        Me._segment_46.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_46.Image = CType(resources.GetObject("_segment_46.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_46, CType(46, Short))
-        Me._segment_46.Location = New System.Drawing.Point(200, 192)
-        Me._segment_46.Name = "_segment_46"
-        Me._segment_46.Size = New System.Drawing.Size(30, 30)
-        Me._segment_46.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_46.TabIndex = 75
-        Me._segment_46.TabStop = False
-        '
-        '_segment_45
-        '
-        Me._segment_45.BackColor = System.Drawing.Color.Transparent
-        Me._segment_45.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_45.Image = CType(resources.GetObject("_segment_45.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_45, CType(45, Short))
-        Me._segment_45.Location = New System.Drawing.Point(176, 192)
-        Me._segment_45.Name = "_segment_45"
-        Me._segment_45.Size = New System.Drawing.Size(30, 30)
-        Me._segment_45.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_45.TabIndex = 76
-        Me._segment_45.TabStop = False
-        '
-        '_segment_44
-        '
-        Me._segment_44.BackColor = System.Drawing.Color.Transparent
-        Me._segment_44.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_44.Image = CType(resources.GetObject("_segment_44.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_44, CType(44, Short))
-        Me._segment_44.Location = New System.Drawing.Point(144, 192)
-        Me._segment_44.Name = "_segment_44"
-        Me._segment_44.Size = New System.Drawing.Size(30, 30)
-        Me._segment_44.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_44.TabIndex = 77
-        Me._segment_44.TabStop = False
-        '
-        '_segment_43
-        '
-        Me._segment_43.BackColor = System.Drawing.Color.Transparent
-        Me._segment_43.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_43.Image = CType(resources.GetObject("_segment_43.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_43, CType(43, Short))
-        Me._segment_43.Location = New System.Drawing.Point(120, 192)
-        Me._segment_43.Name = "_segment_43"
-        Me._segment_43.Size = New System.Drawing.Size(30, 30)
-        Me._segment_43.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_43.TabIndex = 78
-        Me._segment_43.TabStop = False
-        '
-        '_segment_42
-        '
-        Me._segment_42.BackColor = System.Drawing.Color.Transparent
-        Me._segment_42.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_42.Image = CType(resources.GetObject("_segment_42.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_42, CType(42, Short))
-        Me._segment_42.Location = New System.Drawing.Point(88, 192)
-        Me._segment_42.Name = "_segment_42"
-        Me._segment_42.Size = New System.Drawing.Size(30, 30)
-        Me._segment_42.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_42.TabIndex = 79
-        Me._segment_42.TabStop = False
-        '
-        '_segment_41
-        '
-        Me._segment_41.BackColor = System.Drawing.Color.Transparent
-        Me._segment_41.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_41.Image = CType(resources.GetObject("_segment_41.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_41, CType(41, Short))
-        Me._segment_41.Location = New System.Drawing.Point(176, 128)
-        Me._segment_41.Name = "_segment_41"
-        Me._segment_41.Size = New System.Drawing.Size(30, 30)
-        Me._segment_41.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_41.TabIndex = 80
-        Me._segment_41.TabStop = False
-        '
-        '_segment_40
-        '
-        Me._segment_40.BackColor = System.Drawing.Color.Transparent
-        Me._segment_40.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_40.Image = CType(resources.GetObject("_segment_40.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_40, CType(40, Short))
-        Me._segment_40.Location = New System.Drawing.Point(8, 216)
-        Me._segment_40.Name = "_segment_40"
-        Me._segment_40.Size = New System.Drawing.Size(30, 30)
-        Me._segment_40.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_40.TabIndex = 81
-        Me._segment_40.TabStop = False
-        '
-        '_segment_39
-        '
-        Me._segment_39.BackColor = System.Drawing.Color.Transparent
-        Me._segment_39.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_39.Image = CType(resources.GetObject("_segment_39.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_39, CType(39, Short))
-        Me._segment_39.Location = New System.Drawing.Point(32, 216)
-        Me._segment_39.Name = "_segment_39"
-        Me._segment_39.Size = New System.Drawing.Size(30, 30)
-        Me._segment_39.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_39.TabIndex = 82
-        Me._segment_39.TabStop = False
-        '
-        '_segment_38
-        '
-        Me._segment_38.BackColor = System.Drawing.Color.Transparent
-        Me._segment_38.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_38.Image = CType(resources.GetObject("_segment_38.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_38, CType(38, Short))
-        Me._segment_38.Location = New System.Drawing.Point(8, 240)
-        Me._segment_38.Name = "_segment_38"
-        Me._segment_38.Size = New System.Drawing.Size(30, 30)
-        Me._segment_38.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_38.TabIndex = 83
-        Me._segment_38.TabStop = False
-        '
-        '_segment_37
-        '
-        Me._segment_37.BackColor = System.Drawing.Color.Transparent
-        Me._segment_37.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_37.Image = CType(resources.GetObject("_segment_37.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_37, CType(37, Short))
-        Me._segment_37.Location = New System.Drawing.Point(32, 240)
-        Me._segment_37.Name = "_segment_37"
-        Me._segment_37.Size = New System.Drawing.Size(30, 30)
-        Me._segment_37.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_37.TabIndex = 84
-        Me._segment_37.TabStop = False
-        '
-        '_segment_36
-        '
-        Me._segment_36.BackColor = System.Drawing.Color.Transparent
-        Me._segment_36.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_36.Image = CType(resources.GetObject("_segment_36.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_36, CType(36, Short))
-        Me._segment_36.Location = New System.Drawing.Point(8, 264)
-        Me._segment_36.Name = "_segment_36"
-        Me._segment_36.Size = New System.Drawing.Size(30, 30)
-        Me._segment_36.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_36.TabIndex = 85
-        Me._segment_36.TabStop = False
-        '
-        '_segment_35
-        '
-        Me._segment_35.BackColor = System.Drawing.Color.Transparent
-        Me._segment_35.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_35.Image = CType(resources.GetObject("_segment_35.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_35, CType(35, Short))
-        Me._segment_35.Location = New System.Drawing.Point(32, 264)
-        Me._segment_35.Name = "_segment_35"
-        Me._segment_35.Size = New System.Drawing.Size(30, 30)
-        Me._segment_35.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_35.TabIndex = 86
-        Me._segment_35.TabStop = False
-        '
-        '_segment_34
-        '
-        Me._segment_34.BackColor = System.Drawing.Color.Transparent
-        Me._segment_34.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_34.Image = CType(resources.GetObject("_segment_34.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_34, CType(34, Short))
-        Me._segment_34.Location = New System.Drawing.Point(64, 216)
-        Me._segment_34.Name = "_segment_34"
-        Me._segment_34.Size = New System.Drawing.Size(30, 30)
-        Me._segment_34.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_34.TabIndex = 87
-        Me._segment_34.TabStop = False
-        '
-        '_segment_33
-        '
-        Me._segment_33.BackColor = System.Drawing.Color.Transparent
-        Me._segment_33.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_33.Image = CType(resources.GetObject("_segment_33.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_33, CType(33, Short))
-        Me._segment_33.Location = New System.Drawing.Point(88, 216)
-        Me._segment_33.Name = "_segment_33"
-        Me._segment_33.Size = New System.Drawing.Size(30, 30)
-        Me._segment_33.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_33.TabIndex = 88
-        Me._segment_33.TabStop = False
-        '
-        '_segment_32
-        '
-        Me._segment_32.BackColor = System.Drawing.Color.Transparent
-        Me._segment_32.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_32.Image = CType(resources.GetObject("_segment_32.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_32, CType(32, Short))
-        Me._segment_32.Location = New System.Drawing.Point(64, 240)
-        Me._segment_32.Name = "_segment_32"
-        Me._segment_32.Size = New System.Drawing.Size(30, 30)
-        Me._segment_32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_32.TabIndex = 89
-        Me._segment_32.TabStop = False
-        '
-        '_segment_31
-        '
-        Me._segment_31.BackColor = System.Drawing.Color.Transparent
-        Me._segment_31.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_31.Image = CType(resources.GetObject("_segment_31.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_31, CType(31, Short))
-        Me._segment_31.Location = New System.Drawing.Point(88, 240)
-        Me._segment_31.Name = "_segment_31"
-        Me._segment_31.Size = New System.Drawing.Size(30, 30)
-        Me._segment_31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_31.TabIndex = 90
-        Me._segment_31.TabStop = False
-        '
-        '_segment_30
-        '
-        Me._segment_30.BackColor = System.Drawing.Color.Transparent
-        Me._segment_30.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_30.Image = CType(resources.GetObject("_segment_30.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_30, CType(30, Short))
-        Me._segment_30.Location = New System.Drawing.Point(64, 264)
-        Me._segment_30.Name = "_segment_30"
-        Me._segment_30.Size = New System.Drawing.Size(30, 30)
-        Me._segment_30.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_30.TabIndex = 91
-        Me._segment_30.TabStop = False
-        '
-        '_segment_29
-        '
-        Me._segment_29.BackColor = System.Drawing.Color.Transparent
-        Me._segment_29.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_29.Image = CType(resources.GetObject("_segment_29.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_29, CType(29, Short))
-        Me._segment_29.Location = New System.Drawing.Point(88, 264)
-        Me._segment_29.Name = "_segment_29"
-        Me._segment_29.Size = New System.Drawing.Size(30, 30)
-        Me._segment_29.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_29.TabIndex = 92
-        Me._segment_29.TabStop = False
-        '
-        '_segment_28
-        '
-        Me._segment_28.BackColor = System.Drawing.Color.Transparent
-        Me._segment_28.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_28.Image = CType(resources.GetObject("_segment_28.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_28, CType(28, Short))
-        Me._segment_28.Location = New System.Drawing.Point(176, 264)
-        Me._segment_28.Name = "_segment_28"
-        Me._segment_28.Size = New System.Drawing.Size(30, 30)
-        Me._segment_28.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_28.TabIndex = 93
-        Me._segment_28.TabStop = False
-        '
-        '_segment_27
-        '
-        Me._segment_27.BackColor = System.Drawing.Color.Transparent
-        Me._segment_27.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_27.Image = CType(resources.GetObject("_segment_27.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_27, CType(27, Short))
-        Me._segment_27.Location = New System.Drawing.Point(144, 264)
-        Me._segment_27.Name = "_segment_27"
-        Me._segment_27.Size = New System.Drawing.Size(30, 30)
-        Me._segment_27.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_27.TabIndex = 94
-        Me._segment_27.TabStop = False
-        '
-        '_segment_26
-        '
-        Me._segment_26.BackColor = System.Drawing.Color.Transparent
-        Me._segment_26.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_26.Image = CType(resources.GetObject("_segment_26.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_26, CType(26, Short))
-        Me._segment_26.Location = New System.Drawing.Point(120, 264)
-        Me._segment_26.Name = "_segment_26"
-        Me._segment_26.Size = New System.Drawing.Size(30, 30)
-        Me._segment_26.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_26.TabIndex = 95
-        Me._segment_26.TabStop = False
-        '
-        '_segment_25
-        '
-        Me._segment_25.BackColor = System.Drawing.Color.Transparent
-        Me._segment_25.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_25.Image = CType(resources.GetObject("_segment_25.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_25, CType(25, Short))
-        Me._segment_25.Location = New System.Drawing.Point(200, 240)
-        Me._segment_25.Name = "_segment_25"
-        Me._segment_25.Size = New System.Drawing.Size(30, 30)
-        Me._segment_25.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_25.TabIndex = 96
-        Me._segment_25.TabStop = False
-        '
-        '_segment_24
-        '
-        Me._segment_24.BackColor = System.Drawing.Color.Transparent
-        Me._segment_24.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_24.Image = CType(resources.GetObject("_segment_24.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_24, CType(24, Short))
-        Me._segment_24.Location = New System.Drawing.Point(200, 216)
-        Me._segment_24.Name = "_segment_24"
-        Me._segment_24.Size = New System.Drawing.Size(30, 30)
-        Me._segment_24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_24.TabIndex = 97
-        Me._segment_24.TabStop = False
-        '
-        '_segment_23
-        '
-        Me._segment_23.BackColor = System.Drawing.Color.Transparent
-        Me._segment_23.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_23.Image = CType(resources.GetObject("_segment_23.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_23, CType(23, Short))
-        Me._segment_23.Location = New System.Drawing.Point(200, 264)
-        Me._segment_23.Name = "_segment_23"
-        Me._segment_23.Size = New System.Drawing.Size(30, 30)
-        Me._segment_23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_23.TabIndex = 98
-        Me._segment_23.TabStop = False
-        '
-        '_segment_22
-        '
-        Me._segment_22.BackColor = System.Drawing.Color.Transparent
-        Me._segment_22.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_22.Image = CType(resources.GetObject("_segment_22.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_22, CType(22, Short))
-        Me._segment_22.Location = New System.Drawing.Point(176, 216)
-        Me._segment_22.Name = "_segment_22"
-        Me._segment_22.Size = New System.Drawing.Size(30, 30)
-        Me._segment_22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_22.TabIndex = 99
-        Me._segment_22.TabStop = False
-        '
-        '_segment_21
-        '
-        Me._segment_21.BackColor = System.Drawing.Color.Transparent
-        Me._segment_21.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_21.Image = CType(resources.GetObject("_segment_21.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_21, CType(21, Short))
-        Me._segment_21.Location = New System.Drawing.Point(176, 240)
-        Me._segment_21.Name = "_segment_21"
-        Me._segment_21.Size = New System.Drawing.Size(30, 30)
-        Me._segment_21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_21.TabIndex = 100
-        Me._segment_21.TabStop = False
-        '
-        '_segment_20
-        '
-        Me._segment_20.BackColor = System.Drawing.Color.Transparent
-        Me._segment_20.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_20.Image = CType(resources.GetObject("_segment_20.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_20, CType(20, Short))
-        Me._segment_20.Location = New System.Drawing.Point(120, 248)
-        Me._segment_20.Name = "_segment_20"
-        Me._segment_20.Size = New System.Drawing.Size(30, 30)
-        Me._segment_20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_20.TabIndex = 101
-        Me._segment_20.TabStop = False
-        '
-        '_segment_19
-        '
-        Me._segment_19.BackColor = System.Drawing.Color.Transparent
-        Me._segment_19.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_19.Image = CType(resources.GetObject("_segment_19.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_19, CType(19, Short))
-        Me._segment_19.Location = New System.Drawing.Point(144, 248)
-        Me._segment_19.Name = "_segment_19"
-        Me._segment_19.Size = New System.Drawing.Size(30, 30)
-        Me._segment_19.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_19.TabIndex = 102
-        Me._segment_19.TabStop = False
-        '
-        '_segment_18
-        '
-        Me._segment_18.BackColor = System.Drawing.Color.Transparent
-        Me._segment_18.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_18.Image = CType(resources.GetObject("_segment_18.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_18, CType(18, Short))
-        Me._segment_18.Location = New System.Drawing.Point(120, 224)
-        Me._segment_18.Name = "_segment_18"
-        Me._segment_18.Size = New System.Drawing.Size(30, 30)
-        Me._segment_18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_18.TabIndex = 103
-        Me._segment_18.TabStop = False
-        '
-        '_segment_17
-        '
-        Me._segment_17.BackColor = System.Drawing.Color.Transparent
-        Me._segment_17.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_17.Image = CType(resources.GetObject("_segment_17.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_17, CType(17, Short))
-        Me._segment_17.Location = New System.Drawing.Point(144, 224)
-        Me._segment_17.Name = "_segment_17"
-        Me._segment_17.Size = New System.Drawing.Size(30, 30)
-        Me._segment_17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_17.TabIndex = 104
-        Me._segment_17.TabStop = False
-        '
-        '_segment_16
-        '
-        Me._segment_16.BackColor = System.Drawing.Color.Transparent
-        Me._segment_16.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_16.Image = CType(resources.GetObject("_segment_16.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_16, CType(16, Short))
-        Me._segment_16.Location = New System.Drawing.Point(272, 0)
-        Me._segment_16.Name = "_segment_16"
-        Me._segment_16.Size = New System.Drawing.Size(30, 30)
-        Me._segment_16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_16.TabIndex = 105
-        Me._segment_16.TabStop = False
-        '
-        '_segment_15
-        '
-        Me._segment_15.BackColor = System.Drawing.Color.Transparent
-        Me._segment_15.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_15.Image = CType(resources.GetObject("_segment_15.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_15, CType(15, Short))
-        Me._segment_15.Location = New System.Drawing.Point(304, 0)
-        Me._segment_15.Name = "_segment_15"
-        Me._segment_15.Size = New System.Drawing.Size(30, 30)
-        Me._segment_15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_15.TabIndex = 106
-        Me._segment_15.TabStop = False
-        '
-        '_segment_14
-        '
-        Me._segment_14.BackColor = System.Drawing.Color.Transparent
-        Me._segment_14.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_14.Image = CType(resources.GetObject("_segment_14.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_14, CType(14, Short))
-        Me._segment_14.Location = New System.Drawing.Point(336, 0)
-        Me._segment_14.Name = "_segment_14"
-        Me._segment_14.Size = New System.Drawing.Size(30, 30)
-        Me._segment_14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_14.TabIndex = 107
-        Me._segment_14.TabStop = False
-        '
-        '_segment_13
-        '
-        Me._segment_13.BackColor = System.Drawing.Color.Transparent
-        Me._segment_13.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_13.Image = CType(resources.GetObject("_segment_13.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_13, CType(13, Short))
-        Me._segment_13.Location = New System.Drawing.Point(368, 0)
-        Me._segment_13.Name = "_segment_13"
-        Me._segment_13.Size = New System.Drawing.Size(30, 30)
-        Me._segment_13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_13.TabIndex = 108
-        Me._segment_13.TabStop = False
-        '
-        '_segment_12
-        '
-        Me._segment_12.BackColor = System.Drawing.Color.Transparent
-        Me._segment_12.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_12.Image = CType(resources.GetObject("_segment_12.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_12, CType(12, Short))
-        Me._segment_12.Location = New System.Drawing.Point(400, 0)
-        Me._segment_12.Name = "_segment_12"
-        Me._segment_12.Size = New System.Drawing.Size(30, 30)
-        Me._segment_12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_12.TabIndex = 109
-        Me._segment_12.TabStop = False
-        '
-        '_segment_11
-        '
-        Me._segment_11.BackColor = System.Drawing.Color.Transparent
-        Me._segment_11.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_11.Image = CType(resources.GetObject("_segment_11.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_11, CType(11, Short))
-        Me._segment_11.Location = New System.Drawing.Point(240, 32)
-        Me._segment_11.Name = "_segment_11"
-        Me._segment_11.Size = New System.Drawing.Size(30, 30)
-        Me._segment_11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_11.TabIndex = 110
-        Me._segment_11.TabStop = False
-        '
-        '_segment_10
-        '
-        Me._segment_10.BackColor = System.Drawing.Color.Transparent
-        Me._segment_10.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_10.Image = CType(resources.GetObject("_segment_10.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_10, CType(10, Short))
-        Me._segment_10.Location = New System.Drawing.Point(272, 32)
-        Me._segment_10.Name = "_segment_10"
-        Me._segment_10.Size = New System.Drawing.Size(30, 30)
-        Me._segment_10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_10.TabIndex = 111
-        Me._segment_10.TabStop = False
-        '
-        '_segment_9
-        '
-        Me._segment_9.BackColor = System.Drawing.Color.Transparent
-        Me._segment_9.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_9.Image = CType(resources.GetObject("_segment_9.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_9, CType(9, Short))
-        Me._segment_9.Location = New System.Drawing.Point(240, 0)
-        Me._segment_9.Name = "_segment_9"
-        Me._segment_9.Size = New System.Drawing.Size(30, 30)
-        Me._segment_9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_9.TabIndex = 112
-        Me._segment_9.TabStop = False
-        '
-        '_segment_8
-        '
-        Me._segment_8.BackColor = System.Drawing.Color.Transparent
-        Me._segment_8.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_8.Image = CType(resources.GetObject("_segment_8.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_8, CType(8, Short))
-        Me._segment_8.Location = New System.Drawing.Point(304, 32)
-        Me._segment_8.Name = "_segment_8"
-        Me._segment_8.Size = New System.Drawing.Size(30, 30)
-        Me._segment_8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_8.TabIndex = 113
-        Me._segment_8.TabStop = False
-        '
-        '_segment_7
-        '
-        Me._segment_7.BackColor = System.Drawing.Color.Transparent
-        Me._segment_7.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_7.Image = CType(resources.GetObject("_segment_7.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_7, CType(7, Short))
-        Me._segment_7.Location = New System.Drawing.Point(336, 32)
-        Me._segment_7.Name = "_segment_7"
-        Me._segment_7.Size = New System.Drawing.Size(30, 30)
-        Me._segment_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_7.TabIndex = 114
-        Me._segment_7.TabStop = False
-        '
-        '_segment_6
-        '
-        Me._segment_6.BackColor = System.Drawing.Color.Transparent
-        Me._segment_6.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_6.Image = CType(resources.GetObject("_segment_6.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_6, CType(6, Short))
-        Me._segment_6.Location = New System.Drawing.Point(368, 32)
-        Me._segment_6.Name = "_segment_6"
-        Me._segment_6.Size = New System.Drawing.Size(30, 30)
-        Me._segment_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_6.TabIndex = 115
-        Me._segment_6.TabStop = False
-        '
-        '_segment_5
-        '
-        Me._segment_5.BackColor = System.Drawing.Color.Transparent
-        Me._segment_5.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_5.Image = CType(resources.GetObject("_segment_5.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_5, CType(5, Short))
-        Me._segment_5.Location = New System.Drawing.Point(432, 0)
-        Me._segment_5.Name = "_segment_5"
-        Me._segment_5.Size = New System.Drawing.Size(30, 30)
-        Me._segment_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_5.TabIndex = 116
-        Me._segment_5.TabStop = False
-        '
-        '_segment_4
-        '
-        Me._segment_4.BackColor = System.Drawing.Color.Transparent
-        Me._segment_4.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_4.Image = CType(resources.GetObject("_segment_4.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_4, CType(4, Short))
-        Me._segment_4.Location = New System.Drawing.Point(464, 32)
-        Me._segment_4.Name = "_segment_4"
-        Me._segment_4.Size = New System.Drawing.Size(30, 30)
-        Me._segment_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_4.TabIndex = 117
-        Me._segment_4.TabStop = False
-        '
-        '_segment_3
-        '
-        Me._segment_3.BackColor = System.Drawing.Color.Transparent
-        Me._segment_3.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_3.Image = CType(resources.GetObject("_segment_3.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_3, CType(3, Short))
-        Me._segment_3.Location = New System.Drawing.Point(464, 0)
-        Me._segment_3.Name = "_segment_3"
-        Me._segment_3.Size = New System.Drawing.Size(30, 30)
-        Me._segment_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_3.TabIndex = 118
-        Me._segment_3.TabStop = False
-        '
-        '_segment_2
-        '
-        Me._segment_2.BackColor = System.Drawing.Color.Transparent
-        Me._segment_2.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_2.Image = CType(resources.GetObject("_segment_2.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_2, CType(2, Short))
-        Me._segment_2.Location = New System.Drawing.Point(400, 32)
-        Me._segment_2.Name = "_segment_2"
-        Me._segment_2.Size = New System.Drawing.Size(30, 30)
-        Me._segment_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_2.TabIndex = 119
-        Me._segment_2.TabStop = False
-        '
-        '_segment_1
-        '
-        Me._segment_1.BackColor = System.Drawing.Color.Transparent
-        Me._segment_1.Cursor = System.Windows.Forms.Cursors.Default
-        Me._segment_1.Image = CType(resources.GetObject("_segment_1.Image"), System.Drawing.Image)
-        Me.segment.SetIndex(Me._segment_1, CType(1, Short))
-        Me._segment_1.Location = New System.Drawing.Point(432, 32)
-        Me._segment_1.Name = "_segment_1"
-        Me._segment_1.Size = New System.Drawing.Size(30, 30)
-        Me._segment_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me._segment_1.TabIndex = 120
-        Me._segment_1.TabStop = False
+        'PPiece_24
+        '
+        Me.PPiece_24.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_24.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_24.Image = CType(resources.GetObject("PPiece_24.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_24, CType(24, Short))
+        Me.PPiece_24.Location = New System.Drawing.Point(200, 0)
+        Me.PPiece_24.Name = "PPiece_24"
+        Me.PPiece_24.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_24.TabIndex = 1
+        Me.PPiece_24.TabStop = False
+        Me.PPiece_24.Tag = "24"
+        '
+        'PPiece_23
+        '
+        Me.PPiece_23.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_23.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_23.Image = CType(resources.GetObject("PPiece_23.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_23, CType(23, Short))
+        Me.PPiece_23.Location = New System.Drawing.Point(168, 0)
+        Me.PPiece_23.Name = "PPiece_23"
+        Me.PPiece_23.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_23.TabIndex = 2
+        Me.PPiece_23.TabStop = False
+        Me.PPiece_23.Tag = "23"
+        '
+        'PPiece_22
+        '
+        Me.PPiece_22.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_22.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_22.Image = CType(resources.GetObject("PPiece_22.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_22, CType(22, Short))
+        Me.PPiece_22.Location = New System.Drawing.Point(136, 0)
+        Me.PPiece_22.Name = "PPiece_22"
+        Me.PPiece_22.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_22.TabIndex = 3
+        Me.PPiece_22.TabStop = False
+        Me.PPiece_22.Tag = "22"
+        '
+        'PPiece_21
+        '
+        Me.PPiece_21.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_21.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_21.Image = CType(resources.GetObject("PPiece_21.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_21, CType(21, Short))
+        Me.PPiece_21.Location = New System.Drawing.Point(104, 0)
+        Me.PPiece_21.Name = "PPiece_21"
+        Me.PPiece_21.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_21.TabIndex = 4
+        Me.PPiece_21.TabStop = False
+        Me.PPiece_21.Tag = "21"
+        '
+        'PPiece_20
+        '
+        Me.PPiece_20.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_20.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_20.Image = CType(resources.GetObject("PPiece_20.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_20, CType(20, Short))
+        Me.PPiece_20.Location = New System.Drawing.Point(40, 0)
+        Me.PPiece_20.Name = "PPiece_20"
+        Me.PPiece_20.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_20.TabIndex = 5
+        Me.PPiece_20.TabStop = False
+        Me.PPiece_20.Tag = "20"
+        '
+        'PPiece_19
+        '
+        Me.PPiece_19.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_19.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_19.Image = CType(resources.GetObject("PPiece_19.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_19, CType(19, Short))
+        Me.PPiece_19.Location = New System.Drawing.Point(72, 0)
+        Me.PPiece_19.Name = "PPiece_19"
+        Me.PPiece_19.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_19.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_19.TabIndex = 6
+        Me.PPiece_19.TabStop = False
+        Me.PPiece_19.Tag = "19"
+        '
+        'PPiece_18
+        '
+        Me.PPiece_18.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_18.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_18.Image = CType(resources.GetObject("PPiece_18.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_18, CType(18, Short))
+        Me.PPiece_18.Location = New System.Drawing.Point(200, 32)
+        Me.PPiece_18.Name = "PPiece_18"
+        Me.PPiece_18.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_18.TabIndex = 7
+        Me.PPiece_18.TabStop = False
+        Me.PPiece_18.Tag = "18"
+        '
+        'PPiece_17
+        '
+        Me.PPiece_17.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_17.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_17.Image = CType(resources.GetObject("PPiece_17.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_17, CType(17, Short))
+        Me.PPiece_17.Location = New System.Drawing.Point(168, 32)
+        Me.PPiece_17.Name = "PPiece_17"
+        Me.PPiece_17.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_17.TabIndex = 8
+        Me.PPiece_17.TabStop = False
+        Me.PPiece_17.Tag = "17"
+        '
+        'PPiece_16
+        '
+        Me.PPiece_16.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_16.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_16.Image = CType(resources.GetObject("PPiece_16.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_16, CType(16, Short))
+        Me.PPiece_16.Location = New System.Drawing.Point(136, 32)
+        Me.PPiece_16.Name = "PPiece_16"
+        Me.PPiece_16.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_16.TabIndex = 9
+        Me.PPiece_16.TabStop = False
+        Me.PPiece_16.Tag = "16"
+        '
+        'PPiece_15
+        '
+        Me.PPiece_15.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_15.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_15.Image = CType(resources.GetObject("PPiece_15.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_15, CType(15, Short))
+        Me.PPiece_15.Location = New System.Drawing.Point(104, 32)
+        Me.PPiece_15.Name = "PPiece_15"
+        Me.PPiece_15.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_15.TabIndex = 10
+        Me.PPiece_15.TabStop = False
+        Me.PPiece_15.Tag = "15"
+        '
+        'PPiece_14
+        '
+        Me.PPiece_14.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_14.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_14.Image = CType(resources.GetObject("PPiece_14.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_14, CType(14, Short))
+        Me.PPiece_14.Location = New System.Drawing.Point(72, 32)
+        Me.PPiece_14.Name = "PPiece_14"
+        Me.PPiece_14.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_14.TabIndex = 11
+        Me.PPiece_14.TabStop = False
+        Me.PPiece_14.Tag = "14"
+        '
+        'PPiece_13
+        '
+        Me.PPiece_13.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_13.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_13.Image = CType(resources.GetObject("PPiece_13.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_13, CType(13, Short))
+        Me.PPiece_13.Location = New System.Drawing.Point(40, 32)
+        Me.PPiece_13.Name = "PPiece_13"
+        Me.PPiece_13.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_13.TabIndex = 12
+        Me.PPiece_13.TabStop = False
+        Me.PPiece_13.Tag = "13"
+        '
+        'PPiece_12
+        '
+        Me.PPiece_12.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_12.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_12.Image = CType(resources.GetObject("PPiece_12.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_12, CType(12, Short))
+        Me.PPiece_12.Location = New System.Drawing.Point(200, 64)
+        Me.PPiece_12.Name = "PPiece_12"
+        Me.PPiece_12.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_12.TabIndex = 13
+        Me.PPiece_12.TabStop = False
+        Me.PPiece_12.Tag = "12"
+        '
+        'PPiece_11
+        '
+        Me.PPiece_11.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_11.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_11.Image = CType(resources.GetObject("PPiece_11.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_11, CType(11, Short))
+        Me.PPiece_11.Location = New System.Drawing.Point(168, 64)
+        Me.PPiece_11.Name = "PPiece_11"
+        Me.PPiece_11.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_11.TabIndex = 14
+        Me.PPiece_11.TabStop = False
+        Me.PPiece_11.Tag = "11"
+        '
+        'PPiece_10
+        '
+        Me.PPiece_10.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_10.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_10.Image = CType(resources.GetObject("PPiece_10.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_10, CType(10, Short))
+        Me.PPiece_10.Location = New System.Drawing.Point(136, 64)
+        Me.PPiece_10.Name = "PPiece_10"
+        Me.PPiece_10.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_10.TabIndex = 15
+        Me.PPiece_10.TabStop = False
+        Me.PPiece_10.Tag = "10"
+        '
+        'PPiece_9
+        '
+        Me.PPiece_9.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_9.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_9.Image = CType(resources.GetObject("PPiece_9.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_9, CType(9, Short))
+        Me.PPiece_9.Location = New System.Drawing.Point(104, 64)
+        Me.PPiece_9.Name = "PPiece_9"
+        Me.PPiece_9.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_9.TabIndex = 16
+        Me.PPiece_9.TabStop = False
+        Me.PPiece_9.Tag = "9"
+        '
+        'PPiece_8
+        '
+        Me.PPiece_8.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_8.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_8.Image = CType(resources.GetObject("PPiece_8.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_8, CType(8, Short))
+        Me.PPiece_8.Location = New System.Drawing.Point(72, 64)
+        Me.PPiece_8.Name = "PPiece_8"
+        Me.PPiece_8.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_8.TabIndex = 17
+        Me.PPiece_8.TabStop = False
+        Me.PPiece_8.Tag = "8"
+        '
+        'PPiece_7
+        '
+        Me.PPiece_7.BackColor = System.Drawing.Color.Transparent
+        Me.PPiece_7.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PPiece_7.Image = CType(resources.GetObject("PPiece_7.Image"), System.Drawing.Image)
+        Me.PPiece.SetIndex(Me.PPiece_7, CType(7, Short))
+        Me.PPiece_7.Location = New System.Drawing.Point(40, 64)
+        Me.PPiece_7.Name = "PPiece_7"
+        Me.PPiece_7.Size = New System.Drawing.Size(30, 30)
+        Me.PPiece_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PPiece_7.TabIndex = 18
+        Me.PPiece_7.TabStop = False
+        Me.PPiece_7.Tag = "7"
+        '
+        'Segment_96
+        '
+        Me.Segment_96.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_96.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_96.Image = CType(resources.GetObject("Segment_96.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_96, CType(96, Short))
+        Me.Segment_96.Location = New System.Drawing.Point(432, 160)
+        Me.Segment_96.Name = "Segment_96"
+        Me.Segment_96.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_96.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_96.TabIndex = 25
+        Me.Segment_96.TabStop = False
+        '
+        'Segment_95
+        '
+        Me.Segment_95.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_95.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_95.Image = CType(resources.GetObject("Segment_95.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_95, CType(95, Short))
+        Me.Segment_95.Location = New System.Drawing.Point(304, 192)
+        Me.Segment_95.Name = "Segment_95"
+        Me.Segment_95.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_95.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_95.TabIndex = 26
+        Me.Segment_95.TabStop = False
+        '
+        'Segment_94
+        '
+        Me.Segment_94.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_94.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_94.Image = CType(resources.GetObject("Segment_94.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_94, CType(94, Short))
+        Me.Segment_94.Location = New System.Drawing.Point(240, 96)
+        Me.Segment_94.Name = "Segment_94"
+        Me.Segment_94.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_94.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_94.TabIndex = 27
+        Me.Segment_94.TabStop = False
+        '
+        'Segment_93
+        '
+        Me.Segment_93.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_93.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_93.Image = CType(resources.GetObject("Segment_93.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_93, CType(93, Short))
+        Me.Segment_93.Location = New System.Drawing.Point(272, 96)
+        Me.Segment_93.Name = "Segment_93"
+        Me.Segment_93.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_93.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_93.TabIndex = 28
+        Me.Segment_93.TabStop = False
+        '
+        'Segment_92
+        '
+        Me.Segment_92.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_92.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_92.Image = CType(resources.GetObject("Segment_92.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_92, CType(92, Short))
+        Me.Segment_92.Location = New System.Drawing.Point(304, 96)
+        Me.Segment_92.Name = "Segment_92"
+        Me.Segment_92.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_92.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_92.TabIndex = 29
+        Me.Segment_92.TabStop = False
+        '
+        'Segment_91
+        '
+        Me.Segment_91.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_91.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_91.Image = CType(resources.GetObject("Segment_91.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_91, CType(91, Short))
+        Me.Segment_91.Location = New System.Drawing.Point(336, 96)
+        Me.Segment_91.Name = "Segment_91"
+        Me.Segment_91.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_91.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_91.TabIndex = 30
+        Me.Segment_91.TabStop = False
+        '
+        'Segment_90
+        '
+        Me.Segment_90.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_90.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_90.Image = CType(resources.GetObject("Segment_90.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_90, CType(90, Short))
+        Me.Segment_90.Location = New System.Drawing.Point(368, 96)
+        Me.Segment_90.Name = "Segment_90"
+        Me.Segment_90.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_90.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_90.TabIndex = 31
+        Me.Segment_90.TabStop = False
+        '
+        'Segment_89
+        '
+        Me.Segment_89.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_89.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_89.Image = CType(resources.GetObject("Segment_89.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_89, CType(89, Short))
+        Me.Segment_89.Location = New System.Drawing.Point(240, 128)
+        Me.Segment_89.Name = "Segment_89"
+        Me.Segment_89.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_89.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_89.TabIndex = 32
+        Me.Segment_89.TabStop = False
+        '
+        'Segment_88
+        '
+        Me.Segment_88.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_88.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_88.Image = CType(resources.GetObject("Segment_88.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_88, CType(88, Short))
+        Me.Segment_88.Location = New System.Drawing.Point(272, 128)
+        Me.Segment_88.Name = "Segment_88"
+        Me.Segment_88.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_88.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_88.TabIndex = 33
+        Me.Segment_88.TabStop = False
+        '
+        'Segment_87
+        '
+        Me.Segment_87.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_87.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_87.Image = CType(resources.GetObject("Segment_87.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_87, CType(87, Short))
+        Me.Segment_87.Location = New System.Drawing.Point(304, 128)
+        Me.Segment_87.Name = "Segment_87"
+        Me.Segment_87.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_87.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_87.TabIndex = 34
+        Me.Segment_87.TabStop = False
+        '
+        'Segment_86
+        '
+        Me.Segment_86.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_86.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_86.Image = CType(resources.GetObject("Segment_86.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_86, CType(86, Short))
+        Me.Segment_86.Location = New System.Drawing.Point(336, 128)
+        Me.Segment_86.Name = "Segment_86"
+        Me.Segment_86.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_86.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_86.TabIndex = 35
+        Me.Segment_86.TabStop = False
+        '
+        'Segment_85
+        '
+        Me.Segment_85.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_85.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_85.Image = CType(resources.GetObject("Segment_85.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_85, CType(85, Short))
+        Me.Segment_85.Location = New System.Drawing.Point(368, 128)
+        Me.Segment_85.Name = "Segment_85"
+        Me.Segment_85.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_85.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_85.TabIndex = 36
+        Me.Segment_85.TabStop = False
+        '
+        'Segment_84
+        '
+        Me.Segment_84.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_84.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_84.Image = CType(resources.GetObject("Segment_84.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_84, CType(84, Short))
+        Me.Segment_84.Location = New System.Drawing.Point(240, 160)
+        Me.Segment_84.Name = "Segment_84"
+        Me.Segment_84.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_84.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_84.TabIndex = 37
+        Me.Segment_84.TabStop = False
+        '
+        'Segment_83
+        '
+        Me.Segment_83.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_83.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_83.Image = CType(resources.GetObject("Segment_83.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_83, CType(83, Short))
+        Me.Segment_83.Location = New System.Drawing.Point(272, 160)
+        Me.Segment_83.Name = "Segment_83"
+        Me.Segment_83.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_83.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_83.TabIndex = 38
+        Me.Segment_83.TabStop = False
+        '
+        'Segment_82
+        '
+        Me.Segment_82.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_82.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_82.Image = CType(resources.GetObject("Segment_82.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_82, CType(82, Short))
+        Me.Segment_82.Location = New System.Drawing.Point(304, 160)
+        Me.Segment_82.Name = "Segment_82"
+        Me.Segment_82.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_82.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_82.TabIndex = 39
+        Me.Segment_82.TabStop = False
+        '
+        'Segment_81
+        '
+        Me.Segment_81.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_81.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_81.Image = CType(resources.GetObject("Segment_81.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_81, CType(81, Short))
+        Me.Segment_81.Location = New System.Drawing.Point(336, 160)
+        Me.Segment_81.Name = "Segment_81"
+        Me.Segment_81.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_81.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_81.TabIndex = 40
+        Me.Segment_81.TabStop = False
+        '
+        'Segment_80
+        '
+        Me.Segment_80.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_80.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_80.Image = CType(resources.GetObject("Segment_80.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_80, CType(80, Short))
+        Me.Segment_80.Location = New System.Drawing.Point(368, 160)
+        Me.Segment_80.Name = "Segment_80"
+        Me.Segment_80.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_80.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_80.TabIndex = 41
+        Me.Segment_80.TabStop = False
+        '
+        'Segment_79
+        '
+        Me.Segment_79.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_79.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_79.Image = CType(resources.GetObject("Segment_79.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_79, CType(79, Short))
+        Me.Segment_79.Location = New System.Drawing.Point(400, 160)
+        Me.Segment_79.Name = "Segment_79"
+        Me.Segment_79.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_79.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_79.TabIndex = 42
+        Me.Segment_79.TabStop = False
+        '
+        'Segment_78
+        '
+        Me.Segment_78.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_78.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_78.Image = CType(resources.GetObject("Segment_78.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_78, CType(78, Short))
+        Me.Segment_78.Location = New System.Drawing.Point(240, 192)
+        Me.Segment_78.Name = "Segment_78"
+        Me.Segment_78.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_78.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_78.TabIndex = 43
+        Me.Segment_78.TabStop = False
+        '
+        'Segment_77
+        '
+        Me.Segment_77.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_77.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_77.Image = CType(resources.GetObject("Segment_77.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_77, CType(77, Short))
+        Me.Segment_77.Location = New System.Drawing.Point(400, 96)
+        Me.Segment_77.Name = "Segment_77"
+        Me.Segment_77.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_77.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_77.TabIndex = 44
+        Me.Segment_77.TabStop = False
+        '
+        'Segment_76
+        '
+        Me.Segment_76.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_76.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_76.Image = CType(resources.GetObject("Segment_76.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_76, CType(76, Short))
+        Me.Segment_76.Location = New System.Drawing.Point(432, 96)
+        Me.Segment_76.Name = "Segment_76"
+        Me.Segment_76.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_76.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_76.TabIndex = 45
+        Me.Segment_76.TabStop = False
+        '
+        'Segment_75
+        '
+        Me.Segment_75.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_75.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_75.Image = CType(resources.GetObject("Segment_75.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_75, CType(75, Short))
+        Me.Segment_75.Location = New System.Drawing.Point(464, 96)
+        Me.Segment_75.Name = "Segment_75"
+        Me.Segment_75.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_75.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_75.TabIndex = 46
+        Me.Segment_75.TabStop = False
+        '
+        'Segment_74
+        '
+        Me.Segment_74.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_74.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_74.Image = CType(resources.GetObject("Segment_74.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_74, CType(74, Short))
+        Me.Segment_74.Location = New System.Drawing.Point(400, 128)
+        Me.Segment_74.Name = "Segment_74"
+        Me.Segment_74.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_74.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_74.TabIndex = 47
+        Me.Segment_74.TabStop = False
+        '
+        'Segment_73
+        '
+        Me.Segment_73.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_73.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_73.Image = CType(resources.GetObject("Segment_73.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_73, CType(73, Short))
+        Me.Segment_73.Location = New System.Drawing.Point(432, 128)
+        Me.Segment_73.Name = "Segment_73"
+        Me.Segment_73.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_73.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_73.TabIndex = 48
+        Me.Segment_73.TabStop = False
+        '
+        'Segment_72
+        '
+        Me.Segment_72.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_72.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_72.Image = CType(resources.GetObject("Segment_72.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_72, CType(72, Short))
+        Me.Segment_72.Location = New System.Drawing.Point(464, 128)
+        Me.Segment_72.Name = "Segment_72"
+        Me.Segment_72.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_72.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_72.TabIndex = 49
+        Me.Segment_72.TabStop = False
+        '
+        'Segment_71
+        '
+        Me.Segment_71.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_71.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_71.Image = CType(resources.GetObject("Segment_71.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_71, CType(71, Short))
+        Me.Segment_71.Location = New System.Drawing.Point(464, 160)
+        Me.Segment_71.Name = "Segment_71"
+        Me.Segment_71.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_71.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_71.TabIndex = 50
+        Me.Segment_71.TabStop = False
+        '
+        'Segment_70
+        '
+        Me.Segment_70.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_70.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_70.Image = CType(resources.GetObject("Segment_70.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_70, CType(70, Short))
+        Me.Segment_70.Location = New System.Drawing.Point(272, 192)
+        Me.Segment_70.Name = "Segment_70"
+        Me.Segment_70.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_70.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_70.TabIndex = 51
+        Me.Segment_70.TabStop = False
+        '
+        'Segment_69
+        '
+        Me.Segment_69.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_69.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_69.Image = CType(resources.GetObject("Segment_69.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_69, CType(69, Short))
+        Me.Segment_69.Location = New System.Drawing.Point(336, 192)
+        Me.Segment_69.Name = "Segment_69"
+        Me.Segment_69.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_69.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_69.TabIndex = 52
+        Me.Segment_69.TabStop = False
+        '
+        'Segment_68
+        '
+        Me.Segment_68.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_68.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_68.Image = CType(resources.GetObject("Segment_68.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_68, CType(68, Short))
+        Me.Segment_68.Location = New System.Drawing.Point(368, 192)
+        Me.Segment_68.Name = "Segment_68"
+        Me.Segment_68.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_68.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_68.TabIndex = 53
+        Me.Segment_68.TabStop = False
+        '
+        'Segment_67
+        '
+        Me.Segment_67.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_67.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_67.Image = CType(resources.GetObject("Segment_67.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_67, CType(67, Short))
+        Me.Segment_67.Location = New System.Drawing.Point(400, 192)
+        Me.Segment_67.Name = "Segment_67"
+        Me.Segment_67.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_67.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_67.TabIndex = 54
+        Me.Segment_67.TabStop = False
+        '
+        'Segment_66
+        '
+        Me.Segment_66.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_66.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_66.Image = CType(resources.GetObject("Segment_66.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_66, CType(66, Short))
+        Me.Segment_66.Location = New System.Drawing.Point(432, 192)
+        Me.Segment_66.Name = "Segment_66"
+        Me.Segment_66.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_66.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_66.TabIndex = 55
+        Me.Segment_66.TabStop = False
+        '
+        'Segment_65
+        '
+        Me.Segment_65.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_65.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_65.Image = CType(resources.GetObject("Segment_65.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_65, CType(65, Short))
+        Me.Segment_65.Location = New System.Drawing.Point(464, 192)
+        Me.Segment_65.Name = "Segment_65"
+        Me.Segment_65.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_65.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_65.TabIndex = 56
+        Me.Segment_65.TabStop = False
+        '
+        'Segment_64
+        '
+        Me.Segment_64.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_64.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_64.Image = CType(resources.GetObject("Segment_64.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_64, CType(64, Short))
+        Me.Segment_64.Location = New System.Drawing.Point(200, 128)
+        Me.Segment_64.Name = "Segment_64"
+        Me.Segment_64.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_64.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_64.TabIndex = 57
+        Me.Segment_64.TabStop = False
+        '
+        'Segment_63
+        '
+        Me.Segment_63.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_63.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_63.Image = CType(resources.GetObject("Segment_63.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_63, CType(63, Short))
+        Me.Segment_63.Location = New System.Drawing.Point(144, 128)
+        Me.Segment_63.Name = "Segment_63"
+        Me.Segment_63.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_63.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_63.TabIndex = 58
+        Me.Segment_63.TabStop = False
+        '
+        'Segment_62
+        '
+        Me.Segment_62.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_62.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_62.Image = CType(resources.GetObject("Segment_62.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_62, CType(62, Short))
+        Me.Segment_62.Location = New System.Drawing.Point(120, 128)
+        Me.Segment_62.Name = "Segment_62"
+        Me.Segment_62.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_62.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_62.TabIndex = 59
+        Me.Segment_62.TabStop = False
+        '
+        'Segment_61
+        '
+        Me.Segment_61.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_61.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_61.Image = CType(resources.GetObject("Segment_61.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_61, CType(61, Short))
+        Me.Segment_61.Location = New System.Drawing.Point(88, 128)
+        Me.Segment_61.Name = "Segment_61"
+        Me.Segment_61.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_61.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_61.TabIndex = 60
+        Me.Segment_61.TabStop = False
+        '
+        'Segment_60
+        '
+        Me.Segment_60.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_60.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_60.Image = CType(resources.GetObject("Segment_60.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_60, CType(60, Short))
+        Me.Segment_60.Location = New System.Drawing.Point(64, 128)
+        Me.Segment_60.Name = "Segment_60"
+        Me.Segment_60.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_60.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_60.TabIndex = 61
+        Me.Segment_60.TabStop = False
+        '
+        'Segment_59
+        '
+        Me.Segment_59.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_59.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_59.Image = CType(resources.GetObject("Segment_59.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_59, CType(59, Short))
+        Me.Segment_59.Location = New System.Drawing.Point(32, 128)
+        Me.Segment_59.Name = "Segment_59"
+        Me.Segment_59.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_59.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_59.TabIndex = 62
+        Me.Segment_59.TabStop = False
+        '
+        'Segment_58
+        '
+        Me.Segment_58.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_58.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_58.Image = CType(resources.GetObject("Segment_58.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_58, CType(58, Short))
+        Me.Segment_58.Location = New System.Drawing.Point(8, 128)
+        Me.Segment_58.Name = "Segment_58"
+        Me.Segment_58.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_58.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_58.TabIndex = 63
+        Me.Segment_58.TabStop = False
+        '
+        'Segment_57
+        '
+        Me.Segment_57.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_57.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_57.Image = CType(resources.GetObject("Segment_57.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_57, CType(57, Short))
+        Me.Segment_57.Location = New System.Drawing.Point(8, 160)
+        Me.Segment_57.Name = "Segment_57"
+        Me.Segment_57.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_57.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_57.TabIndex = 64
+        Me.Segment_57.TabStop = False
+        '
+        'Segment_56
+        '
+        Me.Segment_56.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_56.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_56.Image = CType(resources.GetObject("Segment_56.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_56, CType(56, Short))
+        Me.Segment_56.Location = New System.Drawing.Point(32, 160)
+        Me.Segment_56.Name = "Segment_56"
+        Me.Segment_56.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_56.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_56.TabIndex = 65
+        Me.Segment_56.TabStop = False
+        '
+        'Segment_55
+        '
+        Me.Segment_55.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_55.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_55.Image = CType(resources.GetObject("Segment_55.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_55, CType(55, Short))
+        Me.Segment_55.Location = New System.Drawing.Point(64, 160)
+        Me.Segment_55.Name = "Segment_55"
+        Me.Segment_55.Size = New System.Drawing.Size(27, 30)
+        Me.Segment_55.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_55.TabIndex = 66
+        Me.Segment_55.TabStop = False
+        '
+        'Segment_54
+        '
+        Me.Segment_54.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_54.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_54.Image = CType(resources.GetObject("Segment_54.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_54, CType(54, Short))
+        Me.Segment_54.Location = New System.Drawing.Point(88, 160)
+        Me.Segment_54.Name = "Segment_54"
+        Me.Segment_54.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_54.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_54.TabIndex = 67
+        Me.Segment_54.TabStop = False
+        '
+        'Segment_53
+        '
+        Me.Segment_53.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_53.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_53.Image = CType(resources.GetObject("Segment_53.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_53, CType(53, Short))
+        Me.Segment_53.Location = New System.Drawing.Point(120, 160)
+        Me.Segment_53.Name = "Segment_53"
+        Me.Segment_53.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_53.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_53.TabIndex = 68
+        Me.Segment_53.TabStop = False
+        '
+        'Segment_52
+        '
+        Me.Segment_52.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_52.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_52.Image = CType(resources.GetObject("Segment_52.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_52, CType(52, Short))
+        Me.Segment_52.Location = New System.Drawing.Point(144, 160)
+        Me.Segment_52.Name = "Segment_52"
+        Me.Segment_52.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_52.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_52.TabIndex = 69
+        Me.Segment_52.TabStop = False
+        '
+        'Segment_51
+        '
+        Me.Segment_51.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_51.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_51.Image = CType(resources.GetObject("Segment_51.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_51, CType(51, Short))
+        Me.Segment_51.Location = New System.Drawing.Point(176, 160)
+        Me.Segment_51.Name = "Segment_51"
+        Me.Segment_51.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_51.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_51.TabIndex = 70
+        Me.Segment_51.TabStop = False
+        '
+        'Segment_50
+        '
+        Me.Segment_50.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_50.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_50.Image = CType(resources.GetObject("Segment_50.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_50, CType(50, Short))
+        Me.Segment_50.Location = New System.Drawing.Point(200, 160)
+        Me.Segment_50.Name = "Segment_50"
+        Me.Segment_50.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_50.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_50.TabIndex = 71
+        Me.Segment_50.TabStop = False
+        '
+        'Segment_49
+        '
+        Me.Segment_49.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_49.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_49.Image = CType(resources.GetObject("Segment_49.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_49, CType(49, Short))
+        Me.Segment_49.Location = New System.Drawing.Point(8, 192)
+        Me.Segment_49.Name = "Segment_49"
+        Me.Segment_49.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_49.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_49.TabIndex = 72
+        Me.Segment_49.TabStop = False
+        '
+        'Segment_48
+        '
+        Me.Segment_48.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_48.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_48.Image = CType(resources.GetObject("Segment_48.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_48, CType(48, Short))
+        Me.Segment_48.Location = New System.Drawing.Point(32, 192)
+        Me.Segment_48.Name = "Segment_48"
+        Me.Segment_48.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_48.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_48.TabIndex = 73
+        Me.Segment_48.TabStop = False
+        '
+        'Segment_47
+        '
+        Me.Segment_47.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_47.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_47.Image = CType(resources.GetObject("Segment_47.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_47, CType(47, Short))
+        Me.Segment_47.Location = New System.Drawing.Point(64, 192)
+        Me.Segment_47.Name = "Segment_47"
+        Me.Segment_47.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_47.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_47.TabIndex = 74
+        Me.Segment_47.TabStop = False
+        '
+        'Segment_46
+        '
+        Me.Segment_46.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_46.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_46.Image = CType(resources.GetObject("Segment_46.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_46, CType(46, Short))
+        Me.Segment_46.Location = New System.Drawing.Point(200, 192)
+        Me.Segment_46.Name = "Segment_46"
+        Me.Segment_46.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_46.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_46.TabIndex = 75
+        Me.Segment_46.TabStop = False
+        '
+        'Segment_45
+        '
+        Me.Segment_45.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_45.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_45.Image = CType(resources.GetObject("Segment_45.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_45, CType(45, Short))
+        Me.Segment_45.Location = New System.Drawing.Point(176, 192)
+        Me.Segment_45.Name = "Segment_45"
+        Me.Segment_45.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_45.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_45.TabIndex = 76
+        Me.Segment_45.TabStop = False
+        '
+        'Segment_44
+        '
+        Me.Segment_44.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_44.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_44.Image = CType(resources.GetObject("Segment_44.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_44, CType(44, Short))
+        Me.Segment_44.Location = New System.Drawing.Point(144, 192)
+        Me.Segment_44.Name = "Segment_44"
+        Me.Segment_44.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_44.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_44.TabIndex = 77
+        Me.Segment_44.TabStop = False
+        '
+        'Segment_43
+        '
+        Me.Segment_43.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_43.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_43.Image = CType(resources.GetObject("Segment_43.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_43, CType(43, Short))
+        Me.Segment_43.Location = New System.Drawing.Point(120, 192)
+        Me.Segment_43.Name = "Segment_43"
+        Me.Segment_43.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_43.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_43.TabIndex = 78
+        Me.Segment_43.TabStop = False
+        '
+        'Segment_42
+        '
+        Me.Segment_42.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_42.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_42.Image = CType(resources.GetObject("Segment_42.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_42, CType(42, Short))
+        Me.Segment_42.Location = New System.Drawing.Point(88, 192)
+        Me.Segment_42.Name = "Segment_42"
+        Me.Segment_42.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_42.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_42.TabIndex = 79
+        Me.Segment_42.TabStop = False
+        '
+        'Segment_41
+        '
+        Me.Segment_41.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_41.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_41.Image = CType(resources.GetObject("Segment_41.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_41, CType(41, Short))
+        Me.Segment_41.Location = New System.Drawing.Point(176, 128)
+        Me.Segment_41.Name = "Segment_41"
+        Me.Segment_41.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_41.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_41.TabIndex = 80
+        Me.Segment_41.TabStop = False
+        '
+        'Segment_40
+        '
+        Me.Segment_40.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_40.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_40.Image = CType(resources.GetObject("Segment_40.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_40, CType(40, Short))
+        Me.Segment_40.Location = New System.Drawing.Point(8, 216)
+        Me.Segment_40.Name = "Segment_40"
+        Me.Segment_40.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_40.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_40.TabIndex = 81
+        Me.Segment_40.TabStop = False
+        '
+        'Segment_39
+        '
+        Me.Segment_39.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_39.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_39.Image = CType(resources.GetObject("Segment_39.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_39, CType(39, Short))
+        Me.Segment_39.Location = New System.Drawing.Point(32, 216)
+        Me.Segment_39.Name = "Segment_39"
+        Me.Segment_39.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_39.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_39.TabIndex = 82
+        Me.Segment_39.TabStop = False
+        '
+        'Segment_38
+        '
+        Me.Segment_38.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_38.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_38.Image = CType(resources.GetObject("Segment_38.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_38, CType(38, Short))
+        Me.Segment_38.Location = New System.Drawing.Point(8, 240)
+        Me.Segment_38.Name = "Segment_38"
+        Me.Segment_38.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_38.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_38.TabIndex = 83
+        Me.Segment_38.TabStop = False
+        '
+        'Segment_37
+        '
+        Me.Segment_37.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_37.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_37.Image = CType(resources.GetObject("Segment_37.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_37, CType(37, Short))
+        Me.Segment_37.Location = New System.Drawing.Point(32, 240)
+        Me.Segment_37.Name = "Segment_37"
+        Me.Segment_37.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_37.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_37.TabIndex = 84
+        Me.Segment_37.TabStop = False
+        '
+        'Segment_36
+        '
+        Me.Segment_36.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_36.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_36.Image = CType(resources.GetObject("Segment_36.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_36, CType(36, Short))
+        Me.Segment_36.Location = New System.Drawing.Point(8, 264)
+        Me.Segment_36.Name = "Segment_36"
+        Me.Segment_36.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_36.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_36.TabIndex = 85
+        Me.Segment_36.TabStop = False
+        '
+        'Segment_35
+        '
+        Me.Segment_35.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_35.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_35.Image = CType(resources.GetObject("Segment_35.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_35, CType(35, Short))
+        Me.Segment_35.Location = New System.Drawing.Point(32, 264)
+        Me.Segment_35.Name = "Segment_35"
+        Me.Segment_35.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_35.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_35.TabIndex = 86
+        Me.Segment_35.TabStop = False
+        '
+        'Segment_34
+        '
+        Me.Segment_34.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_34.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_34.Image = CType(resources.GetObject("Segment_34.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_34, CType(34, Short))
+        Me.Segment_34.Location = New System.Drawing.Point(64, 216)
+        Me.Segment_34.Name = "Segment_34"
+        Me.Segment_34.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_34.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_34.TabIndex = 87
+        Me.Segment_34.TabStop = False
+        '
+        'Segment_33
+        '
+        Me.Segment_33.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_33.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_33.Image = CType(resources.GetObject("Segment_33.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_33, CType(33, Short))
+        Me.Segment_33.Location = New System.Drawing.Point(88, 216)
+        Me.Segment_33.Name = "Segment_33"
+        Me.Segment_33.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_33.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_33.TabIndex = 88
+        Me.Segment_33.TabStop = False
+        '
+        'Segment_32
+        '
+        Me.Segment_32.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_32.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_32.Image = CType(resources.GetObject("Segment_32.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_32, CType(32, Short))
+        Me.Segment_32.Location = New System.Drawing.Point(64, 240)
+        Me.Segment_32.Name = "Segment_32"
+        Me.Segment_32.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_32.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_32.TabIndex = 89
+        Me.Segment_32.TabStop = False
+        '
+        'Segment_31
+        '
+        Me.Segment_31.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_31.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_31.Image = CType(resources.GetObject("Segment_31.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_31, CType(31, Short))
+        Me.Segment_31.Location = New System.Drawing.Point(88, 240)
+        Me.Segment_31.Name = "Segment_31"
+        Me.Segment_31.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_31.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_31.TabIndex = 90
+        Me.Segment_31.TabStop = False
+        '
+        'Segment_30
+        '
+        Me.Segment_30.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_30.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_30.Image = CType(resources.GetObject("Segment_30.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_30, CType(30, Short))
+        Me.Segment_30.Location = New System.Drawing.Point(64, 264)
+        Me.Segment_30.Name = "Segment_30"
+        Me.Segment_30.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_30.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_30.TabIndex = 91
+        Me.Segment_30.TabStop = False
+        '
+        'Segment_29
+        '
+        Me.Segment_29.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_29.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_29.Image = CType(resources.GetObject("Segment_29.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_29, CType(29, Short))
+        Me.Segment_29.Location = New System.Drawing.Point(88, 264)
+        Me.Segment_29.Name = "Segment_29"
+        Me.Segment_29.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_29.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_29.TabIndex = 92
+        Me.Segment_29.TabStop = False
+        '
+        'Segment_28
+        '
+        Me.Segment_28.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_28.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_28.Image = CType(resources.GetObject("Segment_28.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_28, CType(28, Short))
+        Me.Segment_28.Location = New System.Drawing.Point(176, 264)
+        Me.Segment_28.Name = "Segment_28"
+        Me.Segment_28.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_28.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_28.TabIndex = 93
+        Me.Segment_28.TabStop = False
+        '
+        'Segment_27
+        '
+        Me.Segment_27.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_27.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_27.Image = CType(resources.GetObject("Segment_27.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_27, CType(27, Short))
+        Me.Segment_27.Location = New System.Drawing.Point(144, 264)
+        Me.Segment_27.Name = "Segment_27"
+        Me.Segment_27.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_27.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_27.TabIndex = 94
+        Me.Segment_27.TabStop = False
+        '
+        'Segment_26
+        '
+        Me.Segment_26.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_26.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_26.Image = CType(resources.GetObject("Segment_26.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_26, CType(26, Short))
+        Me.Segment_26.Location = New System.Drawing.Point(120, 264)
+        Me.Segment_26.Name = "Segment_26"
+        Me.Segment_26.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_26.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_26.TabIndex = 95
+        Me.Segment_26.TabStop = False
+        '
+        'Segment_25
+        '
+        Me.Segment_25.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_25.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_25.Image = CType(resources.GetObject("Segment_25.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_25, CType(25, Short))
+        Me.Segment_25.Location = New System.Drawing.Point(200, 240)
+        Me.Segment_25.Name = "Segment_25"
+        Me.Segment_25.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_25.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_25.TabIndex = 96
+        Me.Segment_25.TabStop = False
+        '
+        'Segment_24
+        '
+        Me.Segment_24.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_24.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_24.Image = CType(resources.GetObject("Segment_24.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_24, CType(24, Short))
+        Me.Segment_24.Location = New System.Drawing.Point(200, 216)
+        Me.Segment_24.Name = "Segment_24"
+        Me.Segment_24.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_24.TabIndex = 97
+        Me.Segment_24.TabStop = False
+        '
+        'Segment_23
+        '
+        Me.Segment_23.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_23.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_23.Image = CType(resources.GetObject("Segment_23.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_23, CType(23, Short))
+        Me.Segment_23.Location = New System.Drawing.Point(200, 264)
+        Me.Segment_23.Name = "Segment_23"
+        Me.Segment_23.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_23.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_23.TabIndex = 98
+        Me.Segment_23.TabStop = False
+        '
+        'Segment_22
+        '
+        Me.Segment_22.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_22.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_22.Image = CType(resources.GetObject("Segment_22.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_22, CType(22, Short))
+        Me.Segment_22.Location = New System.Drawing.Point(176, 216)
+        Me.Segment_22.Name = "Segment_22"
+        Me.Segment_22.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_22.TabIndex = 99
+        Me.Segment_22.TabStop = False
+        '
+        'Segment_21
+        '
+        Me.Segment_21.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_21.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_21.Image = CType(resources.GetObject("Segment_21.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_21, CType(21, Short))
+        Me.Segment_21.Location = New System.Drawing.Point(176, 240)
+        Me.Segment_21.Name = "Segment_21"
+        Me.Segment_21.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_21.TabIndex = 100
+        Me.Segment_21.TabStop = False
+        '
+        'Segment_20
+        '
+        Me.Segment_20.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_20.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_20.Image = CType(resources.GetObject("Segment_20.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_20, CType(20, Short))
+        Me.Segment_20.Location = New System.Drawing.Point(120, 248)
+        Me.Segment_20.Name = "Segment_20"
+        Me.Segment_20.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_20.TabIndex = 101
+        Me.Segment_20.TabStop = False
+        '
+        'Segment_19
+        '
+        Me.Segment_19.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_19.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_19.Image = CType(resources.GetObject("Segment_19.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_19, CType(19, Short))
+        Me.Segment_19.Location = New System.Drawing.Point(144, 248)
+        Me.Segment_19.Name = "Segment_19"
+        Me.Segment_19.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_19.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_19.TabIndex = 102
+        Me.Segment_19.TabStop = False
+        '
+        'Segment_18
+        '
+        Me.Segment_18.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_18.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_18.Image = CType(resources.GetObject("Segment_18.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_18, CType(18, Short))
+        Me.Segment_18.Location = New System.Drawing.Point(120, 224)
+        Me.Segment_18.Name = "Segment_18"
+        Me.Segment_18.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_18.TabIndex = 103
+        Me.Segment_18.TabStop = False
+        '
+        'Segment_17
+        '
+        Me.Segment_17.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_17.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_17.Image = CType(resources.GetObject("Segment_17.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_17, CType(17, Short))
+        Me.Segment_17.Location = New System.Drawing.Point(144, 224)
+        Me.Segment_17.Name = "Segment_17"
+        Me.Segment_17.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_17.TabIndex = 104
+        Me.Segment_17.TabStop = False
+        '
+        'Segment_16
+        '
+        Me.Segment_16.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_16.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_16.Image = CType(resources.GetObject("Segment_16.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_16, CType(16, Short))
+        Me.Segment_16.Location = New System.Drawing.Point(272, 0)
+        Me.Segment_16.Name = "Segment_16"
+        Me.Segment_16.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_16.TabIndex = 105
+        Me.Segment_16.TabStop = False
+        '
+        'Segment_15
+        '
+        Me.Segment_15.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_15.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_15.Image = CType(resources.GetObject("Segment_15.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_15, CType(15, Short))
+        Me.Segment_15.Location = New System.Drawing.Point(304, 0)
+        Me.Segment_15.Name = "Segment_15"
+        Me.Segment_15.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_15.TabIndex = 106
+        Me.Segment_15.TabStop = False
+        '
+        'Segment_14
+        '
+        Me.Segment_14.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_14.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_14.Image = CType(resources.GetObject("Segment_14.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_14, CType(14, Short))
+        Me.Segment_14.Location = New System.Drawing.Point(336, 0)
+        Me.Segment_14.Name = "Segment_14"
+        Me.Segment_14.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_14.TabIndex = 107
+        Me.Segment_14.TabStop = False
+        '
+        'Segment_13
+        '
+        Me.Segment_13.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_13.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_13.Image = CType(resources.GetObject("Segment_13.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_13, CType(13, Short))
+        Me.Segment_13.Location = New System.Drawing.Point(368, 0)
+        Me.Segment_13.Name = "Segment_13"
+        Me.Segment_13.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_13.TabIndex = 108
+        Me.Segment_13.TabStop = False
+        '
+        'Segment_12
+        '
+        Me.Segment_12.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_12.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_12.Image = CType(resources.GetObject("Segment_12.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_12, CType(12, Short))
+        Me.Segment_12.Location = New System.Drawing.Point(400, 0)
+        Me.Segment_12.Name = "Segment_12"
+        Me.Segment_12.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_12.TabIndex = 109
+        Me.Segment_12.TabStop = False
+        '
+        'Segment_11
+        '
+        Me.Segment_11.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_11.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_11.Image = CType(resources.GetObject("Segment_11.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_11, CType(11, Short))
+        Me.Segment_11.Location = New System.Drawing.Point(240, 32)
+        Me.Segment_11.Name = "Segment_11"
+        Me.Segment_11.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_11.TabIndex = 110
+        Me.Segment_11.TabStop = False
+        '
+        'Segment_10
+        '
+        Me.Segment_10.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_10.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_10.Image = CType(resources.GetObject("Segment_10.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_10, CType(10, Short))
+        Me.Segment_10.Location = New System.Drawing.Point(272, 32)
+        Me.Segment_10.Name = "Segment_10"
+        Me.Segment_10.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_10.TabIndex = 111
+        Me.Segment_10.TabStop = False
+        '
+        'Segment_9
+        '
+        Me.Segment_9.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_9.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_9.Image = CType(resources.GetObject("Segment_9.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_9, CType(9, Short))
+        Me.Segment_9.Location = New System.Drawing.Point(240, 0)
+        Me.Segment_9.Name = "Segment_9"
+        Me.Segment_9.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_9.TabIndex = 112
+        Me.Segment_9.TabStop = False
+        '
+        'Segment_8
+        '
+        Me.Segment_8.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_8.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_8.Image = CType(resources.GetObject("Segment_8.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_8, CType(8, Short))
+        Me.Segment_8.Location = New System.Drawing.Point(304, 32)
+        Me.Segment_8.Name = "Segment_8"
+        Me.Segment_8.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_8.TabIndex = 113
+        Me.Segment_8.TabStop = False
+        '
+        'Segment_7
+        '
+        Me.Segment_7.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_7.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_7.Image = CType(resources.GetObject("Segment_7.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_7, CType(7, Short))
+        Me.Segment_7.Location = New System.Drawing.Point(336, 32)
+        Me.Segment_7.Name = "Segment_7"
+        Me.Segment_7.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_7.TabIndex = 114
+        Me.Segment_7.TabStop = False
+        '
+        'Segment_6
+        '
+        Me.Segment_6.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_6.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_6.Image = CType(resources.GetObject("Segment_6.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_6, CType(6, Short))
+        Me.Segment_6.Location = New System.Drawing.Point(368, 32)
+        Me.Segment_6.Name = "Segment_6"
+        Me.Segment_6.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_6.TabIndex = 115
+        Me.Segment_6.TabStop = False
+        '
+        'Segment_5
+        '
+        Me.Segment_5.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_5.Image = CType(resources.GetObject("Segment_5.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_5, CType(5, Short))
+        Me.Segment_5.Location = New System.Drawing.Point(432, 0)
+        Me.Segment_5.Name = "Segment_5"
+        Me.Segment_5.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_5.TabIndex = 116
+        Me.Segment_5.TabStop = False
+        '
+        'Segment_4
+        '
+        Me.Segment_4.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_4.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_4.Image = CType(resources.GetObject("Segment_4.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_4, CType(4, Short))
+        Me.Segment_4.Location = New System.Drawing.Point(464, 32)
+        Me.Segment_4.Name = "Segment_4"
+        Me.Segment_4.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_4.TabIndex = 117
+        Me.Segment_4.TabStop = False
+        '
+        'Segment_3
+        '
+        Me.Segment_3.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_3.Image = CType(resources.GetObject("Segment_3.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_3, CType(3, Short))
+        Me.Segment_3.Location = New System.Drawing.Point(464, 0)
+        Me.Segment_3.Name = "Segment_3"
+        Me.Segment_3.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_3.TabIndex = 118
+        Me.Segment_3.TabStop = False
+        '
+        'Segment_2
+        '
+        Me.Segment_2.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_2.Image = CType(resources.GetObject("Segment_2.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_2, CType(2, Short))
+        Me.Segment_2.Location = New System.Drawing.Point(400, 32)
+        Me.Segment_2.Name = "Segment_2"
+        Me.Segment_2.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_2.TabIndex = 119
+        Me.Segment_2.TabStop = False
+        '
+        'Segment_1
+        '
+        Me.Segment_1.BackColor = System.Drawing.Color.Transparent
+        Me.Segment_1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Segment_1.Image = CType(resources.GetObject("Segment_1.Image"), System.Drawing.Image)
+        Me.Segment.SetIndex(Me.Segment_1, CType(1, Short))
+        Me.Segment_1.Location = New System.Drawing.Point(432, 32)
+        Me.Segment_1.Name = "Segment_1"
+        Me.Segment_1.Size = New System.Drawing.Size(30, 30)
+        Me.Segment_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Segment_1.TabIndex = 120
+        Me.Segment_1.TabStop = False
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mnuFile, Me.mnuEdit, Me.mnuHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuFile, Me.MnuEdit, Me.MnuHelp})
         '
-        'mnuFile
+        'MnuFile
         '
-        Me.mnuFile.Index = 0
-        Me.mnuFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mnuFileNew, Me.mnuFileExit})
-        Me.mnuFile.Text = "&File"
+        Me.MnuFile.Index = 0
+        Me.MnuFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuFileNew, Me.MnuSave, Me.MnuLoad, Me.MnuFileExit})
+        Me.MnuFile.Text = "&File"
         '
-        'mnuFileNew
+        'MnuFileNew
         '
-        Me.mnuFileNew.Index = 0
-        Me.mnuFileNew.Text = "&New"
+        Me.MnuFileNew.Index = 0
+        Me.MnuFileNew.Text = "&New"
         '
-        'mnuFileExit
+        'MnuSave
         '
-        Me.mnuFileExit.Index = 1
-        Me.mnuFileExit.Text = "E&xit"
+        Me.MnuSave.Index = 1
+        Me.MnuSave.Text = "&Save"
         '
-        'mnuEdit
+        'MnuLoad
         '
-        Me.mnuEdit.Index = 1
-        Me.mnuEdit.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mnuEditUndo})
-        Me.mnuEdit.Text = "&Edit"
+        Me.MnuLoad.Index = 2
+        Me.MnuLoad.Text = "&Load"
         '
-        'mnuEditUndo
+        'MnuFileExit
         '
-        Me.mnuEditUndo.Index = 0
-        Me.mnuEditUndo.Shortcut = System.Windows.Forms.Shortcut.CtrlZ
-        Me.mnuEditUndo.Text = "&Undo"
+        Me.MnuFileExit.Index = 3
+        Me.MnuFileExit.Text = "E&xit"
         '
-        'mnuHelp
+        'MnuEdit
         '
-        Me.mnuHelp.Index = 2
-        Me.mnuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuHelpRules, Me.mnuHelpAbout})
-        Me.mnuHelp.Text = "&Help"
+        Me.MnuEdit.Index = 1
+        Me.MnuEdit.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuEditUndo})
+        Me.MnuEdit.Text = "&Edit"
+        '
+        'MnuEditUndo
+        '
+        Me.MnuEditUndo.Index = 0
+        Me.MnuEditUndo.Shortcut = System.Windows.Forms.Shortcut.CtrlZ
+        Me.MnuEditUndo.Text = "&Undo"
+        '
+        'MnuHelp
+        '
+        Me.MnuHelp.Index = 2
+        Me.MnuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuHelpRules, Me.MnuHelpAbout})
+        Me.MnuHelp.Text = "&Help"
         '
         'MnuHelpRules
         '
         Me.MnuHelpRules.Index = 0
         Me.MnuHelpRules.Text = "&Rules"
         '
-        'mnuHelpAbout
+        'MnuHelpAbout
         '
-        Me.mnuHelpAbout.Index = 1
-        Me.mnuHelpAbout.Text = "&About"
+        Me.MnuHelpAbout.Index = 1
+        Me.MnuHelpAbout.Text = "&About"
         '
         'StatusBar1
         '
@@ -2133,265 +2151,265 @@ Friend Class FrmDiscon
         Me.StatusBarPanel5.Name = "StatusBarPanel5"
         Me.StatusBarPanel5.Text = "StatusBarPanel5"
         '
-        'frmDiscon
+        'FrmDiscon
         '
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(496, 417)
         Me.Controls.Add(Me.StatusBar1)
         Me.Controls.Add(Me.Dragger)
-        Me.Controls.Add(Me._ppiece_24)
-        Me.Controls.Add(Me._ppiece_23)
-        Me.Controls.Add(Me._ppiece_22)
-        Me.Controls.Add(Me._ppiece_21)
-        Me.Controls.Add(Me._ppiece_20)
-        Me.Controls.Add(Me._ppiece_19)
-        Me.Controls.Add(Me._ppiece_18)
-        Me.Controls.Add(Me._ppiece_17)
-        Me.Controls.Add(Me._ppiece_16)
-        Me.Controls.Add(Me._ppiece_15)
-        Me.Controls.Add(Me._ppiece_14)
-        Me.Controls.Add(Me._ppiece_13)
-        Me.Controls.Add(Me._ppiece_12)
-        Me.Controls.Add(Me._ppiece_11)
-        Me.Controls.Add(Me._ppiece_10)
-        Me.Controls.Add(Me._ppiece_9)
-        Me.Controls.Add(Me._ppiece_8)
-        Me.Controls.Add(Me._ppiece_7)
-        Me.Controls.Add(Me._ppiece_6)
-        Me.Controls.Add(Me._ppiece_5)
-        Me.Controls.Add(Me._ppiece_4)
-        Me.Controls.Add(Me._ppiece_3)
-        Me.Controls.Add(Me._ppiece_2)
-        Me.Controls.Add(Me._ppiece_1)
-        Me.Controls.Add(Me._segment_96)
-        Me.Controls.Add(Me._segment_95)
-        Me.Controls.Add(Me._segment_94)
-        Me.Controls.Add(Me._segment_93)
-        Me.Controls.Add(Me._segment_92)
-        Me.Controls.Add(Me._segment_91)
-        Me.Controls.Add(Me._segment_90)
-        Me.Controls.Add(Me._segment_89)
-        Me.Controls.Add(Me._segment_88)
-        Me.Controls.Add(Me._segment_87)
-        Me.Controls.Add(Me._segment_86)
-        Me.Controls.Add(Me._segment_85)
-        Me.Controls.Add(Me._segment_84)
-        Me.Controls.Add(Me._segment_83)
-        Me.Controls.Add(Me._segment_82)
-        Me.Controls.Add(Me._segment_81)
-        Me.Controls.Add(Me._segment_80)
-        Me.Controls.Add(Me._segment_79)
-        Me.Controls.Add(Me._segment_78)
-        Me.Controls.Add(Me._segment_77)
-        Me.Controls.Add(Me._segment_76)
-        Me.Controls.Add(Me._segment_75)
-        Me.Controls.Add(Me._segment_74)
-        Me.Controls.Add(Me._segment_73)
-        Me.Controls.Add(Me._segment_72)
-        Me.Controls.Add(Me._segment_71)
-        Me.Controls.Add(Me._segment_70)
-        Me.Controls.Add(Me._segment_69)
-        Me.Controls.Add(Me._segment_68)
-        Me.Controls.Add(Me._segment_67)
-        Me.Controls.Add(Me._segment_66)
-        Me.Controls.Add(Me._segment_65)
-        Me.Controls.Add(Me._segment_64)
-        Me.Controls.Add(Me._segment_63)
-        Me.Controls.Add(Me._segment_62)
-        Me.Controls.Add(Me._segment_61)
-        Me.Controls.Add(Me._segment_60)
-        Me.Controls.Add(Me._segment_59)
-        Me.Controls.Add(Me._segment_58)
-        Me.Controls.Add(Me._segment_57)
-        Me.Controls.Add(Me._segment_56)
-        Me.Controls.Add(Me._segment_55)
-        Me.Controls.Add(Me._segment_54)
-        Me.Controls.Add(Me._segment_53)
-        Me.Controls.Add(Me._segment_52)
-        Me.Controls.Add(Me._segment_51)
-        Me.Controls.Add(Me._segment_50)
-        Me.Controls.Add(Me._segment_49)
-        Me.Controls.Add(Me._segment_48)
-        Me.Controls.Add(Me._segment_47)
-        Me.Controls.Add(Me._segment_46)
-        Me.Controls.Add(Me._segment_45)
-        Me.Controls.Add(Me._segment_44)
-        Me.Controls.Add(Me._segment_43)
-        Me.Controls.Add(Me._segment_42)
-        Me.Controls.Add(Me._segment_41)
-        Me.Controls.Add(Me._segment_40)
-        Me.Controls.Add(Me._segment_39)
-        Me.Controls.Add(Me._segment_38)
-        Me.Controls.Add(Me._segment_37)
-        Me.Controls.Add(Me._segment_36)
-        Me.Controls.Add(Me._segment_35)
-        Me.Controls.Add(Me._segment_34)
-        Me.Controls.Add(Me._segment_33)
-        Me.Controls.Add(Me._segment_32)
-        Me.Controls.Add(Me._segment_31)
-        Me.Controls.Add(Me._segment_30)
-        Me.Controls.Add(Me._segment_29)
-        Me.Controls.Add(Me._segment_28)
-        Me.Controls.Add(Me._segment_27)
-        Me.Controls.Add(Me._segment_26)
-        Me.Controls.Add(Me._segment_25)
-        Me.Controls.Add(Me._segment_24)
-        Me.Controls.Add(Me._segment_23)
-        Me.Controls.Add(Me._segment_22)
-        Me.Controls.Add(Me._segment_21)
-        Me.Controls.Add(Me._segment_20)
-        Me.Controls.Add(Me._segment_19)
-        Me.Controls.Add(Me._segment_18)
-        Me.Controls.Add(Me._segment_17)
-        Me.Controls.Add(Me._segment_16)
-        Me.Controls.Add(Me._segment_15)
-        Me.Controls.Add(Me._segment_14)
-        Me.Controls.Add(Me._segment_13)
-        Me.Controls.Add(Me._segment_12)
-        Me.Controls.Add(Me._segment_11)
-        Me.Controls.Add(Me._segment_10)
-        Me.Controls.Add(Me._segment_9)
-        Me.Controls.Add(Me._segment_8)
-        Me.Controls.Add(Me._segment_7)
-        Me.Controls.Add(Me._segment_6)
-        Me.Controls.Add(Me._segment_5)
-        Me.Controls.Add(Me._segment_4)
-        Me.Controls.Add(Me._segment_3)
-        Me.Controls.Add(Me._segment_2)
-        Me.Controls.Add(Me._segment_1)
+        Me.Controls.Add(Me.PPiece_24)
+        Me.Controls.Add(Me.PPiece_23)
+        Me.Controls.Add(Me.PPiece_22)
+        Me.Controls.Add(Me.PPiece_21)
+        Me.Controls.Add(Me.PPiece_20)
+        Me.Controls.Add(Me.PPiece_19)
+        Me.Controls.Add(Me.PPiece_18)
+        Me.Controls.Add(Me.PPiece_17)
+        Me.Controls.Add(Me.PPiece_16)
+        Me.Controls.Add(Me.PPiece_15)
+        Me.Controls.Add(Me.PPiece_14)
+        Me.Controls.Add(Me.PPiece_13)
+        Me.Controls.Add(Me.PPiece_12)
+        Me.Controls.Add(Me.PPiece_11)
+        Me.Controls.Add(Me.PPiece_10)
+        Me.Controls.Add(Me.PPiece_9)
+        Me.Controls.Add(Me.PPiece_8)
+        Me.Controls.Add(Me.PPiece_7)
+        Me.Controls.Add(Me.PPiece_6)
+        Me.Controls.Add(Me.PPiece_5)
+        Me.Controls.Add(Me.PPiece_4)
+        Me.Controls.Add(Me.PPiece_3)
+        Me.Controls.Add(Me.PPiece_2)
+        Me.Controls.Add(Me.PPiece_1)
+        Me.Controls.Add(Me.Segment_96)
+        Me.Controls.Add(Me.Segment_95)
+        Me.Controls.Add(Me.Segment_94)
+        Me.Controls.Add(Me.Segment_93)
+        Me.Controls.Add(Me.Segment_92)
+        Me.Controls.Add(Me.Segment_91)
+        Me.Controls.Add(Me.Segment_90)
+        Me.Controls.Add(Me.Segment_89)
+        Me.Controls.Add(Me.Segment_88)
+        Me.Controls.Add(Me.Segment_87)
+        Me.Controls.Add(Me.Segment_86)
+        Me.Controls.Add(Me.Segment_85)
+        Me.Controls.Add(Me.Segment_84)
+        Me.Controls.Add(Me.Segment_83)
+        Me.Controls.Add(Me.Segment_82)
+        Me.Controls.Add(Me.Segment_81)
+        Me.Controls.Add(Me.Segment_80)
+        Me.Controls.Add(Me.Segment_79)
+        Me.Controls.Add(Me.Segment_78)
+        Me.Controls.Add(Me.Segment_77)
+        Me.Controls.Add(Me.Segment_76)
+        Me.Controls.Add(Me.Segment_75)
+        Me.Controls.Add(Me.Segment_74)
+        Me.Controls.Add(Me.Segment_73)
+        Me.Controls.Add(Me.Segment_72)
+        Me.Controls.Add(Me.Segment_71)
+        Me.Controls.Add(Me.Segment_70)
+        Me.Controls.Add(Me.Segment_69)
+        Me.Controls.Add(Me.Segment_68)
+        Me.Controls.Add(Me.Segment_67)
+        Me.Controls.Add(Me.Segment_66)
+        Me.Controls.Add(Me.Segment_65)
+        Me.Controls.Add(Me.Segment_64)
+        Me.Controls.Add(Me.Segment_63)
+        Me.Controls.Add(Me.Segment_62)
+        Me.Controls.Add(Me.Segment_61)
+        Me.Controls.Add(Me.Segment_60)
+        Me.Controls.Add(Me.Segment_59)
+        Me.Controls.Add(Me.Segment_58)
+        Me.Controls.Add(Me.Segment_57)
+        Me.Controls.Add(Me.Segment_56)
+        Me.Controls.Add(Me.Segment_55)
+        Me.Controls.Add(Me.Segment_54)
+        Me.Controls.Add(Me.Segment_53)
+        Me.Controls.Add(Me.Segment_52)
+        Me.Controls.Add(Me.Segment_51)
+        Me.Controls.Add(Me.Segment_50)
+        Me.Controls.Add(Me.Segment_49)
+        Me.Controls.Add(Me.Segment_48)
+        Me.Controls.Add(Me.Segment_47)
+        Me.Controls.Add(Me.Segment_46)
+        Me.Controls.Add(Me.Segment_45)
+        Me.Controls.Add(Me.Segment_44)
+        Me.Controls.Add(Me.Segment_43)
+        Me.Controls.Add(Me.Segment_42)
+        Me.Controls.Add(Me.Segment_41)
+        Me.Controls.Add(Me.Segment_40)
+        Me.Controls.Add(Me.Segment_39)
+        Me.Controls.Add(Me.Segment_38)
+        Me.Controls.Add(Me.Segment_37)
+        Me.Controls.Add(Me.Segment_36)
+        Me.Controls.Add(Me.Segment_35)
+        Me.Controls.Add(Me.Segment_34)
+        Me.Controls.Add(Me.Segment_33)
+        Me.Controls.Add(Me.Segment_32)
+        Me.Controls.Add(Me.Segment_31)
+        Me.Controls.Add(Me.Segment_30)
+        Me.Controls.Add(Me.Segment_29)
+        Me.Controls.Add(Me.Segment_28)
+        Me.Controls.Add(Me.Segment_27)
+        Me.Controls.Add(Me.Segment_26)
+        Me.Controls.Add(Me.Segment_25)
+        Me.Controls.Add(Me.Segment_24)
+        Me.Controls.Add(Me.Segment_23)
+        Me.Controls.Add(Me.Segment_22)
+        Me.Controls.Add(Me.Segment_21)
+        Me.Controls.Add(Me.Segment_20)
+        Me.Controls.Add(Me.Segment_19)
+        Me.Controls.Add(Me.Segment_18)
+        Me.Controls.Add(Me.Segment_17)
+        Me.Controls.Add(Me.Segment_16)
+        Me.Controls.Add(Me.Segment_15)
+        Me.Controls.Add(Me.Segment_14)
+        Me.Controls.Add(Me.Segment_13)
+        Me.Controls.Add(Me.Segment_12)
+        Me.Controls.Add(Me.Segment_11)
+        Me.Controls.Add(Me.Segment_10)
+        Me.Controls.Add(Me.Segment_9)
+        Me.Controls.Add(Me.Segment_8)
+        Me.Controls.Add(Me.Segment_7)
+        Me.Controls.Add(Me.Segment_6)
+        Me.Controls.Add(Me.Segment_5)
+        Me.Controls.Add(Me.Segment_4)
+        Me.Controls.Add(Me.Segment_3)
+        Me.Controls.Add(Me.Segment_2)
+        Me.Controls.Add(Me.Segment_1)
         Me.Cursor = System.Windows.Forms.Cursors.Default
         Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(11, 30)
         Me.Menu = Me.MainMenu1
-        Me.Name = "frmDiscon"
+        Me.Name = "FrmDiscon"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Discon"
-        CType(Me._ppiece_6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Dragger, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_24, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_23, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_22, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_21, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_20, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_19, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_18, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_17, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_16, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_15, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_14, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_13, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_12, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_11, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_10, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._ppiece_7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_96, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_95, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_94, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_93, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_92, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_91, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_90, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_89, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_88, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_87, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_86, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_85, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_84, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_83, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_82, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_81, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_80, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_79, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_78, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_77, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_76, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_75, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_74, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_73, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_72, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_71, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_70, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_69, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_68, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_67, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_66, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_65, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_64, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_63, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_62, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_61, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_60, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_59, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_58, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_57, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_56, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_55, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_54, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_53, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_52, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_51, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_50, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_49, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_48, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_47, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_46, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_45, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_44, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_43, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_42, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_41, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_40, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_39, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_38, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_37, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_36, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_35, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_34, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_33, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_32, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_31, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_30, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_29, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_28, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_27, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_26, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_25, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_24, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_23, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_22, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_21, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_20, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_19, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_18, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_17, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_16, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_15, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_14, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_13, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_12, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_11, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_10, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me._segment_1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ppiece, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.segment, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_24, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_23, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_22, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_21, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_20, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_18, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_17, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_16, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_14, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_13, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_11, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece_7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_96, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_95, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_94, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_93, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_92, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_91, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_90, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_89, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_88, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_87, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_86, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_85, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_84, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_83, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_82, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_81, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_80, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_79, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_78, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_77, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_76, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_75, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_74, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_73, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_72, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_71, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_70, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_69, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_68, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_67, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_66, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_65, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_64, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_63, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_62, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_61, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_60, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_59, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_58, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_57, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_56, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_55, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_54, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_53, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_52, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_51, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_50, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_49, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_48, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_47, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_46, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_45, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_44, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_43, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_42, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_41, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_40, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_39, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_38, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_37, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_36, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_35, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_34, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_33, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_32, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_31, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_30, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_29, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_28, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_27, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_26, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_25, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_24, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_23, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_22, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_21, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_20, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_18, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_17, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_16, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_14, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_13, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_12, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_11, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_10, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_9, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_8, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment_1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PPiece, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Segment, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StatusBarPanel1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StatusBarPanel2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.StatusBarPanel3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2419,60 +2437,66 @@ Friend Class FrmDiscon
     End Property
 #End Region
 
-    Private mouseButton As Short 'when the mouse button is clicked record which button is used.
-    Private aBoard As New Board
-    Private aSegments As New Segments
-    Private aPPieces As New PPieces(12)
-    Private aTurn As New Turn
+    Private aGame As New Game() 'Holds state of the game for Save / Load etc
+    Private ReadOnly aSegments As New Segments() '
+    Private ReadOnly aTurn As New Turn()
+    Private ReadOnly aPPieces As New PPieces(12) 'Each piece has a tower (a collection of segments)
+    Private aBoard As New Board()
+    'These all relate to dragging and dropping pieces
+    Private MouseButton As Short 'when the mouse button is clicked record which button is used.
     Private IsUDraggin As Boolean 'Drop and Drag support of PPieces
     Private IsUDisplayin As Boolean 'While displaying disable drag and drop
-    Private origX As Long
-    Private origY As Long
-    Private GameOver As Boolean
+    Private OrigX As Long
+    Private OrigY As Long
+    Private ReadOnly aFileName As String = "SavedDisconGame.bin"
 
-    'Event handlers
     Private Sub FrmDiscon_Closed(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Closed
         End
     End Sub
 
     Private Sub FrmDiscon_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
         'Set up the game -- All New objects should be created here.... (i.e. have other Init routines for File New Game that don't create new objects. Reuse objects
-        mouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
+        MouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
+
+        frmPreferences.ShowDialog() 'Find out who's playing
 
         frmHistory.Show()
 
-        aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is / incl. basic game/rule info like MaxHeight
-        aBoard = New Board 'Board class keeps track of where pieces are and relates closely to frmDiscon
-        aSegments = New Segments 'A collection of coloured discs
-        aSegments.Setup(aBoard) 'layout the coloured discs on the board and then randomize them
-        aSegments.Draw()
         'Me.Invalidate()
-        'aSegments.Resize()
-        'aPPieces.ReSize()
 
-        frmPreferences.ShowDialog() 'Find out who's playing
+        'aTurn = New Turn 'Create objects for game: Turn class keeps track of who's turn it is / incl. basic game/rule info like MaxHeight
+        'aBoard = New Board 'Board class keeps track of where pieces are and relates closely to frmDiscon
+        'aSegments = New Segments 'A collection of coloured discs
+        'aPPieces = New PPieces(aTurn.MaxHeight) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
+
+        aSegments.Setup(aBoard) 'layout the coloured discs on the board and then randomize them
+
+        'aPPieces.Setup(aBoard) 'They are positioned in each of the four corners
+        aPPieces.SetBoardRef(aBoard)
+
         aTurn.Init() 'works our active players and maxheight and who'll go first
-        aPPieces = New PPieces(aTurn.MaxHeight) 'The players each have six red playing pieces This is a collection of them -- (Max Height is stored here based on number of players see instructiosn)
-        aPPieces.Setup(aBoard) 'They are positioned in each of the four corners
-        aPPieces.Draw()
-
-        GameOver = False
+        aGame.GameOver = False
 
         ' Have any computer turns
-        Do While aTurn.GetPlayer.Status = 2 And Not GameOver 'Computer
+        Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
             aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
             frmHistory.Cout(aTurn.Message & vbNewLine)
             If CountOwned() = aSegments.MaxSegments() Then
-                GameOver = True
+                aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
         Loop
+
+        aSegments.Resize()
+        aSegments.Draw()
+        aPPieces.ReSize()
+        aPPieces.Draw()
         ShowStatus() 'Let people know whose turn it is
 
     End Sub
 
     Private Sub FrmDiscon_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-        aBoard.draw(e.Graphics)
+        aBoard.Draw(e.Graphics)
     End Sub
 
     Private Sub FrmDiscon_Resize(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Resize
@@ -2483,16 +2507,19 @@ Friend Class FrmDiscon
         Else
             minDim = VB6.PixelsToTwipsY(Me.ClientRectangle.Height)
         End If
-        aBoard.positionHeight = minDim / (aBoard.maxY + 2)
-        aBoard.positionWidth = aBoard.positionHeight
+        aBoard.PositionHeight = minDim / (aBoard.MaxY + 2)
+        aBoard.PositionWidth = aBoard.PositionHeight
         Me.Invalidate()
-        aSegments.Draw()
-        aSegments.Resize()
-        aPPieces.Draw()
-        aPPieces.ReSize()
+        If Not aPPieces.GetBoardRef() Is Nothing Then 'on initialization this runs but we want to wait do it in the form onload procedure anyway...
+            aSegments.Draw()
+            aSegments.Resize()
+            'aPPieces.SetBoardRef(aBoard)
+            aPPieces.Draw()
+            aPPieces.ReSize()
+        End If
     End Sub
 
-    Private Sub Ppiece_1_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles _ppiece_1.MouseUp, _ppiece_2.MouseUp, _ppiece_3.MouseUp, _ppiece_4.MouseUp, _ppiece_5.MouseUp, _ppiece_6.MouseUp, _ppiece_7.MouseUp, _ppiece_8.MouseUp, _ppiece_9.MouseUp, _ppiece_10.MouseUp, _ppiece_11.MouseUp, _ppiece_12.MouseUp, _ppiece_13.MouseUp, _ppiece_14.MouseUp, _ppiece_15.MouseUp, _ppiece_16.MouseUp, _ppiece_17.MouseUp, _ppiece_18.MouseUp, _ppiece_19.MouseUp, _ppiece_20.MouseUp, _ppiece_21.MouseUp, _ppiece_22.MouseUp, _ppiece_23.MouseUp, _ppiece_24.MouseUp
+    Private Sub Ppiece_1_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PPiece_1.MouseUp, PPiece_2.MouseUp, PPiece_3.MouseUp, PPiece_4.MouseUp, PPiece_5.MouseUp, PPiece_6.MouseUp, PPiece_7.MouseUp, PPiece_8.MouseUp, PPiece_9.MouseUp, PPiece_10.MouseUp, PPiece_11.MouseUp, PPiece_12.MouseUp, PPiece_13.MouseUp, PPiece_14.MouseUp, PPiece_15.MouseUp, PPiece_16.MouseUp, PPiece_17.MouseUp, PPiece_18.MouseUp, PPiece_19.MouseUp, PPiece_20.MouseUp, PPiece_21.MouseUp, PPiece_22.MouseUp, PPiece_23.MouseUp, PPiece_24.MouseUp
         'release the playing piece. 'e.x and e.y are pixel position within the piece
         Dim aPiece As PPiece 'Player piece
         Dim aXFinish As Short
@@ -2501,8 +2528,8 @@ Friend Class FrmDiscon
         If IsUDraggin Then
             IsUDraggin = False
             aPiece = aPPieces.GetPiece(sender.Tag) 'This is who (which player piece to be precise) moved
-            aXFinish = aBoard.getXPosFromMouse(sender.left)
-            aYFinish = aBoard.getYPosFromMouse(sender.top)
+            aXFinish = aBoard.GetXPosFromMouse(sender.left)
+            aYFinish = aBoard.GetYPosFromMouse(sender.top)
             If aXFinish = aPiece.XPos And aYFinish = aPiece.YPos Then '(We just clicked on the thing
                 DisplayTower(sender)
             Else 'we tried to move somewhere
@@ -2512,55 +2539,51 @@ Friend Class FrmDiscon
         End If
     End Sub
 
-    Private Sub PPieceMouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles _ppiece_1.MouseDown, _ppiece_2.MouseDown, _ppiece_3.MouseDown, _ppiece_4.MouseDown, _ppiece_5.MouseDown, _ppiece_6.MouseDown, _ppiece_7.MouseDown, _ppiece_8.MouseDown, _ppiece_9.MouseDown, _ppiece_10.MouseDown, _ppiece_11.MouseDown, _ppiece_12.MouseDown, _ppiece_13.MouseDown, _ppiece_14.MouseDown, _ppiece_15.MouseDown, _ppiece_16.MouseDown, _ppiece_17.MouseDown, _ppiece_18.MouseDown, _ppiece_19.MouseDown, _ppiece_20.MouseDown, _ppiece_21.MouseDown, _ppiece_22.MouseDown, _ppiece_23.MouseDown, _ppiece_24.MouseDown
+    Private Sub PPieceMouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PPiece_1.MouseDown, PPiece_2.MouseDown, PPiece_3.MouseDown, PPiece_4.MouseDown, PPiece_5.MouseDown, PPiece_6.MouseDown, PPiece_7.MouseDown, PPiece_8.MouseDown, PPiece_9.MouseDown, PPiece_10.MouseDown, PPiece_11.MouseDown, PPiece_12.MouseDown, PPiece_13.MouseDown, PPiece_14.MouseDown, PPiece_15.MouseDown, PPiece_16.MouseDown, PPiece_17.MouseDown, PPiece_18.MouseDown, PPiece_19.MouseDown, PPiece_20.MouseDown, PPiece_21.MouseDown, PPiece_22.MouseDown, PPiece_23.MouseDown, PPiece_24.MouseDown
         'This code is designed for picking up a player piece with the mouse
         'e contains the mouse position
         'the sender is the object that detected the mousedown event... should be the player piece
         'e.x and e.y are pixel position within the piece
         'add them to the sender.left and sender.top to derive the mouse position on the form
-        If Not GameOver And Not IsUDraggin And Not IsUDisplayin Then 'Not dragging and not displaying
+        If Not aGame.GameOver And Not IsUDraggin And Not IsUDisplayin Then 'Not dragging and not displaying
             IsUDraggin = True
-            origX = e.X 'remember where we started from (clicked)
-            origY = e.Y
+            OrigX = e.X 'remember where we started from (clicked)
+            OrigY = e.Y
             If e.Button = MouseButtons.Right Then
-                mouseButton = VB6.MouseButtonConstants.RightButton
+                MouseButton = VB6.MouseButtonConstants.RightButton
             Else
-                mouseButton = VB6.MouseButtonConstants.LeftButton
+                MouseButton = VB6.MouseButtonConstants.LeftButton
             End If
         End If
     End Sub
 
-    Private Sub PPieceMouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles _ppiece_1.MouseMove, _ppiece_2.MouseMove, _ppiece_3.MouseMove, _ppiece_4.MouseMove, _ppiece_5.MouseMove, _ppiece_6.MouseMove, _ppiece_7.MouseMove, _ppiece_8.MouseMove, _ppiece_9.MouseMove, _ppiece_10.MouseMove, _ppiece_11.MouseMove, _ppiece_12.MouseMove, _ppiece_13.MouseMove, _ppiece_14.MouseMove, _ppiece_15.MouseMove, _ppiece_16.MouseMove, _ppiece_17.MouseMove, _ppiece_18.MouseMove, _ppiece_19.MouseMove, _ppiece_20.MouseMove, _ppiece_21.MouseMove, _ppiece_22.MouseMove, _ppiece_23.MouseMove, _ppiece_24.MouseMove
+    Private Sub PPieceMouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PPiece_1.MouseMove, PPiece_2.MouseMove, PPiece_3.MouseMove, PPiece_4.MouseMove, PPiece_5.MouseMove, PPiece_6.MouseMove, PPiece_7.MouseMove, PPiece_8.MouseMove, PPiece_9.MouseMove, PPiece_10.MouseMove, PPiece_11.MouseMove, PPiece_12.MouseMove, PPiece_13.MouseMove, PPiece_14.MouseMove, PPiece_15.MouseMove, PPiece_16.MouseMove, PPiece_17.MouseMove, PPiece_18.MouseMove, PPiece_19.MouseMove, PPiece_20.MouseMove, PPiece_21.MouseMove, PPiece_22.MouseMove, PPiece_23.MouseMove, PPiece_24.MouseMove
         'Reposition the player piece
         'e.x and e.y are relative pixel position within the piece
         'add them to the sender.left and sender.top to derive the mouse position on the form
         If IsUDraggin Then
             'sender is Player piece control (picturebox)
-            sender.Left = sender.left + e.X - origX
-            sender.Top = sender.top + e.Y - origY
+            sender.Left = sender.left + e.X - OrigX
+            sender.Top = sender.top + e.Y - OrigY
         End If
     End Sub
 
     'Menu
-    Public Sub MnuFileExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileExit.Click
-        End
-    End Sub
-
-    Public Sub MnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuFileNew.Click
+    Public Sub MnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MnuFileNew.Click
 
         frmPreferences.ShowDialog() 'popup to ask about players
         aTurn.Init() 'Turn object works out active players, maximum tower height and who'll go first
         aSegments.Setup(aBoard) 'segments are drawn and randomized
-        aPPieces.Setup(aBoard)
-        aPPieces.MaxHeight = aTurn.MaxHeight 'The pieces, have towers and, when adding, they need to know about height restrictions.
-        GameOver = False
+        aPPieces.Setup(aTurn.MaxHeight)
+        aPPieces.SetBoardRef(aBoard) 'The pieces, have towers and, when adding, they need to know about height restrictions.
+        aGame.GameOver = False
 
         'if computer has first move initiate that
-        Do While aTurn.GetPlayer.Status = 2 And Not GameOver 'Computer
+        Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
             aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
             frmHistory.Cout(aTurn.Message & vbNewLine)
             If CountOwned() = aSegments.MaxSegments() Then
-                GameOver = True
+                aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
         Loop
@@ -2568,7 +2591,70 @@ Friend Class FrmDiscon
 
     End Sub
 
-    Public Sub MnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditUndo.Click
+    Private Sub MnuFileLoad(sender As Object, e As EventArgs) Handles MnuLoad.Click
+        Try
+            If (File.Exists(aFileName)) Then
+
+                Dim aStream As Stream = File.OpenRead(aFileName)
+                Dim deserializer As BinaryFormatter = New BinaryFormatter()
+                aGame = DirectCast(deserializer.Deserialize(aStream), Game)
+                aStream.Close()
+                'End
+            Else
+
+                Throw New System.Exception(aFileName + " wasn't found.")
+            End If
+            frmHistory.txtHistory.Text = aGame.History
+            aGame.GetTurn(aTurn) 'Copies current player and player info
+            aGame.GetPPieces(aPPieces) 'Copies player piece info
+            aGame.GetSegments(aSegments) 'Copies segment info
+            aGame.GetBoard(aBoard) 'Copies board info
+            frmHistory.Show()
+            'aBoard.Draw() 'This would be possible if Segments and Pieces lived in aBoard
+            aSegments.Resize()
+            aSegments.Draw()
+            aPPieces.ReSize()
+            aPPieces.Draw()
+
+            'if computer has first move initiate that
+            Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
+                aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
+                frmHistory.Cout(aTurn.Message & vbNewLine)
+                If CountOwned() = aSegments.MaxSegments() Then
+                    aGame.GameOver = True
+                    MsgBox(aTurn.LeadingPlayer() & " won.")
+                End If
+            Loop
+            ShowStatus()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub MnuFileSave_Click(sender As Object, e As EventArgs) Handles MnuSave.Click
+        Try
+            'These things should just live in aGame all the time rather than here in the form...
+            aGame.History = frmHistory.txtHistory.Text
+            aGame.SetTurn(aTurn) 'Copies current player and player info
+            aGame.SetPPieces(aPPieces) 'Copies player piece info
+            aGame.SetSegments(aSegments) 'Copies segment info
+            aGame.SetBoard(aBoard) 'Copies board info
+
+            Dim aStream As Stream = File.Create(aFileName)
+            Dim serializer As BinaryFormatter = New BinaryFormatter()
+            serializer.Serialize(aStream, aGame)
+            aStream.Close()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Sub
+
+    Public Sub MnuFileExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MnuFileExit.Click
+        End
+    End Sub
+
+    Public Sub MnuEditUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MnuEditUndo.Click
         aTurn.Undo(1)
         ShowStatus() 'Because move is possible wrong
     End Sub
@@ -2582,18 +2668,18 @@ Friend Class FrmDiscon
         End Try
     End Sub
 
-    Private Sub MnuHelpAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuHelpAbout.Click
+    Private Sub MnuHelpAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnuHelpAbout.Click
         frmAbout.Show()
     End Sub
 
     'Helper routines
     Private Function CountOwned() As Object
-        'Check progress in game by counting 'captured' segments. 96 = GameOver
+        'Check progress in game by counting 'captured' segments. 96 =aGame.GameOver
         Dim i As Short
 
         CountOwned = 0
         For i = 1 To aTurn.MaxPlayer * aTurn.MaxPPiece 'MaxPlayer 24 '4 players * 6 player pieces
-            CountOwned += aPPieces.GetPiece(i).GetTower.Height
+            CountOwned += aPPieces.GetPiece(i).GetTowerRef.Height
         Next
     End Function
 
@@ -2606,13 +2692,13 @@ Friend Class FrmDiscon
         If Not IsUDisplayin Then
             IsUDisplayin = True 'prevent drag and drop
             aPiece = aPPieces.GetPiece(Source.Tag)
-            aPiece.Displayed = True
+            'aPiece.Displayed = True
             aPiece.DisplayTower()
             For i = 1 To 10
                 Application.DoEvents()
                 System.Threading.Thread.Sleep(100)
             Next
-            aPiece.Displayed = False
+            'aPiece.Displayed = False
             aPiece.Draw()
             IsUDisplayin = False
         End If
@@ -2632,13 +2718,13 @@ Friend Class FrmDiscon
         aPiece = aPPieces.GetPiece(Source.Tag) 'This is who (which piece to be precise) moved
         'we could pass apiece from the mouseup routine as we've worked it out there already
         aPlayer = aTurn.GetPlayer 'This is who's turn it is
-        If aPlayer.ID <> aPiece.Owner Then
-            MsgBox("It's player number " & aPlayer.ID & "'s turn.")
+        If aPlayer.PID <> aPiece.Owner Then
+            MsgBox("It's player number " & aPlayer.PID & "'s turn.")
             'aPiece.Draw() 'aPPieces.draw()
         Else 'the right person has had a turn
             oldValue = aPiece.Score 'remember the current score
             aTurn.SaveSource(aPiece) 'Before move, remember for undo
-            If mouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
+            If MouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
                 If aPiece.Move(x, y) Then 'move player piece (image and object including existing tower) if destination is legal
                     aSegment = aSegments.GetSegmentXY(x, y) 'Note: there maybe more than one this is basically a test that it's not empty...
                     If aSegment IsNot Nothing Then 'There are one or more segments to add
@@ -2668,7 +2754,7 @@ Friend Class FrmDiscon
             End If
             newValue = aPiece.Score
             aPiece.UpdateTooltip() 'to display colour and height
-            aPiece.Draw()
+            'aPiece.Draw()
             aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
             If aTurn.Move = 2 Then 'incMove generally happens before this so this means we've just finished move 1
                 aTurn.Message = aPiece.Owner & ":" & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
@@ -2677,20 +2763,22 @@ Friend Class FrmDiscon
                 frmHistory.Cout(aTurn.Message & vbNewLine)
             End If
             If CountOwned() = aSegments.MaxSegments() Then
-                GameOver = True
+                aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
-            ShowStatus()
         End If
 
-        Do While aTurn.GetPlayer.Status = 2 And Not GameOver 'Computer
+        Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
             Application.DoEvents()
             aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
             frmHistory.Cout(aTurn.Message & vbNewLine)
             If CountOwned() = aSegments.MaxSegments() Then
-                GameOver = True
+                aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
+
+            aSegments.Draw()
+            aPPieces.Draw()
             ShowStatus()
         Loop
 
@@ -2711,6 +2799,5 @@ Friend Class FrmDiscon
             End If
         Next p
     End Sub
-
 
 End Class

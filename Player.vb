@@ -1,17 +1,31 @@
-Option Strict Off
-Option Explicit On
-Friend Class Player
+'Option Strict Off
+'Option Explicit On
+Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.html
+
+<Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
+Public Class Player
 
     Private iStatus As Short '0 inactive, 1 human, 2 computer
     Private iPID As Short 'player ID
     Private iScore As Short
 
+    'Constructor
+    Public Sub New()
+        MyBase.New()
+        iPID = 0
+        iScore = 0
+        iStatus = 0
+        Name = ""
+    End Sub
+
     'Properties
+    Public Property Message() As String
+
     Public Property Name() As String
 
-    Public Property ID() As Short
+    Public Property PID() As Short
         Get
-            ID = iPID
+            PID = iPID
         End Get
         Set(ByVal Value As Short)
             iPID = Value
@@ -37,14 +51,6 @@ Friend Class Player
     End Property
 
     'Methods
-    Public Sub New()
-        MyBase.New()
-        iPID = 0
-        iScore = 0
-        iStatus = 0
-        Name = ""
-    End Sub
-
     Public Sub CompMove(aPPieces As PPieces, aSegments As Segments, aTurn As Turn)
         Dim aPPiece(aTurn.MaxMove) As PPiece '
         Dim pp1 As Short 'player piece index
@@ -165,4 +171,16 @@ Friend Class Player
         End If
     End Sub
 
+    Public Sub CopyTo(ByRef DestPlayer As Player)
+        'copy from this Player to the passed Player
+
+        Try
+            DestPlayer.Status = Status
+            DestPlayer.PID = PID
+            DestPlayer.Score = Score
+        Catch ex As Exception
+            Message = ex.Message
+            Debug.Print(Message)
+        End Try
+    End Sub
 End Class

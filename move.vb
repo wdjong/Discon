@@ -9,7 +9,7 @@ Friend Class move
 	Public Sub move(ByRef aPiece As PPiece, ByRef aPosition As Position)
         oSourcePos.xPos = aPiece.XPos 'should modify aPiece to contain a position object
         oSourcePos.yPos = aPiece.YPos
-        oSourceTower = aPiece.GetTower
+        oSourceTower = aPiece.GetTowerRef
 		MsgBox(oSourceTower.Height)
 	End Sub
 End Class
