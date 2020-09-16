@@ -5,19 +5,22 @@ Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.h
 <Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
 Public Class Board
     'Bottom left of board is x=1, y=1
-    Dim iBoardTop As Short '0
-    Dim iBoardLeft As Short '0
-    Dim iPositionWidth As Short '480 both piece and square
-    Dim iPositionHeight As Short '480
-    Const IMAXX As Short = 10 'Width - number of squares
-    Const IMAXY As Short = 10 'Height - number of squares
-    Dim iBoardBottom As Short 'BOARDBOTTOM = (MaxY + 1) * PIECEHEIGHT
+    Dim iBoardTop As Short 'see init
+    Dim iBoardLeft As Short
+    Dim iPositionWidth As Short
+    Dim iPositionHeight As Short
+    Const IMAXX As Short = 10
+    Const IMAXY As Short = 10
+    Const IDEFAULTWIDTH As Short = 520
+    Const IDEFAULTHEIGHT As Short = 520
+    Dim iBoardBottom As Short
     Const PIECEID As Short = 0
     Const PIECETEAM As Short = 1
     'Private ReadOnly gBoard(IMAXX, IMAXY, 2) As Short 'original:
     'Private ReadOnly gBoard2(IMAXX, IMAXY, 2) As Short 'copy:
 
     'Constructor
+
     Public Sub New()
         MyBase.New()
         Init()
@@ -136,8 +139,9 @@ Public Class Board
 
         iBoardTop = 0
         iBoardLeft = 0
-        iPositionWidth = 500 'both piece and square
-        iPositionHeight = 500
+        iPositionWidth = IDEFAULTWIDTH
+        'both piece and square
+        iPositionHeight = IDEFAULTHEIGHT
         iBoardBottom = (IMAXY + 1) * iPositionHeight
         'For x = 1 To IMAXX
         '    For y = 1 To IMAXY

@@ -1,19 +1,17 @@
 'Option Strict Off
 'Option Explicit On
+Imports System.Runtime.Serialization
 Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.html
 
 <Serializable()> _ '// https: //msdn.microsoft.com/en-us/library/et91as27(v=vs.110).aspx
 Public Class PPiece
 
-    'Private Const PPIECEWIDTH As Short = 480 'You'd think you'd work this out from the board.
-    'Private Const PPIECEHEIGHT As Short = 480
     Private iPPID As Short 'Player Piece ID
     Private iOwner As Short 'player ID
     Private iXPos As Short 'horizontal position from 1 to Max (10)
     Private iYPos As Short 'horizontal position from 1 to Max (10)
     Private ReadOnly cTower As New Tower 'The tower under this piece
     Private oBoard As Board 'reference to the board for dimensions, positional & info
-    'Private bDisplayed As Boolean 
 
     Public Sub New(aPPID As Short, maxTowerHeight As Short)
         MyBase.New()
@@ -71,6 +69,50 @@ Public Class PPiece
         End Set
     End Property
 
+    Friend Function Available(aPPieces As PPieces, pID As Short) As Boolean
+        Dim p As Short
+
+        Available = True
+        If Owner <> pID Then
+            Available = False
+            Exit Function
+        End If
+        For p = 1 To aPPieces.MaxPPieces
+            If aPPieces.GetPieceRef(p).Owner = pID Then
+                If aPPieces.GetPieceRef(p).UnMoved Then
+                    If p < PPID Then 'there are lower ppids that haven't been used yet
+                        Available = False
+                    End If
+                End If
+            End If
+        Next
+    End Function
+
+    Private Function UnMoved() As Boolean
+        Dim HomeX As Short
+        Dim HomeY As Short
+
+        UnMoved = False
+        Select Case Owner
+            Case 1
+                HomeX = 1
+                HomeY = 1
+            Case 2
+                HomeX = 1
+                HomeY = 10
+            Case 3
+                HomeX = 10
+                HomeY = 10
+            Case 4
+                HomeX = 10
+                HomeY = 1
+        End Select
+        If XPos = HomeX And YPos = HomeY Then
+            UnMoved = True
+        End If
+
+    End Function
+
     Public Property PPID() As Short
         Get
             PPID = iPPID
@@ -92,7 +134,7 @@ Public Class PPiece
                 Abandon = True
             End If
         End If
-        cTower.CheckColours() 'Updates description used in Tooltip
+        cTower.SetColourAndDescription() 'Updates description used in Tooltip
         Draw() 'need to draw it again even if it was dropped illegally
     End Function
 
@@ -113,21 +155,70 @@ Public Class PPiece
     Public Sub CopyTo(ByRef DestPlayerPiece As PPiece)
         'copy from this ppiece to the passed ppiece
         Try
-            DestPlayerPiece.Init(iPPID, cTower.MaxHeight) 'otherwise specifying new iXPos moves (and draws) tower
-            'DestPlayerPiece.Score = iScore
-            DestPlayerPiece.Owner = iOwner
-            DestPlayerPiece.XPos = iXPos
-            DestPlayerPiece.YPos = iYPos
-            DestPlayerPiece.PPID = iPPID
-            'DestPlayerPiece.Displayed = bDisplayed
-            cTower.CopyTo(DestPlayerPiece.GetTowerRef)
-            'DestPlayerPiece.GetTower.MaxHeight = cTower.MaxHeight' part of cTower.copyTo
-            DestPlayerPiece.GetTowerRef.Move((DestPlayerPiece.XPos), (DestPlayerPiece.YPos)) ' part of cTower.copyTo
+            DestPlayerPiece.RemoveAll() 'remove existing tower
+            GetTowerRef.CopyTo(DestPlayerPiece.GetTowerRef) 'copy tower segment references
+            DestPlayerPiece.SetBoardRef(GetBoardRef)
+            DestPlayerPiece.PPID = PPID
+            DestPlayerPiece.Owner = Owner
+            DestPlayerPiece.Move(XPos, YPos)
         Catch ex As Exception
             Message = ex.Message
             Debug.Print(Message) 'MsgBox("PPiece.copyTo: " & ex.Message) 'e.g. fails if passed player piece is null / nothing
         End Try
     End Sub
+
+    Friend Function IsLegal(direction As Short, aPPieces As PPieces, aSegments As Segments, aMove As Short) As Boolean
+        'Checks position legality and updates Player Piece position and draws piece in new position
+        Dim aXDest As Short = iXPos 'the current position of this piece
+        Dim aYDest As Short = iYPos
+
+        IsLegal = True ' may fail
+        Select Case direction
+            Case 1
+                aXDest += 1 'right 1 '5 o'clock
+                aYDest -= 2 'down 2
+            Case 2
+                aXDest += 2 'right 2 '4 o'clock
+                aYDest -= 1 'down 1
+            Case 3
+                aXDest += 2 'right 2 '2 o'clock
+                aYDest += 1 'up 1
+            Case 4
+                aXDest += 1 'right 1 '1 o'clock
+                aYDest += 2 'up 2
+            Case 5
+                aXDest -= 1 'left 1 '11 o'clock
+                aYDest += 2 'up 2
+            Case 6
+                aXDest -= 2 'left 2 '10 o'clock
+                aYDest += 1 'up 1
+            Case 7
+                aXDest -= 2 'left 2 '8 o'clock
+                aYDest -= 1 'down 1 
+            Case 8
+                aXDest -= 1 'left 1 '7 o'clock
+                aYDest -= 2 'down 2
+        End Select
+        If Not oBoard.OnBoard(aXDest, aYDest) Then
+            IsLegal = False
+        End If
+        If aPPieces.IsOccupiedXY(Me, aXDest, aYDest) Then
+            IsLegal = False
+        End If
+        Dim s2 As Short
+        s2 = aSegments.CountSegmentXY(Me)
+        If s2 + GetTowerRef.Height > GetTowerRef.MaxHeight Then
+            IsLegal = False
+        End If
+        If aMove = 2 Then
+            Dim aHome As Short = oBoard.InHome(aXDest, aYDest)
+            Dim InForeignHome1 As Boolean = (aHome > 0 And aHome <> iOwner)
+            Dim InForeignHome2 As Boolean = aPPieces.InForeignHome(Me)
+            If InForeignHome1 Or InForeignHome2 Then
+                IsLegal = False
+            End If
+        End If
+    End Function
 
     Public Sub DisplayTower()
         Const xdiv As Byte = 5 'make this less to spread it out to the left more
@@ -143,8 +234,8 @@ Public Class PPiece
         'represent player piece and it's tower...
         If iPPID <> 0 Then 'ippid = 0 when copying to ppiece object in turn
             cTower.Draw()
-            FrmDiscon.DefInstance.PPiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * oBoard.PositionWidth)
-            FrmDiscon.DefInstance.PPiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.MaxY + 1) - iYPos) * oBoard.PositionHeight)
+            FrmDiscon.DefInstance.PPiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * (oBoard.PositionWidth + 5)) + 1
+            FrmDiscon.DefInstance.PPiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.MaxY + 1) - iYPos) * (oBoard.PositionHeight + 5)) + 1
             FrmDiscon.DefInstance.PPiece(iPPID).BringToFront() 'bring to front
         End If
         Application.DoEvents()
@@ -203,7 +294,7 @@ Public Class PPiece
                 If LegalMove(aXDest, aYDest) Then
                     iXPos = aXDest
                     iYPos = aYDest
-                    cTower.Move(iXPos, iYPos)
+                    cTower.Move(iXPos, iYPos) 'moves tower with player piece
                     Move = True
                 End If
             End If
@@ -308,7 +399,7 @@ Public Class PPiece
         For i = 1 To n
             cTower.Remove()
         Next i
-        cTower.CheckColours() 'Also updates Description
+        cTower.SetColourAndDescription() 'Also updates Description
         cTower.UpdateScore()
     End Sub
 
@@ -319,7 +410,7 @@ Public Class PPiece
         For i = 1 To cTower.Height
             cTower.Remove()
         Next i
-        cTower.CheckColours() 'Also updates Description
+        cTower.SetColourAndDescription() 'Also updates Description
         cTower.UpdateScore()
         'UpdateTooltip() because this is ultimately called by something in a New routine starting with the New for frmDiscon it you can't do the tooltip thing here.
     End Sub

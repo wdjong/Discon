@@ -70,65 +70,83 @@ Public Class Player
         Dim bestD2 As Short
 
         For pp1 = 1 To aPPieces.MaxPPieces 'Player piece (6)
-            aPPiece(1) = aPPieces.GetPiece(pp1) 'get a reference to each piece
-            If aPPiece(1).Owner = iPID Then 'the piece is owned by the player
-                oldValue1 = aPPiece(1).Score
-                aTurn.SaveSource(aPPiece(1)) 'copy the state of the piece prior to the move for undoing
-                For d1 = 1 To 8
-                    If aPPiece(1).Move(d1) Then 'position has changed (need to do MoveUndo at end
-                        Debug.Print("1:" & pp1 & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos & " (" & d1 & ")")
-                        If Not aPPieces.IsOccupied(aPPiece(1)) Then
-                            s1 = aSegments.CountSegmentXY(aPPiece(1))
-                            If aSegments.AddN(aPPiece(1), s1) Then
-                                newValue1 = aPPiece(1).Score
-                                If aTurn.IncMove() Then 'to Move 2
-                                    For pp2 = 1 To aPPieces.MaxPPieces 'Player piece (6)
-                                        aPPiece(2) = aPPieces.GetPiece(pp2)
-                                        If aPPiece(2).Owner = iPID Then 'if the piece is owned by the player
-                                            oldValue2 = aPPiece(2).Score
-                                            aTurn.SaveSource(aPPiece(2)) '
-                                            For d2 = 1 To 8
-                                                If aPPiece(2).Move(d2) Then 'Move player piece and tower
-                                                    Debug.WriteLine(", 2:" & pp2 & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos & " (" & d2 & ")")
-                                                    If Not aPPieces.IsOccupied(aPPiece(2)) Then ' And Not (aPPiece(1).XPos = aPPiece(2).XPos And aPPiece(1).YPos = aPPiece(2).YPos) Then
-                                                        s2 = aSegments.CountSegmentXY(aPPiece(2))
-                                                        If aSegments.AddN(aPPiece(2), s2) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight 'Scoring in tower add
-                                                            newValue2 = aPPiece(2).Score
-                                                            If aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
-                                                                If (newValue1 - oldValue1) + (newValue2 - oldValue2) > bestScore Then
-                                                                    bestScore = (newValue1 - oldValue1) + (newValue2 - oldValue2) ' Update BestScore
-                                                                    'aTurn.GetPPiece(1).CopyTo(bestPiece(1))
-                                                                    bestPPID1 = aTurn.GetPPiece(1).PPID
-                                                                    bestD1 = d1
-                                                                    'aTurn.GetPPiece(2).CopyTo(bestPiece(2))
-                                                                    bestD2 = d2
-                                                                    bestPPID2 = aTurn.GetPPiece(2).PPID
-                                                                End If 'new best value
-                                                                aTurn.DecMove() 'only if IncMove succeeded
-                                                            End If 'IncMove ok
-                                                            aSegments.RemoveN(aPPiece(2), s2) 'only if AddN succeeded
-                                                        End If 'AddN ok
-                                                    End If 'unoccupied
-                                                    aPPiece(2).MoveUndo(d2) 'Return player piece and tower (only if Move succeeded)
-                                                End If '2nd Move ok
-                                            Next d2 'direction 2
-                                            aTurn.RestoreSource(aPPiece(2))
-                                        End If 'piece owned by player
-                                    Next pp2 'player piece 2
-                                    aTurn.DecMove() 'only do this if IncMove was successful
-                                End If 'IncMove ok
-                                aSegments.RemoveN(aPPiece(1), s1) 'only do this if AddN was successful
-                            End If 'AddN 1 ok
-                            aPPiece(1).MoveUndo(d1) 'only do this if Move was successful
-                        End If 'Unoccupied 1 ok
-                    End If 'Move 1 ok
-                Next d1 'direction 1
-                aTurn.RestoreSource(aPPiece(1))
-            End If 'piece owned by player
+            If aPPieces.GetPieceRef(pp1).Available(aPPieces, PID) Then
+                aPPiece(1) = aPPieces.GetPieceRef(pp1) 'get a reference to each piece
+                If aPPiece(1).Owner = iPID Then 'the piece is owned by the player
+                    oldValue1 = aPPiece(1).Score
+                    aTurn.SaveSource(aPPiece(1)) 'copy the state of the piece prior to the move for undoing
+                    For d1 = 1 To 8
+                        If aPPiece(1).IsLegal(d1, aPPieces, aSegments, 1) Then
+                            If aPPiece(1).Move(d1) Then 'position has changed (need to do MoveUndo at end
+                                Debug.Write("1:" & pp1 & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos & " (" & d1 & ")")
+                                If Not aPPieces.IsOccupied(aPPiece(1)) Then
+                                    s1 = aSegments.CountSegmentXY(aPPiece(1))
+                                    If aSegments.AddN(aPPiece(1), s1) Then
+                                        newValue1 = aPPiece(1).Score
+                                        Debug.WriteLine(" Value: " & aPPiece(1).Score)
+                                        If aTurn.IncMove() Then 'to Move 2
+
+                                            For pp2 = 1 To aPPieces.MaxPPieces 'Player piece (6)
+                                                If aPPieces.GetPieceRef(pp2).Available(aPPieces, PID) Then
+                                                    aPPiece(2) = aPPieces.GetPieceRef(pp2)
+                                                    If aPPiece(2).Owner = iPID Then 'if the piece is owned by the player
+                                                        oldValue2 = aPPiece(2).Score
+                                                        'If pp2 = 7 And oldValue2 = 0 Then Stop 'Ok; first move of 7 was to 5, 5 
+                                                        aTurn.SaveSource(aPPiece(2)) '
+                                                        For d2 = 1 To 8
+                                                            If aPPiece(2).IsLegal(d2, aPPieces, aSegments, 2) Then
+                                                                If aPPiece(2).Move(d2) Then 'Move player piece and tower
+                                                                    Debug.Write(", 2:" & pp2 & " to " & aPPiece(2).XPos & ", " & aPPiece(2).YPos & " (" & d2 & ")")
+                                                                    If Not aPPieces.IsOccupied(aPPiece(2)) Then ' And Not (aPPiece(1).XPos = aPPiece(2).XPos And aPPiece(1).YPos = aPPiece(2).YPos) Then
+                                                                        s2 = aSegments.CountSegmentXY(aPPiece(2))
+                                                                        If aSegments.AddN(aPPiece(2), s2) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight 'Scoring in tower add
+                                                                            newValue2 = aPPiece(2).Score
+                                                                            '*******************
+                                                                            'If pp1 = 8 And d1 = 1 And pp2 = 7 Then Stop 'There's a problem with the old value being 0 when it should be 8
+                                                                            '*******************
+                                                                            Debug.WriteLine(" Values: " & newValue1 & " - " & oldValue1 & " +  " & newValue2 & " - " & oldValue2)
+                                                                            If aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
+
+                                                                                If (newValue1 - oldValue1) + (newValue2 - oldValue2) > bestScore Then
+                                                                                    bestScore = (newValue1 - oldValue1) + (newValue2 - oldValue2) ' Update BestScore
+                                                                                    'aTurn.GetPPiece(1).CopyTo(bestPiece(1))
+                                                                                    bestD1 = d1
+                                                                                    bestPPID1 = aTurn.GetPPiece(1).PPID
+                                                                                    'aTurn.GetPPiece(2).CopyTo(bestPiece(2))
+                                                                                    bestD2 = d2
+                                                                                    bestPPID2 = aTurn.GetPPiece(2).PPID
+                                                                                    Debug.WriteLine("PPID1: " & bestPPID1 & " d1 " & d1 & " & PPID2: " & bestPPID2 & " d2 " & d2)
+                                                                                End If 'new best value
+                                                                                aTurn.DecMove() 'only if IncMove succeeded
+                                                                            End If 'IncMove ok
+                                                                            aSegments.RemoveN(aPPiece(2), s2) 'only if AddN succeeded
+                                                                        End If 'AddN ok
+                                                                    End If 'unoccupied
+                                                                    aPPiece(2).MoveUndo(d2) 'Return player piece and tower (only if Move succeeded)
+                                                                End If '2nd Move ok
+                                                            End If
+                                                        Next d2 'direction 2
+                                                        'If pp1 = 7 And d1 = 8 And pp2 = 7 Then Stop '1:8 to 2, 8 (1) Value: 0, 2:7 to 4, 4 (1) Values: 0 - 0 +  12 - 0    PPID1: 8 d1 1 & PPID2: 7 d2 1
+                                                        aTurn.RestoreSource(aPPiece(2))
+                                                    End If 'piece owned by player
+                                                End If
+                                            Next pp2 'player piece 2
+                                            aTurn.DecMove() 'only do this if IncMove was successful
+                                        End If 'IncMove ok
+                                        aSegments.RemoveN(aPPiece(1), s1) 'only do this if AddN was successful
+                                    End If 'AddN 1 ok
+                                    aPPiece(1).MoveUndo(d1) 'only do this if Move was successful
+                                End If 'Unoccupied 1 ok
+                            End If
+                        End If 'Move 1 ok
+                    Next d1 'direction 1
+                    aTurn.RestoreSource(aPPiece(1))
+                End If 'piece owned by player
+            End If 'Available
         Next pp1 'player piece 1
 
         'Play best move 1 -------------------------------------------------------
-        aPPiece(1) = aPPieces.GetPiece(bestPPID1)
+        aPPiece(1) = aPPieces.GetPieceRef(bestPPID1)
         oldValue1 = aPPiece(1).Score
         aTurn.SaveSource(aPPiece(1))
         If aPPiece(1).Move(bestD1) Then
@@ -139,7 +157,7 @@ Public Class Player
                 aTurn.Message = aPPiece(1).Owner & ":" & aPPiece(1).PPID & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos
                 Score = Score - oldValue1 + newValue1
                 If aTurn.IncMove() Then 'Play best move 2
-                    aPPiece(2) = aPPieces.GetPiece(bestPPID2)
+                    aPPiece(2) = aPPieces.GetPieceRef(bestPPID2)
                     oldValue2 = aPPiece(2).Score
                     aTurn.SaveSource(aPPiece(2)) '
                     If aPPiece(2).Move(bestD2) Then

@@ -17,7 +17,7 @@ Public Class Segment
         MyBase.New()
     End Sub
 
-    Public Property VerticalPos() 'When towers are left without a piece you need a way to add them back in the right order 1 is lowers (on the board), 2 is on top of that etc 
+    Public Property VerticalPos() As Short 'When towers are left without a piece you need a way to add them back in the right order 1 is lowers (on the board), 2 is on top of that etc 
 
     Public Property Colour() As Short
         Get
@@ -96,10 +96,10 @@ Public Class Segment
         Dim y As Short
 
         If Not oBoard Is Nothing Then
-            x = mXPos * oBoard.PositionWidth
-            y = (oBoard.MaxY + 1 - mYPos) * oBoard.PositionHeight
-            FrmDiscon.DefInstance.Segment(iSID).Left = VB6.TwipsToPixelsX(x)
-            FrmDiscon.DefInstance.Segment(iSID).Top = VB6.TwipsToPixelsY(y)
+            x = mXPos * (oBoard.PositionWidth + 5)
+            y = (oBoard.MaxY + 1 - mYPos) * (oBoard.PositionHeight + 5)
+            FrmDiscon.DefInstance.Segment(iSID).Left = VB6.TwipsToPixelsX(x) + 1
+            FrmDiscon.DefInstance.Segment(iSID).Top = VB6.TwipsToPixelsY(y) + 1
         End If
     End Sub
 

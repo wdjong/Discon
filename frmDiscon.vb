@@ -2527,7 +2527,7 @@ Friend Class FrmDiscon
 
         If IsUDraggin Then
             IsUDraggin = False
-            aPiece = aPPieces.GetPiece(sender.Tag) 'This is who (which player piece to be precise) moved
+            aPiece = aPPieces.GetPieceRef(sender.Tag) 'This is who (which player piece to be precise) moved
             aXFinish = aBoard.GetXPosFromMouse(sender.left)
             aYFinish = aBoard.GetYPosFromMouse(sender.top)
             If aXFinish = aPiece.XPos And aYFinish = aPiece.YPos Then '(We just clicked on the thing
@@ -2679,7 +2679,7 @@ Friend Class FrmDiscon
 
         CountOwned = 0
         For i = 1 To aTurn.MaxPlayer * aTurn.MaxPPiece 'MaxPlayer 24 '4 players * 6 player pieces
-            CountOwned += aPPieces.GetPiece(i).GetTowerRef.Height
+            CountOwned += aPPieces.GetPieceRef(i).GetTowerRef.Height
         Next
     End Function
 
@@ -2691,7 +2691,7 @@ Friend Class FrmDiscon
 
         If Not IsUDisplayin Then
             IsUDisplayin = True 'prevent drag and drop
-            aPiece = aPPieces.GetPiece(Source.Tag)
+            aPiece = aPPieces.GetPieceRef(Source.Tag)
             'aPiece.Displayed = True
             aPiece.DisplayTower()
             For i = 1 To 10
@@ -2715,7 +2715,7 @@ Friend Class FrmDiscon
         Dim oldValue As Short 'each move, find change in score and add it to player score
         Dim newValue As Short 'scoring
 
-        aPiece = aPPieces.GetPiece(Source.Tag) 'This is who (which piece to be precise) moved
+        aPiece = aPPieces.GetPieceRef(Source.Tag) 'This is who (which piece to be precise) moved
         'we could pass apiece from the mouseup routine as we've worked it out there already
         aPlayer = aTurn.GetPlayer 'This is who's turn it is
         If aPlayer.PID <> aPiece.Owner Then
@@ -2733,6 +2733,7 @@ Friend Class FrmDiscon
                         Else
                             MsgBox(aSegments.Message) 'Problem adding: display reason
                             aTurn.Undo(2) 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
+                            aTurn.Message = "Undoing"
                         End If
                     Else
                         aTurn.IncMove() 'count moves. If second, check you're not in foreign territory
@@ -2747,6 +2748,7 @@ Friend Class FrmDiscon
                         aTurn.IncMove()
                     Else
                         aTurn.Undo(2)
+                        aTurn.Message = "Undoing"
                     End If
                 Else
                     MsgBox("Illegal abandon from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y)

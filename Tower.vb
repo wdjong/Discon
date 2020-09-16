@@ -6,8 +6,8 @@ Imports System.Xml.Serialization 'http://www.vb-helper.com/howto_net_serialize.h
 Public Class Tower
 
     Private ReadOnly sTower(12) As Segment 'Pointers to Segments
-    Private iXPos As Short 'horizontal position from 1 to Max position
-    Private iYPos As Short 'vertical position from 1 to Max position
+    'Private iXPos As Short 'horizontal position from 1 to Max position
+    'Private iYPos As Short 'vertical position from 1 to Max position
     Private iValue As Short 'score for this tower
     Private iOwner As Short 'player number 1 to 4
     Private iColour As Short '
@@ -30,8 +30,8 @@ Public Class Tower
 
     'Constructor
     Public Sub New()
-        iXPos = 0
-        iYPos = 0
+        'iXPos = 0
+        'iYPos = 0
         iValue = 0
         iOwner = 0
         Height = 0
@@ -42,10 +42,13 @@ Public Class Tower
     Public Property MaxHeight() As String
     Public Property Message() As String 'e.g. pass back error message
 
-    Public ReadOnly Property Colour() As String
+    Public Property Colour() As Short
         Get
-            Colour = tColours(iColour)
+            Colour = iColour ' tColours(iColour)
         End Get
+        Set(value As Short)
+            iColour = value
+        End Set
     End Property
 
     Public Property Height() As Short 'Number of discs in tower
@@ -68,23 +71,23 @@ Public Class Tower
         End Set
     End Property
 
-    Public Property XPos() As Short
-        Get
-            XPos = iXPos
-        End Get
-        Set(ByVal Value As Short)
-            iXPos = Value
-        End Set
-    End Property
+    'Public Property XPos() As Short
+    '    Get
+    '        XPos = iXPos
+    '    End Get
+    '    Set(ByVal Value As Short)
+    '        iXPos = Value
+    '    End Set
+    'End Property
 
-    Public Property YPos() As Short
-        Get
-            YPos = iYPos
-        End Get
-        Set(ByVal Value As Short)
-            iYPos = Value
-        End Set
-    End Property
+    'Public Property YPos() As Short
+    '    Get
+    '        YPos = iYPos
+    '    End Get
+    '    Set(ByVal Value As Short)
+    '        iYPos = Value
+    '    End Set
+    'End Property
 
     'Methods (alphabetical)
     Public Function Add(ByRef nSegment As Segment) As Boolean
@@ -93,7 +96,7 @@ Public Class Tower
             Height += 1
             sTower(Height) = nSegment 'set pointer to Segment
             SetVerticalHeights()
-            iColour = CheckColours()
+            SetColourAndDescription()
             UpdateScore()
             Add = True
         Else
@@ -109,8 +112,8 @@ Public Class Tower
         Next
     End Sub
 
-    Public Function CheckColours() As Short
-        'Determine iColour (and build description)
+    Public Sub SetColourAndDescription()
+        'Set Colour and Description based on constituent pieces 'Not sure it checks for alternating correctly yet
         Dim i As Short
         Dim colour1 As Short = 0
         Dim colour2 As Short = 0
@@ -137,54 +140,55 @@ Public Class Tower
                 End If
             End If
         End If
+
         Select Case oneTwoMany
             Case 0 'no tower
-                CheckColours = 0
+                Colour = 0
             Case 1 'single
-                CheckColours = colour1
+                Colour = colour1
             Case 2 'two colours
                 Select Case colour1 '1 White, 2 Pink, 3 Blue, 4 Violet
                     Case 1 'White
                         Select Case colour2
                             Case 2 'Pink
-                                CheckColours = 5
+                                Colour = 5
                             Case 3 'Blue
-                                CheckColours = 6
+                                Colour = 6
                             Case 4 'Violet
-                                CheckColours = 7
+                                Colour = 7
                         End Select
                     Case 2 'Pink
                         Select Case colour2
                             Case 1 'White
-                                CheckColours = 5
+                                Colour = 5
                             Case 3 'Blue
-                                CheckColours = 8
+                                Colour = 8
                             Case 4 'Violet
-                                CheckColours = 9
+                                Colour = 9
                         End Select
                     Case 3 'Blue
                         Select Case colour2
                             Case 1 'White
-                                CheckColours = 6
+                                Colour = 6
                             Case 2 'Pink
-                                CheckColours = 8
+                                Colour = 8
                             Case 4 'Violet
-                                CheckColours = 10
+                                Colour = 10
                         End Select
                     Case 4 'Violet
                         Select Case colour2
                             Case 1 'W
-                                CheckColours = 7
+                                Colour = 7
                             Case 2 'P
-                                CheckColours = 9
+                                Colour = 9
                             Case 3 'B
-                                CheckColours = 10
+                                Colour = 10
                         End Select
                 End Select
             Case 3 'Multi
-                CheckColours = 11
+                Colour = 11
         End Select
-    End Function
+    End Sub
 
     Public Sub CopyTo(ByRef aTower As Tower)
         'copy from this tower to the passed (destination) tower
@@ -203,10 +207,10 @@ Public Class Tower
         aTower.Owner = iOwner
         aTower.Value = iValue
         aTower.Height = Height
-        aTower.XPos = iXPos
-        aTower.YPos = iYPos
+        'aTower.XPos = iXPos
+        'aTower.YPos = iYPos
         aTower.MaxHeight = MaxHeight
-        aTower.CheckColours() 'The colour and description may have changed
+        aTower.SetColourAndDescription() 'The colour and description may have changed
         aTower.SetVerticalHeights() 'The vertical height may have changed (i.e. if tower shrunk)
         aTower.UpdateScore() 'The score of the tower should have changed.
     End Sub
@@ -243,7 +247,7 @@ Public Class Tower
         Next i
     End Sub
 
-    Public Function IDExists(ByRef id As Short)
+    Public Function IDExists(ByRef id As Short) As Boolean
         Dim s As Short
 
         IDExists = False
@@ -502,6 +506,7 @@ Public Class Tower
             sTower(Height) = Nothing 'set pointer to nothing
             Height -= 1
         End If
+        SetColourAndDescription() 'The colour and description may have changed
         UpdateScore()
         'SetVerticalHeights() 'Don't adjust Vertical Height here. Just remove from piece. Since you can't undo the building the vertical height should remain unchanged.
     End Sub

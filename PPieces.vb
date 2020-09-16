@@ -47,7 +47,7 @@ Public Class PPieces
 		Dim p As Short
 
 		For p = 1 To cMAXPPIECES
-			GetPiece(p).CopyTo(DestPPieces.GetPiece(p))
+			GetPieceRef(p).CopyTo(DestPPieces.GetPieceRef(p))
 		Next p
 	End Sub
 
@@ -59,8 +59,8 @@ Public Class PPieces
 		Next p
 	End Sub
 
-	Public Function GetPiece(ByRef p As Short) As PPiece
-		GetPiece = mPieces(p)
+	Public Function GetPieceRef(ByRef p As Short) As PPiece
+		GetPieceRef = mPieces(p)
 	End Function
 
 	Friend Function IsOccupied(pPiece As PPiece) As Boolean
@@ -78,6 +78,22 @@ Public Class PPieces
 			End If
 		Next p
 	End Function
+	Friend Function IsOccupiedXY(pPiece As PPiece, XPos As Short, YPos As Short) As Boolean
+		'Use this prior to moving
+		Dim p As Short
+
+		IsOccupiedXY = False
+		For p = 1 To cMAXPPIECES
+			If mPieces(p).PPID <> pPiece.PPID Then 'obviously not including self
+				If mPieces(p).XPos = XPos And mPieces(p).YPos = YPos Then
+					IsOccupiedXY = True
+					'Debug.Print("Occupied. ")
+					Exit Function
+				End If
+			End If
+		Next p
+	End Function
+
 
 	Public Sub ReSize()
 		'This assumes the player piece as it's ID setup
@@ -106,6 +122,20 @@ Public Class PPieces
 
 	Friend Function GetBoardRef() As Board
 		GetBoardRef = mPieces(1).GetBoardRef()
+	End Function
+
+	Friend Function InForeignHome(pPiece As PPiece) As Boolean
+		'Check other pieces belonging to this player are not in a foreign home
+		Dim p As Short
+
+		InForeignHome = False
+		For p = 1 To cMAXPPIECES
+			If mPieces(p).Owner = pPiece.Owner And mPieces(p).PPID <> pPiece.PPID Then
+				If mPieces(p).InForeignHome Then
+					InForeignHome = True
+				End If
+			End If
+        Next
 	End Function
 
 	'Sub SetPieces(ByRef p As Short, ByRef aPiece As PPiece)

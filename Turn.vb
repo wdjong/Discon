@@ -252,9 +252,9 @@ Public Class Turn
 
     Public Function LeadingPlayer() As String
         Dim aPlayer As Player
-        Dim LeadingScore = 0
-        Dim iLeadingID(MaxPlayer)
-        Dim iLeaderCount = 0
+        Dim LeadingScore As Short = 0
+        Dim iLeadingID(MaxPlayer) As Short
+        Dim iLeaderCount As Short = 0
 
         For Each aPlayer In mPlayers
             If Not aPlayer Is Nothing Then

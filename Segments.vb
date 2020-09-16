@@ -20,7 +20,7 @@ Public Class Segments
     End Sub
 
     'Properties
-    Public ReadOnly Property MaxSegments()
+    Public ReadOnly Property MaxSegments() As Short
         'Supports knowing when the game is over
         Get
             MaxSegments = cMAXSEGM
@@ -127,6 +127,7 @@ Public Class Segments
 
         CountSegmentXY = 0
         For s = 1 To cMAXSEGM 'check all segment locations for a match with the location of the passed piece
+            If s = 28 And mSegments(s).XPos = 1 And mSegments(s).YPos = 10 Then Debug.Print(mSegments(s).XPos & ":" & mSegments(s).YPos)
             If mSegments(s).XPos = aPPiece.XPos And mSegments(s).YPos = aPPiece.YPos Then
                 If Not aPPiece.GetTowerRef.IDExists(mSegments(s).SID) Then 'check if id is already in player piece's tower.
                     CountSegmentXY += 1
@@ -175,14 +176,6 @@ Public Class Segments
         Next s
     End Sub
 
-    'Sub SetBoardRef(ByRef aBoard As Board)
-    '    Dim s As Short
-
-    '    For s = 1 To cMAXSEGM
-    '        mSegments(s).SetBoardRef(aBoard)
-    '    Next s
-    'End Sub
-
     Sub Setup(ByRef aBoard As Board)
         'layout segments on board then randomize them
         Dim s As Short
@@ -216,6 +209,18 @@ Public Class Segments
         'Next d
     End Sub
 
+    Sub Swap(ByRef i As Short, ByRef j As Short)
+        'swap two segement positions during initialization
+        Dim x As Short
+        Dim y As Short
+
+        x = mSegments(i).XPos
+        y = mSegments(i).YPos
+        mSegments(i).Move((mSegments(j).XPos), (mSegments(j).YPos))
+        mSegments(j).Move(x, y)
+    End Sub
+
+
     'Sub SegmentsFromBoard()
     '    'e.g. Having restored the board
     '    'update each piece based on it's position on the board
@@ -233,15 +238,12 @@ Public Class Segments
     '    Next x
     'End Sub
 
-    Sub Swap(ByRef i As Short, ByRef j As Short)
-        'swap two segement positions during initialization
-        Dim x As Short
-        Dim y As Short
+    'Sub SetBoardRef(ByRef aBoard As Board)
+    '    Dim s As Short
 
-        x = mSegments(i).XPos
-        y = mSegments(i).YPos
-        mSegments(i).Move((mSegments(j).XPos), (mSegments(j).YPos))
-        mSegments(j).Move(x, y)
-    End Sub
+    '    For s = 1 To cMAXSEGM
+    '        mSegments(s).SetBoardRef(aBoard)
+    '    Next s
+    'End Sub
 
 End Class
