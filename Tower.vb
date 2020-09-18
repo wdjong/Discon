@@ -473,9 +473,24 @@ Public Class Tower
         End Select
     End Sub
 
+    Friend Sub Init(maxTowerHeight As Short)
+        'Avoid affecting referenced segments in tower unintentionally
+        Dim s As Short
+        For s = 1 To 12
+            sTower(Height) = Nothing
+        Next
+        iValue = 0
+        iOwner = 0
+        Colour = 0
+        Description = ""
+        Message = ""
+        Height = 0
+        MaxHeight = maxTowerHeight
+    End Sub
+
     Public Sub Remove()
         'remove the last/bottom disc from the tower 'Note: top segment in tower has index 1, bottom segment in index = height
-        sTower(Height).Claimed = False
+        sTower(Height).Claimed = False 'i wonder if it's wise to do this if it's called on a PPiece copy then it buggers up the segment...
         If Height > 0 Then
             sTower(Height) = Nothing 'set pointer to nothing
             Height -= 1

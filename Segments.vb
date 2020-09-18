@@ -61,14 +61,13 @@ Public Class Segments
                     Next
                 Else
                     Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.GetTowerRef.Height & ") exceeds the height restriction: " & aPiece.GetTowerRef.MaxHeight
-                    Debug.Print(Message)
+                    'Debug.Print(Message)
                     AddAny = False
                 End If
             End If
         Catch ex As Exception
             Message = ex.Message
             Debug.Print(Message)
-            'Stop
         End Try
 
     End Function
@@ -115,7 +114,7 @@ Public Class Segments
                 Next
             Else
                 Message = "Adding " & sToAddCount & " to existing tower (" & aPiece.GetTowerRef.Height & ") exceeds the height restriction: " & aPiece.GetTowerRef.MaxHeight
-                Debug.Print(Message)
+                'Debug.Print(Message)
                 AddN = False
             End If
         End If
@@ -127,7 +126,7 @@ Public Class Segments
 
         CountSegmentXY = 0
         For s = 1 To cMAXSEGM 'check all segment locations for a match with the location of the passed piece
-            If s = 28 And mSegments(s).XPos = 1 And mSegments(s).YPos = 10 Then Debug.Print(mSegments(s).XPos & ":" & mSegments(s).YPos)
+            'If s = 28 And mSegments(s).XPos = 1 And mSegments(s).YPos = 10 Then Debug.Print(mSegments(s).XPos & ":" & mSegments(s).YPos)
             If mSegments(s).XPos = aPPiece.XPos And mSegments(s).YPos = aPPiece.YPos Then
                 If Not aPPiece.GetTowerRef.IDExists(mSegments(s).SID) Then 'check if id is already in player piece's tower.
                     CountSegmentXY += 1
@@ -179,8 +178,8 @@ Public Class Segments
     Sub Setup(ByRef aBoard As Board)
         'layout segments on board then randomize them
         Dim s As Short
-        'Dim d As Short
-        'Const DEGREESOFCHAOS As Short = 150
+        Dim d As Short
+        Const DEGREESOFCHAOS As Short = 150
 
         'mBoard = aBoard
         For s = 1 To cMAXSEGM
@@ -203,10 +202,10 @@ Public Class Segments
         mSegments(9).Move(10, 8) 'the Move method above does most of the job
         mSegments(90).Move(10, 9) 'this just finishes it
         'For debugging computer move rem this.
-        'For d = 1 To DEGREESOFCHAOS 'mix them 
-        '    Randomize()
-        '    Swap(Int(Rnd() * cMAXSEGM) + 1, Int(Rnd() * cMAXSEGM) + 1)
-        'Next d
+        For d = 1 To DEGREESOFCHAOS 'mix them 
+                Randomize()
+                Swap(Int(Rnd() * cMAXSEGM) + 1, Int(Rnd() * cMAXSEGM) + 1)
+            Next d
     End Sub
 
     Sub Swap(ByRef i As Short, ByRef j As Short)

@@ -98,7 +98,7 @@ Public Class Segment
         Dim y As Short
 
         'If iSID = 12 And mXPos = 1 And mYPos = 1 Then Stop
-        Debug.Print(iSID & " " & mXPos & ", " & mYPos)
+        'Debug.Print(iSID & " " & mXPos & ", " & mYPos)
         If Not oBoard Is Nothing Then
             x = mXPos * (oBoard.PositionWidth + 5)
             y = (oBoard.MaxY + 1 - mYPos) * (oBoard.PositionHeight + 5)

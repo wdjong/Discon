@@ -72,7 +72,7 @@ Public Class PPieces
 			If mPieces(p).PPID <> pPiece.PPID Then 'obviously not including self
 				If mPieces(p).XPos = pPiece.XPos And mPieces(p).YPos = pPiece.YPos Then
 					IsOccupied = True
-					Debug.Print("Occupied. ")
+					'Debug.Print("Occupied. ")
 					Exit Function
 				End If
 			End If

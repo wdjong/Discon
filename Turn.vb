@@ -39,7 +39,7 @@ Public Class Turn
 
     Public Property Move() As Short
 
-    Public Property PlayerCount() As Short 'Active players
+    Public Property PlayerCount() As Short 'Active players (determines MaxHeight)
 
     Public ReadOnly Property MaxHeight() As Short
         'This is the master MaxHeight for a game. It is also stored for convenience the the tower objects to prevent exceeding MaxHeight
@@ -163,7 +163,7 @@ Public Class Turn
             If Move = 2 Then
                 If (mPPieceRefs(1).InForeignHome Or mPPieceRefs(2).InForeignHome) Then
                     Message = "You can't end leave your pieces in someone else's home. "
-                    Debug.Print(Message)
+                    'Debug.Print(Message)
                     IncMove = False
                     Exit Function
                 End If
@@ -177,7 +177,6 @@ Public Class Turn
         Catch ex As Exception
             Message = ex.Message
             Debug.Print(Message)
-            Stop
         End Try
     End Function
 
@@ -206,7 +205,7 @@ Public Class Turn
     End Sub
 
     Public Sub Init()
-        'Called from new, after preferences have been updated e.g. on new game
+        'Called from File | New
         Dim i As Short
 
         Move = 1 'of the 
@@ -288,7 +287,7 @@ Public Class Turn
         'Copy the piece as it was before being moved
         'oPieceTo is a reference to the piece/s involved in the move updated in incMove (after the move) for use in checking legality of final position i.e. if move 1 still in opposition home
         If Move = 1 Then
-            'mPPieceCopies(2).Init() 'This is a copy. but the tower references real segments so don't do anything that changes segments here. i.e. Init changes the XPos and YPos of PPiece but that then updates the XPos and YPos of the segment
+            mPPieceCopies(2).Init(0, 12) 'This is a copy. but the tower references real segments so don't do anything that changes segments here. i.e. Init changes the XPos and YPos of PPiece but that then updates the XPos and YPos of the segment
             mPPieceRefs(2) = Nothing
         End If
         aPPiece.CopyTo(mPPieceCopies(Move)) 'copy of piece being moved

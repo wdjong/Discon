@@ -2581,11 +2581,15 @@ Friend Class FrmDiscon
     'Menu
     Public Sub MnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MnuFileNew.Click
 
-        aTurn.Init() 'Turn object works out active players, maximum tower height and who'll go first
-        aSegments.Setup(aBoard) 'segments are drawn and randomized
-        aPPieces.Setup(aTurn.MaxHeight)
+        aTurn.Init() 'Turn object works out active players (determinens aTurn.MaxHeight), and who'll go first
+        aSegments.Setup(aBoard) 'segment objects positioned and randomized, (controls not positioned)
+        aPPieces.Setup(aTurn.MaxHeight) 'ppiece position
         aPPieces.SetBoardRef(aBoard) 'The pieces, have towers and, when adding, they need to know about height restrictions.
         aGame.GameOver = False
+
+        aSegments.UpdateControlPositions()
+        aPPieces.UpdateControlPositions()
+        ShowStatus()
 
         'if computer has first move initiate that
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
@@ -2673,7 +2677,10 @@ Friend Class FrmDiscon
     Private Sub MnuEditOptions_Click(sender As Object, e As EventArgs) Handles MnuEditOptions.Click
         frmPreferences.ShowDialog() 'Modal
         aTurn.SetStatus() 'update players
+        aSegments.UpdateControlPositions()
+        aPPieces.UpdateControlPositions()
         ShowStatus()
+
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
             Application.DoEvents()
             aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
