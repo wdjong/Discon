@@ -10,7 +10,6 @@ Public Class Tower
     'Private iYPos As Short 'vertical position from 1 to Max position
     Private iValue As Short 'score for this tower
     Private iOwner As Short 'player number 1 to 4
-    Private iColour As Short '
     Private ReadOnly tColours() As String = {"none", "ivory", "pink", "blue", "violet", "ivory-pink", "ivory-blue", "ivory-violet", "pink-blue", "pink-violet", "blue-violet", "mixed"}
 
     Enum TColour
@@ -38,20 +37,11 @@ Public Class Tower
     End Sub
 
     'Properties
+    Public Property Colour() As Short
     Public Property Description() As String 'description is a series of letters denoting colours
+    Public Property Height() As Short 'Number of discs in tower
     Public Property MaxHeight() As String
     Public Property Message() As String 'e.g. pass back error message
-
-    Public Property Colour() As Short
-        Get
-            Colour = iColour ' tColours(iColour)
-        End Get
-        Set(value As Short)
-            iColour = value
-        End Set
-    End Property
-
-    Public Property Height() As Short 'Number of discs in tower
 
     Public Property Owner() As Short
         Get
@@ -71,24 +61,6 @@ Public Class Tower
         End Set
     End Property
 
-    'Public Property XPos() As Short
-    '    Get
-    '        XPos = iXPos
-    '    End Get
-    '    Set(ByVal Value As Short)
-    '        iXPos = Value
-    '    End Set
-    'End Property
-
-    'Public Property YPos() As Short
-    '    Get
-    '        YPos = iYPos
-    '    End Get
-    '    Set(ByVal Value As Short)
-    '        iYPos = Value
-    '    End Set
-    'End Property
-
     'Methods (alphabetical)
     Public Function Add(ByRef nSegment As Segment) As Boolean
         'Add the passed disc to the end of the tower array
@@ -97,6 +69,7 @@ Public Class Tower
             sTower(Height) = nSegment 'set pointer to Segment
             SetVerticalHeights()
             SetColourAndDescription()
+            nSegment.Claimed = True
             UpdateScore()
             Add = True
         Else
@@ -225,12 +198,12 @@ Public Class Tower
         Next i
     End Sub
 
-    Public Sub Draw()
+    Public Sub UpdateControlPositions()
         'draw all the tiles in their normal (hidden) position
         Dim i As Short
 
         For i = 1 To Height
-            sTower(i).Draw()
+            sTower(i).UpdateControlPosition()
         Next i
     End Sub
 
@@ -260,7 +233,7 @@ Public Class Tower
     End Function
 
     Public Sub UpdateScore() 'Look up value based on iColour and height
-        Select Case iColour
+        Select Case Colour
             Case TColour.blueViolet, TColour.pinkViolet '    	2	3	4	5	6	8	10	12	14	16	20
                 Select Case Height
                     Case 0
@@ -502,12 +475,14 @@ Public Class Tower
 
     Public Sub Remove()
         'remove the last/bottom disc from the tower 'Note: top segment in tower has index 1, bottom segment in index = height
+        sTower(Height).Claimed = False
         If Height > 0 Then
             sTower(Height) = Nothing 'set pointer to nothing
             Height -= 1
         End If
         SetColourAndDescription() 'The colour and description may have changed
         UpdateScore()
+
         'SetVerticalHeights() 'Don't adjust Vertical Height here. Just remove from piece. Since you can't undo the building the vertical height should remain unchanged.
     End Sub
 

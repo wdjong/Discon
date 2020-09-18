@@ -216,35 +216,17 @@ Public Class Turn
             mPlayers(i).Score = 0
             Select Case i
                 Case 1
-                    If My.Settings.Player1Human Then
-                        mPlayers(i).Status = 1
-                        PlayerCount += 1
-                    Else
-                        mPlayers(i).Status = 0
-                    End If
+                    mPlayers(i).Status = My.Settings.Player1Hum1Cmp2
                 Case 2
-                    If My.Settings.Player2Human Then
-                        mPlayers(i).Status = 1
-                        PlayerCount += 1
-                    Else
-                        mPlayers(i).Status = 2
-                        PlayerCount += 1
-                    End If
+                    mPlayers(i).Status = My.Settings.Player2Hum1Cmp2
                 Case 3
-                    If My.Settings.Player3Human Then
-                        mPlayers(i).Status = 1
-                        PlayerCount += 1
-                    Else
-                        mPlayers(i).Status = 0
-                    End If
+                    mPlayers(i).Status = My.Settings.Player3Hum1Cmp2
                 Case 4
-                    If My.Settings.Player4Human Then
-                        mPlayers(i).Status = 1
-                        PlayerCount += 1
-                    Else
-                        mPlayers(i).Status = 0
-                    End If
+                    mPlayers(i).Status = My.Settings.Player4Hum1Cmp2
             End Select
+            If mPlayers(i).Status > 0 Then
+                PlayerCount += 1
+            End If
             mPlayers(i).Name = "Player " & i
         Next i
         RndPlayer() 'pick starter
@@ -306,11 +288,33 @@ Public Class Turn
         'Copy the piece as it was before being moved
         'oPieceTo is a reference to the piece/s involved in the move updated in incMove (after the move) for use in checking legality of final position i.e. if move 1 still in opposition home
         If Move = 1 Then
-            mPPieceCopies(2).Init(2, 12) 'clear the 2nd piece info in the turn history
+            'mPPieceCopies(2).Init() 'This is a copy. but the tower references real segments so don't do anything that changes segments here. i.e. Init changes the XPos and YPos of PPiece but that then updates the XPos and YPos of the segment
             mPPieceRefs(2) = Nothing
         End If
         aPPiece.CopyTo(mPPieceCopies(Move)) 'copy of piece being moved
         mPPieceRefs(Move) = aPPiece 'in case incMove Doesn't happen we still need to know this for undo
+    End Sub
+
+    Public Sub SetStatus()
+        'Called from new, after preferences have been updated e.g. on new game
+        Dim i As Short
+
+        PlayerCount = 0 'work out active players
+        For i = 1 To cMAXPLAYER
+            Select Case i
+                Case 1
+                    mPlayers(i).Status = My.Settings.Player1Hum1Cmp2
+                Case 2
+                    mPlayers(i).Status = My.Settings.Player2Hum1Cmp2
+                Case 3
+                    mPlayers(i).Status = My.Settings.Player3Hum1Cmp2
+                Case 4
+                    mPlayers(i).Status = My.Settings.Player4Hum1Cmp2
+            End Select
+            If mPlayers(i).Status > 0 Then
+                PlayerCount += 1
+            End If
+        Next i
     End Sub
 
     Public Sub Undo(movesToUndo As Short)

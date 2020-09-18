@@ -77,7 +77,7 @@ Public Class Segments
         Dim s As Short
 
         For s = 1 To MaxSegments
-            GetSegment(s).CopyTo(DestSegments.GetSegment(s))
+            GetSegmentRef(s).CopyTo(DestSegments.GetSegmentRef(s))
         Next
     End Sub
 
@@ -136,16 +136,16 @@ Public Class Segments
         Next s
     End Function
 
-    Sub Draw()
+    Sub UpdateControlPositions()
         Dim s As Short
 
         For s = 1 To cMAXSEGM
-            mSegments(s).Draw()
+            mSegments(s).UpdateControlPosition()
         Next s
     End Sub
 
-    Function GetSegment(ByRef s As Short) As Segment
-        GetSegment = mSegments(s)
+    Function GetSegmentRef(ByRef s As Short) As Segment
+        GetSegmentRef = mSegments(s)
     End Function
 
     Function GetSegmentXY(ByVal x As Short, ByVal y As Short) As Segment

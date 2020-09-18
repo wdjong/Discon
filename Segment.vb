@@ -17,7 +17,10 @@ Public Class Segment
         MyBase.New()
     End Sub
 
+    Public Property Claimed() As Boolean
+
     Public Property VerticalPos() As Short 'When towers are left without a piece you need a way to add them back in the right order 1 is lowers (on the board), 2 is on top of that etc 
+
 
     Public Property Colour() As Short
         Get
@@ -82,7 +85,6 @@ Public Class Segment
     Public Sub Move(ByRef x As Short, ByRef y As Short)
         mXPos = x 'set new SEG xpos
         mYPos = y 'set new SEG ypos
-        'Draw()
     End Sub
 
     Public Sub Remove()
@@ -90,11 +92,13 @@ Public Class Segment
         mYPos = 0
     End Sub
 
-    Sub Draw()
+    Sub UpdateControlPosition()
         'Draw a segment
         Dim x As Short
         Dim y As Short
 
+        'If iSID = 12 And mXPos = 1 And mYPos = 1 Then Stop
+        Debug.Print(iSID & " " & mXPos & ", " & mYPos)
         If Not oBoard Is Nothing Then
             x = mXPos * (oBoard.PositionWidth + 5)
             y = (oBoard.MaxY + 1 - mYPos) * (oBoard.PositionHeight + 5)

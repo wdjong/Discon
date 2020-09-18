@@ -179,6 +179,7 @@ Friend Class FrmDiscon
     Friend WithEvents MnuHelpRules As System.Windows.Forms.MenuItem
     Friend WithEvents MnuSave As MenuItem
     Friend WithEvents MnuLoad As MenuItem
+    Friend WithEvents MnuEditOptions As MenuItem
     Friend WithEvents MnuHelpAbout As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -324,6 +325,7 @@ Friend Class FrmDiscon
         Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel()
+        Me.MnuEditOptions = New System.Windows.Forms.MenuItem()
         CType(Me.PPiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2091,7 +2093,7 @@ Friend Class FrmDiscon
         'MnuEdit
         '
         Me.MnuEdit.Index = 1
-        Me.MnuEdit.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuEditUndo})
+        Me.MnuEdit.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuEditUndo, Me.MnuEditOptions})
         Me.MnuEdit.Text = "&Edit"
         '
         'MnuEditUndo
@@ -2150,6 +2152,11 @@ Friend Class FrmDiscon
         '
         Me.StatusBarPanel5.Name = "StatusBarPanel5"
         Me.StatusBarPanel5.Text = "StatusBarPanel5"
+        '
+        'mnuEditOptions
+        '
+        Me.MnuEditOptions.Index = 1
+        Me.MnuEditOptions.Text = "&Options"
         '
         'FrmDiscon
         '
@@ -2458,7 +2465,7 @@ Friend Class FrmDiscon
         'Set up the game -- All New objects should be created here.... (i.e. have other Init routines for File New Game that don't create new objects. Reuse objects
         MouseButton = VB6.MouseButtonConstants.LeftButton 'default button is left
 
-        frmPreferences.ShowDialog() 'Find out who's playing
+        'frmPreferences.ShowDialog() 'Find out who's playing
 
         frmHistory.Show()
 
@@ -2473,9 +2480,14 @@ Friend Class FrmDiscon
 
         'aPPieces.Setup(aBoard) 'They are positioned in each of the four corners
         aPPieces.SetBoardRef(aBoard)
-
         aTurn.Init() 'works our active players and maxheight and who'll go first
         aGame.GameOver = False
+
+        aSegments.Resize()
+        aPPieces.ReSize()
+        aSegments.UpdateControlPositions()
+        aPPieces.UpdateControlPositions()
+        ShowStatus() 'Let people know whose turn it is
 
         ' Have any computer turns
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
@@ -2485,13 +2497,11 @@ Friend Class FrmDiscon
                 aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
-        Loop
 
-        aSegments.Resize()
-        aSegments.Draw()
-        aPPieces.ReSize()
-        aPPieces.Draw()
-        ShowStatus() 'Let people know whose turn it is
+            aSegments.UpdateControlPositions()
+            aPPieces.UpdateControlPositions()
+            ShowStatus() 'Let people know whose turn it is
+        Loop
 
     End Sub
 
@@ -2511,10 +2521,10 @@ Friend Class FrmDiscon
         aBoard.PositionWidth = aBoard.PositionHeight
         Me.Invalidate()
         If Not aPPieces.GetBoardRef() Is Nothing Then 'on initialization this runs but we want to wait do it in the form onload procedure anyway...
-            aSegments.Draw()
+            aSegments.UpdateControlPositions()
             aSegments.Resize()
             'aPPieces.SetBoardRef(aBoard)
-            aPPieces.Draw()
+            aPPieces.UpdateControlPositions()
             aPPieces.ReSize()
         End If
     End Sub
@@ -2571,7 +2581,6 @@ Friend Class FrmDiscon
     'Menu
     Public Sub MnuFileNew_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MnuFileNew.Click
 
-        frmPreferences.ShowDialog() 'popup to ask about players
         aTurn.Init() 'Turn object works out active players, maximum tower height and who'll go first
         aSegments.Setup(aBoard) 'segments are drawn and randomized
         aPPieces.Setup(aTurn.MaxHeight)
@@ -2586,8 +2595,10 @@ Friend Class FrmDiscon
                 aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
+            aSegments.UpdateControlPositions()
+            aPPieces.UpdateControlPositions()
+            ShowStatus()
         Loop
-        ShowStatus()
 
     End Sub
 
@@ -2612,9 +2623,9 @@ Friend Class FrmDiscon
             frmHistory.Show()
             'aBoard.Draw() 'This would be possible if Segments and Pieces lived in aBoard
             aSegments.Resize()
-            aSegments.Draw()
+            aSegments.UpdateControlPositions()
             aPPieces.ReSize()
-            aPPieces.Draw()
+            aPPieces.UpdateControlPositions()
 
             'if computer has first move initiate that
             Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
@@ -2659,6 +2670,26 @@ Friend Class FrmDiscon
         ShowStatus() 'Because move is possible wrong
     End Sub
 
+    Private Sub MnuEditOptions_Click(sender As Object, e As EventArgs) Handles MnuEditOptions.Click
+        frmPreferences.ShowDialog() 'Modal
+        aTurn.SetStatus() 'update players
+        ShowStatus()
+        Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
+            Application.DoEvents()
+            aTurn.GetPlayer.CompMove(aPPieces, aSegments, aTurn)
+            frmHistory.Cout(aTurn.Message & vbNewLine)
+            If CountOwned() = aSegments.MaxSegments() Then
+                aGame.GameOver = True
+                MsgBox(aTurn.LeadingPlayer() & " won.")
+            End If
+
+            aSegments.UpdateControlPositions()
+            aPPieces.UpdateControlPositions()
+            ShowStatus()
+        Loop
+
+    End Sub
+
     Private Sub MnuHelpRules_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MnuHelpRules.Click
         Try
             Dim AppPath As String = System.AppDomain.CurrentDomain.BaseDirectory
@@ -2692,14 +2723,12 @@ Friend Class FrmDiscon
         If Not IsUDisplayin Then
             IsUDisplayin = True 'prevent drag and drop
             aPiece = aPPieces.GetPieceRef(Source.Tag)
-            'aPiece.Displayed = True
             aPiece.DisplayTower()
             For i = 1 To 10
                 Application.DoEvents()
                 System.Threading.Thread.Sleep(100)
             Next
-            'aPiece.Displayed = False
-            aPiece.Draw()
+            aPiece.UpdateControlPosition() 'redraws in the normal position
             IsUDisplayin = False
         End If
 
@@ -2729,39 +2758,48 @@ Friend Class FrmDiscon
                     aSegment = aSegments.GetSegmentXY(x, y) 'Note: there maybe more than one this is basically a test that it's not empty...
                     If aSegment IsNot Nothing Then 'There are one or more segments to add
                         If aSegments.AddAny(aPiece) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight
-                            aTurn.IncMove() 'count move. If second, check you're not in foreign territory
+                            If Not aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
+                                aTurn.Undo(2)
+                                aTurn.Message = "Undoing: " & aTurn.Message
+                            End If
                         Else
                             MsgBox(aSegments.Message) 'Problem adding: display reason
                             aTurn.Undo(2) 'The piece and it's tower segments should all return to the position before move 1 of this player's turn
-                            aTurn.Message = "Undoing"
+                            aTurn.Message = "Undoing: " & aTurn.Message
                         End If
                     Else
-                        aTurn.IncMove() 'count moves. If second, check you're not in foreign territory
+                        If Not aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
+                            aTurn.Undo(2)
+                            aTurn.Message = "Undoing: " & aTurn.Message
+                        End If
                     End If
                 Else 'illegal move
                     MsgBox("Illegal move from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y) 'no need to undo
-                    'aPiece.Draw()
                 End If
             Else 'right click is for abandoning a pile of segments
                 If aPiece.Abandon(x, y) Then 'move player piece (image and object removes tower and updates) (but not tower yet) if destination is legal
                     If aSegments.AddAny(aPiece) Then
-                        aTurn.IncMove()
+                        If Not aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
+                            aTurn.Undo(2)
+                            aTurn.Message = "Undoing: " & aTurn.Message
+                        End If
                     Else
                         aTurn.Undo(2)
-                        aTurn.Message = "Undoing"
+                        aTurn.Message = "Undoing: " & aTurn.Message
                     End If
                 Else
                     MsgBox("Illegal abandon from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y)
                 End If
             End If
             newValue = aPiece.Score
-            aPiece.UpdateTooltip() 'to display colour and height
-            'aPiece.Draw()
             aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
             If aTurn.Move = 2 Then 'incMove generally happens before this so this means we've just finished move 1
                 aTurn.Message = aPiece.Owner & ":" & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
+                frmHistory.Cout(aTurn.Message)
             Else
-                aTurn.Message += " and " & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
+                If aTurn.Message.Substring(0, 4) <> "Undo" Then
+                    aTurn.Message = " and " & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
+                End If
                 frmHistory.Cout(aTurn.Message & vbNewLine)
             End If
             If CountOwned() = aSegments.MaxSegments() Then
@@ -2769,6 +2807,9 @@ Friend Class FrmDiscon
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
         End If
+        aPiece.UpdateTooltip() 'to display colour and height
+        aPiece.UpdateControlPosition() ''including tower (segments)
+        ShowStatus()
 
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
             Application.DoEvents()
@@ -2778,9 +2819,7 @@ Friend Class FrmDiscon
                 aGame.GameOver = True
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
-
-            aSegments.Draw()
-            aPPieces.Draw()
+            'Updating control positions happens in compmove
             ShowStatus()
         Loop
 

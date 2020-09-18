@@ -51,11 +51,11 @@ Public Class PPieces
 		Next p
 	End Sub
 
-	Public Sub Draw()
+	Public Sub UpdateControlPositions()
 		Dim p As Short
 
 		For p = 1 To cMAXPPIECES
-			mPieces(p).Draw()
+			mPieces(p).UpdateControlPosition()
 		Next p
 	End Sub
 

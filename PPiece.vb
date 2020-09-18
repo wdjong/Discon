@@ -135,7 +135,7 @@ Public Class PPiece
             End If
         End If
         cTower.SetColourAndDescription() 'Updates description used in Tooltip
-        Draw() 'need to draw it again even if it was dropped illegally
+        UpdateControlPosition() 'need to draw it again even if it was dropped illegally
     End Function
 
     Friend Function GetBoardRef() As Board
@@ -230,10 +230,10 @@ Public Class PPiece
         FrmDiscon.DefInstance.PPiece(iPPID).BringToFront() 'bring to front
     End Sub
 
-    Public Sub Draw()
+    Public Sub UpdateControlPosition()
         'represent player piece and it's tower...
         If iPPID <> 0 Then 'ippid = 0 when copying to ppiece object in turn
-            cTower.Draw()
+            cTower.UpdateControlPositions()
             FrmDiscon.DefInstance.PPiece(iPPID).Left = VB6.TwipsToPixelsX(iXPos * (oBoard.PositionWidth + 5)) + 1
             FrmDiscon.DefInstance.PPiece(iPPID).Top = VB6.TwipsToPixelsY(((oBoard.MaxY + 1) - iYPos) * (oBoard.PositionHeight + 5)) + 1
             FrmDiscon.DefInstance.PPiece(iPPID).BringToFront() 'bring to front
