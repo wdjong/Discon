@@ -188,12 +188,12 @@ Public Class Player
                     For d1 = 1 To 8
                         If aPPiece(1).IsLegal(d1, aPPieces, aSegments, 1) Then
                             If aPPiece(1).Move(d1) Then 'position has changed (need to do MoveUndo at end
-                                'Debug.Write("1:" & pp1 & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos & " (" & d1 & ")")
+                                Debug.Write("1:" & pp1 & " to " & aPPiece(1).XPos & ", " & aPPiece(1).YPos & " (" & d1 & ")")
                                 If Not aPPieces.IsOccupied(aPPiece(1)) Then
                                     s1 = aSegments.CountSegmentXY(aPPiece(1))
                                     If aSegments.AddN(aPPiece(1), s1) Then
                                         newValue1 = aPPiece(1).Score
-                                        'Debug.WriteLine(" Value: " & aPPiece(1).Score)
+                                        Debug.WriteLine(" Value: " & aPPiece(1).Score)
                                         If aTurn.IncMove() Then 'to Move 2
 
                                             For pp2 = 1 To aPPieces.MaxPPieces 'Player piece (6)
@@ -206,7 +206,7 @@ Public Class Player
                                                         For d2 = 1 To 8
                                                             If aPPiece(2).IsLegal(d2, aPPieces, aSegments, 2) Then
                                                                 If aPPiece(2).Move(d2) Then 'Move player piece and tower
-                                                                    'Debug.Write(", 2:" & pp2 & " to " & aPPiece(2).XPos & ", " & aPPiece(2).YPos & " (" & d2 & ")")
+                                                                    Debug.Write(", 2:" & pp2 & " to " & aPPiece(2).XPos & ", " & aPPiece(2).YPos & " (" & d2 & ")")
                                                                     If Not aPPieces.IsOccupied(aPPiece(2)) Then ' And Not (aPPiece(1).XPos = aPPiece(2).XPos And aPPiece(1).YPos = aPPiece(2).YPos) Then
                                                                         s2 = aSegments.CountSegmentXY(aPPiece(2))
                                                                         If aSegments.AddN(aPPiece(2), s2) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight 'Scoring in tower add
@@ -214,7 +214,7 @@ Public Class Player
                                                                             '*******************
                                                                             'If pp1 = 8 And d1 = 1 And pp2 = 7 Then Stop 'There's a problem with the old value being 0 when it should be 8
                                                                             '*******************
-                                                                            'Debug.WriteLine(" Values: " & newValue1 & " - " & oldValue1 & " +  " & newValue2 & " - " & oldValue2)
+                                                                            Debug.WriteLine(" Values: " & newValue1 & " - " & oldValue1 & " +  " & newValue2 & " - " & oldValue2)
                                                                             If aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
 
                                                                                 If (newValue1 - oldValue1) + (newValue2 - oldValue2) > bestScore Then
@@ -225,7 +225,7 @@ Public Class Player
                                                                                     'aTurn.GetPPiece(2).CopyTo(bestPiece(2))
                                                                                     bestD2 = d2
                                                                                     bestPPID2 = aTurn.GetPPiece(2).PPID
-                                                                                    'Debug.WriteLine("PPID1: " & bestPPID1 & " d1 " & d1 & " & PPID2: " & bestPPID2 & " d2 " & d2)
+                                                                                    Debug.WriteLine("PPID1: " & bestPPID1 & " d1 " & d1 & " & PPID2: " & bestPPID2 & " d2 " & d2)
                                                                                 End If 'new best value
                                                                                 aTurn.DecMove() 'only if IncMove succeeded
                                                                             End If 'IncMove ok
@@ -263,7 +263,7 @@ Public Class Player
                 bestD1 = aMove.Direction1
                 bestPPID2 = aMove.PPID2
                 bestD2 = aMove.Direction2
-                'Debug.WriteLine("PPID1: " & bestPPID1 & " d1 " & d1 & " & PPID2: " & bestPPID2 & " d2 " & d2 & "(Best Direction)")
+                Debug.WriteLine("PPID1: " & bestPPID1 & " d1 " & d1 & " & PPID2: " & bestPPID2 & " d2 " & d2 & "(Best Direction)")
             End If
         End If
 
@@ -290,7 +290,7 @@ Public Class Player
                             aTurn.Message += " and " & aPPiece(2).PPID & " to " & aPPiece(2).XPos & ", " & aPPiece(2).YPos
                             Score = Score - oldValue2 + newValue2
                             If aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
-                                'Debug.Print("Move made")
+                                Debug.Print("Move made")
                             Else
                                 MsgBox("IncMove 2 problem " & aTurn.Message)
                             End If

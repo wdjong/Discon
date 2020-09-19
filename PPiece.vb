@@ -48,18 +48,17 @@ Public Class PPiece
     End Property
 
     Public Property XPos() As Short
-        'Be aware that this also moves the tower
         Get
             XPos = iXPos
         End Get
         Set(ByVal Value As Short)
             iXPos = Value
             cTower.Move(iXPos, iYPos)
+            'Draw()
         End Set
     End Property
 
     Public Property YPos() As Short
-        'Be aware that this also moves the tower
         Get
             YPos = iYPos
         End Get
@@ -255,22 +254,20 @@ Public Class PPiece
     End Function
 
     Public Sub Init(aPPID As Short, maxTowerHeight As Short)
-        'Don't call this on a copy of a ppiece without realising it affects the tower segments 
-        cTower.Init(maxTowerHeight)
         PPID = aPPID
         Owner = Int((aPPID - 1) / 6) + 1
         Select Case Owner
             Case 1
-                XPos = 1 '        'Be aware that this also moves the tower to this location
+                XPos = 1
                 YPos = 1
             Case 2
-                XPos = 1 '        'Be aware that this also moves the tower
+                XPos = 1
                 YPos = 10
             Case 3
-                XPos = 10 '       'Be aware that this also moves the tower
+                XPos = 10
                 YPos = 10
             Case 4
-                XPos = 10 '       'Be aware that this also moves the tower
+                XPos = 10
                 YPos = 1
             Case Else 'Something went wrong
                 Message = "aPieces(" & aPPID & ").Owner = " & Owner
@@ -278,8 +275,8 @@ Public Class PPiece
                 YPos = 5
         End Select
 
-        'RemoveAll() 'from tower -- if called on a copy of the player piece this affect the referenced Segments...
-        'cTower.MaxHeight = maxTowerHeight
+        RemoveAll() 'from tower
+        cTower.MaxHeight = maxTowerHeight
     End Sub
 
     Public Function LegalMove(ByRef aXDest As Short, ByRef aYDest As Short) As Boolean
@@ -305,6 +302,7 @@ Public Class PPiece
         Catch ex As Exception
             Message = ex.Message
             Debug.Print(Message)
+            Stop
         End Try
     End Function
 

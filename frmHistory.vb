@@ -19,5 +19,6 @@ exitCout:
         Exit Sub
 errCout:
         MsgBox("Cout error: " & Err.Description) ' & " " & Err.Number)
+        Stop 'Resume exitCout
     End Sub
 End Class
