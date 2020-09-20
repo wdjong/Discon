@@ -323,4 +323,19 @@ Public Class Player
             Debug.Print(Message)
         End Try
     End Sub
+
+    Public Sub UpdateScore(aPPieces As PPieces)
+        Dim pp1 As Short 'player piece index
+
+        Score = 0
+        For pp1 = 1 To aPPieces.MaxPPieces 'for each player piece
+            If aPPieces.GetPieceRef(pp1).Owner = PID Then
+                aPPieces.GetPieceRef(pp1).GetTowerRef.UpdateScore()
+                aPPieces.GetPieceRef(pp1).Score = aPPieces.GetPieceRef(pp1).GetTowerRef.Value
+                Score += aPPieces.GetPieceRef(pp1).Score
+            End If
+        Next
+
+    End Sub
+
 End Class

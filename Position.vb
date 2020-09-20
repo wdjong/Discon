@@ -6,18 +6,18 @@ Friend Class Position
     Dim iXPos As Short 'the horizontal co-ordinate locating a board square
     Dim iYPos As Short 'the vertical co-ordinate locating a board square
 
-    Public Property xPos() As Short
+    Public Property XPos() As Short
         Get
-            xPos = iXPos
+            XPos = iXPos
         End Get
         Set(ByVal Value As Short)
             iXPos = Value
         End Set
     End Property
 
-    Public Property yPos() As Short
+    Public Property YPos() As Short
         Get
-            yPos = iYPos
+            YPos = iYPos
         End Get
         Set(ByVal Value As Short)
             iYPos = Value

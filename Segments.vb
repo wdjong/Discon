@@ -179,8 +179,8 @@ Public Class Segments
     Sub Setup(ByRef aBoard As Board)
         'layout segments on board then randomize them
         Dim s As Short
-        'Dim d As Short
-        'Const DEGREESOFCHAOS As Short = 150
+        Dim d As Short
+        Const DEGREESOFCHAOS As Short = 150
 
         'mBoard = aBoard
         For s = 1 To cMAXSEGM
@@ -203,10 +203,10 @@ Public Class Segments
         mSegments(9).Move(10, 8) 'the Move method above does most of the job
         mSegments(90).Move(10, 9) 'this just finishes it
         'For debugging computer move rem this.
-        'For d = 1 To DEGREESOFCHAOS 'mix them 
-        '    Randomize()
-        '    Swap(Int(Rnd() * cMAXSEGM) + 1, Int(Rnd() * cMAXSEGM) + 1)
-        'Next d
+        For d = 1 To DEGREESOFCHAOS 'mix them 
+                Randomize()
+                Swap(Int(Rnd() * cMAXSEGM) + 1, Int(Rnd() * cMAXSEGM) + 1)
+            Next d
     End Sub
 
     Sub Swap(ByRef i As Short, ByRef j As Short)

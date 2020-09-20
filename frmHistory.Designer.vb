@@ -53,7 +53,7 @@ Partial Class frmHistory
         Me.Controls.Add(Me.txtHistory)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmHistory"
-        Me.Text = "frmHistory"
+        Me.Text = "History"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

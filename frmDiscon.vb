@@ -1,5 +1,24 @@
 Option Strict Off
 Option Explicit On
+'2020
+'After adding a computer opponent it's possible to get to the end of the game
+'However there are a few dodgy bits that ideally we'd fix (but cbf at this point)
+'I feel like I've over complicated the moving business and classes generally
+'I was trying for an ideal class system but I think i just tied myself up in knots.
+'Particularly I think we should undo the copying of PPieces to Save and Restore them because the segments associated with the tower are references to 
+'actual objects that you can inadvertently move via the copy. It all just gets a bit ugly.
+
+'Anyway the basic aim was achieved of having a virtual version of Discon mainly with the idea of playing it with my family.
+'Probably should have not worried about the computer move part at all.
+'It's really just there as a debugging tool
+
+'I haven't yet prevented the player piece jumping on to another piece in this version.
+'That's in the messed up version that you could probably find if anyone cared.
+'It has an is occupied method for the ppiece to check before moving.
+
+'The fact that the same computer move code is in File New, Edit Options, and Drag and Drop is something I'd like to change.
+'But I don't have the energy at this point.
+
 Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
 
@@ -180,6 +199,8 @@ Friend Class FrmDiscon
     Friend WithEvents MnuSave As MenuItem
     Friend WithEvents MnuLoad As MenuItem
     Friend WithEvents MnuEditOptions As MenuItem
+    Friend WithEvents MnuTools As MenuItem
+    Friend WithEvents MnuToolsHistory As MenuItem
     Friend WithEvents MnuHelpAbout As System.Windows.Forms.MenuItem
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -316,6 +337,7 @@ Friend Class FrmDiscon
         Me.MnuFileExit = New System.Windows.Forms.MenuItem()
         Me.MnuEdit = New System.Windows.Forms.MenuItem()
         Me.MnuEditUndo = New System.Windows.Forms.MenuItem()
+        Me.MnuEditOptions = New System.Windows.Forms.MenuItem()
         Me.MnuHelp = New System.Windows.Forms.MenuItem()
         Me.MnuHelpRules = New System.Windows.Forms.MenuItem()
         Me.MnuHelpAbout = New System.Windows.Forms.MenuItem()
@@ -325,7 +347,8 @@ Friend Class FrmDiscon
         Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel()
-        Me.MnuEditOptions = New System.Windows.Forms.MenuItem()
+        Me.MnuTools = New System.Windows.Forms.MenuItem()
+        Me.MnuToolsHistory = New System.Windows.Forms.MenuItem()
         CType(Me.PPiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2062,7 +2085,7 @@ Friend Class FrmDiscon
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuFile, Me.MnuEdit, Me.MnuHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuFile, Me.MnuEdit, Me.MnuTools, Me.MnuHelp})
         '
         'MnuFile
         '
@@ -2102,9 +2125,14 @@ Friend Class FrmDiscon
         Me.MnuEditUndo.Shortcut = System.Windows.Forms.Shortcut.CtrlZ
         Me.MnuEditUndo.Text = "&Undo"
         '
+        'MnuEditOptions
+        '
+        Me.MnuEditOptions.Index = 1
+        Me.MnuEditOptions.Text = "&Options"
+        '
         'MnuHelp
         '
-        Me.MnuHelp.Index = 2
+        Me.MnuHelp.Index = 3
         Me.MnuHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuHelpRules, Me.MnuHelpAbout})
         Me.MnuHelp.Text = "&Help"
         '
@@ -2153,10 +2181,16 @@ Friend Class FrmDiscon
         Me.StatusBarPanel5.Name = "StatusBarPanel5"
         Me.StatusBarPanel5.Text = "StatusBarPanel5"
         '
-        'mnuEditOptions
+        'MnuTools
         '
-        Me.MnuEditOptions.Index = 1
-        Me.MnuEditOptions.Text = "&Options"
+        Me.MnuTools.Index = 2
+        Me.MnuTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuToolsHistory})
+        Me.MnuTools.Text = "&Tools"
+        '
+        'MnuToolsHistory
+        '
+        Me.MnuToolsHistory.Index = 0
+        Me.MnuToolsHistory.Text = "&History"
         '
         'FrmDiscon
         '
@@ -2467,7 +2501,7 @@ Friend Class FrmDiscon
 
         'frmPreferences.ShowDialog() 'Find out who's playing
 
-        frmHistory.Show()
+        'frmHistory.Show()
 
         'Me.Invalidate()
 
@@ -2500,6 +2534,7 @@ Friend Class FrmDiscon
 
             aSegments.UpdateControlPositions()
             aPPieces.UpdateControlPositions()
+            aTurn.GetPlayer.UpdateScore(aPPieces)
             ShowStatus() 'Let people know whose turn it is
         Loop
 
@@ -2586,6 +2621,7 @@ Friend Class FrmDiscon
         aPPieces.Setup(aTurn.MaxHeight)
         aPPieces.SetBoardRef(aBoard) 'The pieces, have towers and, when adding, they need to know about height restrictions.
         aGame.GameOver = False
+        frmHistory.Cout("CLS") 'Clear history screen
 
         'if computer has first move initiate that
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
@@ -2685,6 +2721,7 @@ Friend Class FrmDiscon
 
             aSegments.UpdateControlPositions()
             aPPieces.UpdateControlPositions()
+            aTurn.GetPlayer.UpdateScore(aPPieces)
             ShowStatus()
         Loop
 
@@ -2738,26 +2775,26 @@ Friend Class FrmDiscon
         'The routine handles a player piece attempting to capture a segment (a normal move)
         'The source is the PPiece
         'called from mouseup after dragging
-        Dim aPiece As PPiece 'a pointer to a player Piece
+        Dim aPPiece As PPiece 'a pointer to a player Piece
         Dim aSegment As Segment 'a pointer to a segment that might be at the destination
         Dim aPlayer As Player
-        Dim oldValue As Short 'each move, find change in score and add it to player score
-        Dim newValue As Short 'scoring
+        'Dim oldValue As Short 'each move, find change in score and add it to player score
+        'Dim newValue As Short 'scoring
 
-        aPiece = aPPieces.GetPieceRef(Source.Tag) 'This is who (which piece to be precise) moved
+        aPPiece = aPPieces.GetPieceRef(Source.Tag) 'This is who (which piece to be precise) moved
         'we could pass apiece from the mouseup routine as we've worked it out there already
         aPlayer = aTurn.GetPlayer 'This is who's turn it is
-        If aPlayer.PID <> aPiece.Owner Then
+        If aPlayer.PID <> aPPiece.Owner Then
             MsgBox("It's player number " & aPlayer.PID & "'s turn.")
             'aPiece.Draw() 'aPPieces.draw()
         Else 'the right person has had a turn
-            oldValue = aPiece.Score 'remember the current score
-            aTurn.SaveSource(aPiece) 'Before move, remember for undo
+            'oldValue = aPPiece.Score 'remember the current score
+            aTurn.SaveSource(aPPiece) 'Before move, remember for undo
             If MouseButton = VB6.MouseButtonConstants.LeftButton Then 'clicking on a new segment to capture it
-                If aPiece.Move(x, y) Then 'move player piece (image and object including existing tower) if destination is legal
+                If aPPiece.Move(x, y) Then 'move player piece (image and object including existing tower) if destination is legal
                     aSegment = aSegments.GetSegmentXY(x, y) 'Note: there maybe more than one this is basically a test that it's not empty...
                     If aSegment IsNot Nothing Then 'There are one or more segments to add
-                        If aSegments.AddAny(aPiece) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight
+                        If aSegments.AddAny(aPPiece) Then 'Add any segments found that are not already in the tower if not > Tower MaxHeight
                             If Not aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
                                 aTurn.Undo(2)
                                 aTurn.Message = "Undoing: " & aTurn.Message
@@ -2774,11 +2811,11 @@ Friend Class FrmDiscon
                         End If
                     End If
                 Else 'illegal move
-                    MsgBox("Illegal move from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y) 'no need to undo
+                    MsgBox("Illegal move from " & aPPiece.XPos & ", " & aPPiece.YPos & " to " & x & ", " & y) 'no need to undo
                 End If
             Else 'right click is for abandoning a pile of segments
-                If aPiece.Abandon(x, y) Then 'move player piece (image and object removes tower and updates) (but not tower yet) if destination is legal
-                    If aSegments.AddAny(aPiece) Then
+                If aPPiece.Abandon(x, y) Then 'move player piece (image and object removes tower and updates) (but not tower yet) if destination is legal
+                    If aSegments.AddAny(aPPiece) Then
                         If Not aTurn.IncMove() Then 'count move. If second, check you're not in foreign territory
                             aTurn.Undo(2)
                             aTurn.Message = "Undoing: " & aTurn.Message
@@ -2788,17 +2825,17 @@ Friend Class FrmDiscon
                         aTurn.Message = "Undoing: " & aTurn.Message
                     End If
                 Else
-                    MsgBox("Illegal abandon from " & aPiece.XPos & ", " & aPiece.YPos & " to " & x & ", " & y)
+                    MsgBox("Illegal abandon from " & aPPiece.XPos & ", " & aPPiece.YPos & " to " & x & ", " & y)
                 End If
             End If
-            newValue = aPiece.Score
-            aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
+            'newValue = aPPiece.Score
+            'aPlayer.Score = aPlayer.Score - oldValue + newValue 'aPlayer.GetScore could just sum all piece scores
             If aTurn.Move = 2 Then 'incMove generally happens before this so this means we've just finished move 1
-                aTurn.Message = aPiece.Owner & ":" & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
+                aTurn.Message = aPPiece.Owner & ":" & aPPiece.PPID & " to " & aPPiece.XPos & ", " & aPPiece.YPos
                 frmHistory.Cout(aTurn.Message)
             Else
                 If aTurn.Message.Substring(0, 4) <> "Undo" Then
-                    aTurn.Message = " and " & aPiece.PPID & " to " & aPiece.XPos & ", " & aPiece.YPos
+                    aTurn.Message = " and " & aPPiece.PPID & " to " & aPPiece.XPos & ", " & aPPiece.YPos
                 End If
                 frmHistory.Cout(aTurn.Message & vbNewLine)
             End If
@@ -2807,8 +2844,9 @@ Friend Class FrmDiscon
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
         End If
-        aPiece.UpdateTooltip() 'to display colour and height
-        aPiece.UpdateControlPosition() ''including tower (segments)
+        aPPiece.UpdateTooltip() 'to display colour and height
+        aPPiece.UpdateControlPosition() ''including tower (segments)
+        aPlayer.UpdateScore(aPPieces) 'look at all towers and their segments owned by this player
         ShowStatus()
 
         Do While aTurn.GetPlayer.Status = 2 And Not aGame.GameOver 'Computer
@@ -2820,6 +2858,7 @@ Friend Class FrmDiscon
                 MsgBox(aTurn.LeadingPlayer() & " won.")
             End If
             'Updating control positions happens in compmove
+            aTurn.GetPlayer.UpdateScore(aPPieces)
             ShowStatus()
         Loop
 
@@ -2841,4 +2880,17 @@ Friend Class FrmDiscon
         Next p
     End Sub
 
+    Private Sub MnuToolsHistory_Click(sender As Object, e As EventArgs) Handles MnuToolsHistory.Click
+        If frmHistory.Visible Then
+            frmHistory.Hide()
+            MnuToolsHistory.Checked = False
+        Else
+            frmHistory.Left = Me.Left + Me.Width
+            frmHistory.Width = Me.Width
+            frmHistory.Top = Me.Top
+            frmHistory.Height = Me.Height
+            frmHistory.Show()
+            MnuToolsHistory.Checked = True
+        End If
+    End Sub
 End Class

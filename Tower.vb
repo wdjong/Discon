@@ -80,9 +80,15 @@ Public Class Tower
 
     Public Sub SetVerticalHeights()
         Dim i As Integer = Nothing
-        For i = 1 To Height
-            sTower(i).VerticalPos = Height - (i - 1) 'sTower(1) was the first added. It is at VerticalPos = Height, 
-        Next
+        Try
+            For i = 1 To Height
+                sTower(i).VerticalPos = Height - (i - 1) 'sTower(1) was the first added. It is at VerticalPos = Height, 
+            Next
+        Catch ex As Exception
+            Message = ex.Message
+            Debug.Print(Message)
+        End Try
+
     End Sub
 
     Public Sub SetColourAndDescription()
@@ -99,15 +105,24 @@ Public Class Tower
             Description += Left(tColours(sTower(1).Colour), 1)
             If Height > 1 Then
                 If sTower(2).Colour <> colour1 Then 'Tower is mixed 
-                    oneTwoMany = 2
+                    oneTwoMany = 2 ' there are 2 different colours
                     colour2 = sTower(2).Colour 'remember 2nd colour
                 End If
                 Description += Left(tColours(sTower(2).Colour), 1)
                 If Height > 2 Then
                     For i = 3 To Height
                         Description += Left(tColours(sTower(i).Colour), 1)
-                        If sTower(i).Colour <> colour1 And sTower(i).Colour <> colour2 Then
-                            oneTwoMany = 3 'Tower is multicoloured and of no value
+                        If oneTwoMany = 1 Then 'check consistency of single colour tower
+                            If sTower(i).Colour <> colour1 Then
+                                oneTwoMany = 3
+                            End If
+                        Else 'oneTwoMany = 2 'check alternating tower
+                            If (i Mod 2 = 1 And sTower(i).Colour <> colour1) Or (i Mod 2 = 0 And sTower(i).Colour <> colour2) Then
+                                oneTwoMany = 3 'Tower has 2 or more colours and is not alternating
+                            End If
+                            'If sTower(i).Colour <> colour1 And sTower(i).Colour <> colour2 Then
+                            '    oneTwoMany = 3 'Tower is multicoloured and of no value
+                            'End If
                         End If
                     Next
                 End If
