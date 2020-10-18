@@ -338,6 +338,8 @@ Friend Class FrmDiscon
         Me.MnuEdit = New System.Windows.Forms.MenuItem()
         Me.MnuEditUndo = New System.Windows.Forms.MenuItem()
         Me.MnuEditOptions = New System.Windows.Forms.MenuItem()
+        Me.MnuTools = New System.Windows.Forms.MenuItem()
+        Me.MnuToolsHistory = New System.Windows.Forms.MenuItem()
         Me.MnuHelp = New System.Windows.Forms.MenuItem()
         Me.MnuHelpRules = New System.Windows.Forms.MenuItem()
         Me.MnuHelpAbout = New System.Windows.Forms.MenuItem()
@@ -347,8 +349,6 @@ Friend Class FrmDiscon
         Me.StatusBarPanel3 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel4 = New System.Windows.Forms.StatusBarPanel()
         Me.StatusBarPanel5 = New System.Windows.Forms.StatusBarPanel()
-        Me.MnuTools = New System.Windows.Forms.MenuItem()
-        Me.MnuToolsHistory = New System.Windows.Forms.MenuItem()
         CType(Me.PPiece_6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PPiece_4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2130,6 +2130,17 @@ Friend Class FrmDiscon
         Me.MnuEditOptions.Index = 1
         Me.MnuEditOptions.Text = "&Options"
         '
+        'MnuTools
+        '
+        Me.MnuTools.Index = 2
+        Me.MnuTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuToolsHistory})
+        Me.MnuTools.Text = "&Tools"
+        '
+        'MnuToolsHistory
+        '
+        Me.MnuToolsHistory.Index = 0
+        Me.MnuToolsHistory.Text = "&History"
+        '
         'MnuHelp
         '
         Me.MnuHelp.Index = 3
@@ -2139,7 +2150,7 @@ Friend Class FrmDiscon
         'MnuHelpRules
         '
         Me.MnuHelpRules.Index = 0
-        Me.MnuHelpRules.Text = "&Rules"
+        Me.MnuHelpRules.Text = "&Instructions"
         '
         'MnuHelpAbout
         '
@@ -2180,17 +2191,6 @@ Friend Class FrmDiscon
         '
         Me.StatusBarPanel5.Name = "StatusBarPanel5"
         Me.StatusBarPanel5.Text = "StatusBarPanel5"
-        '
-        'MnuTools
-        '
-        Me.MnuTools.Index = 2
-        Me.MnuTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MnuToolsHistory})
-        Me.MnuTools.Text = "&Tools"
-        '
-        'MnuToolsHistory
-        '
-        Me.MnuToolsHistory.Index = 0
-        Me.MnuToolsHistory.Text = "&History"
         '
         'FrmDiscon
         '
